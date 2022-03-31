@@ -1,7 +1,5 @@
 function HomePage() {
-    return <div>Primeiro commit na branch!</div>
+  return <div>Primeiro commit na branch!</div>
+}
 
-
-  }
-  
-  export default HomePage
+export default HomePage
