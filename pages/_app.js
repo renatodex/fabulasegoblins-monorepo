@@ -6,11 +6,12 @@ function MyApp({ Component, pageProps }) {
       <header>
         <div className="h-8 bg-aero-blue"></div>
       </header>
-      <main className="text-white px-6 mt-6">
+
+      <main className="text-white mx-6 mt-6">
         <Component {...pageProps} />
       </main>
-      <footer>
 
+      <footer>
       </footer>
     </div>
   )
