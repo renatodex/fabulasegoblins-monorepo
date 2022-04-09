@@ -1,6 +1,6 @@
 export default function () {
     return (
-        <svg className= "inline" width="25" height="26" viewBox="0 0 34 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg className= "inline" width="26" height="35" viewBox="0 3 34 35" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M17 35C26.3888 35 34 27.165 34 17.5C34 7.83502 26.3888 0 17 0C7.61116 0 0 7.83502 0 17.5C0 27.165 7.61116 35 17 35Z" fill="#6DA544" />
             <path d="M17 6.84784L31.0435 17.5L17 28.1522L2.95654 17.5L17 6.84784Z" fill="#FFDA44" />
             <path d="M17 23.5869C20.2657 23.5869 22.913 20.8617 22.913 17.5C22.913 14.1383 20.2657 11.4131 17 11.4131C13.7343 11.4131 11.087 14.1383 11.087 17.5C11.087 20.8617 13.7343 23.5869 17 23.5869Z" fill="#F0F0F0" />

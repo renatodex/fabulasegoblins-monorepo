@@ -16,10 +16,10 @@ function MyApp({ Component, pageProps }) {
       </main>
 
       <footer className="mt-10">
-        <Waves></Waves>
+        <Waves className=""></Waves>
 
         <div className="bg-raisin-black pb-5">
-          <div className="text-center text-white italic">
+          <div className="text-center text-white italic pb-1">
             <Flag_br></Flag_br> &nbsp; Português Brasil
           </div>
 
@@ -29,18 +29,17 @@ function MyApp({ Component, pageProps }) {
             </div>
           </div>
 
-          <div className="
-          text-center px-3
+          <div className="text-center px-5
           text-aero-blue italic nt-4
-          ">
-            Home | Livro Digital | Sobre |
+          pt-3 text-lg">
+            Home | Livro Digital | Sobre <br/>|
             Ajuda | Contato
           </div>
 
           <div className='text-aero-blue
           italic text-center mt-4'>
-            Todos os direitos reservados.
-            O Fábulas & Goblins é licenciado pela  CC BY-NC 4.0
+            Todos os direitos reservados.<br/>
+            O Fábulas &amp; Goblins é licenciado pela<br/> CC BY-NC 4.0
           </div>
         </div>
       </footer>
