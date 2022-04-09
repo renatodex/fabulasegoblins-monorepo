@@ -19,12 +19,12 @@ function MyApp({ Component, pageProps }) {
         <Waves className=""></Waves>
 
         <div className="bg-raisin-black pb-5">
-          <div className="text-center text-white italic pb-1">
+          <div className="text-center text-white italic pb-2">
             <Flag_br></Flag_br> &nbsp; Português Brasil
           </div>
 
           <div>
-            <div className="w-14 m-auto">
+            <div className="w-14 m-auto pb-1">
               <TendaDoGoblin></TendaDoGoblin>
             </div>
           </div>
@@ -37,7 +37,7 @@ function MyApp({ Component, pageProps }) {
           </div>
 
           <div className='text-aero-blue
-          italic text-center mt-4'>
+          italic text-center mt-5'>
             Todos os direitos reservados.<br/>
             O Fábulas &amp; Goblins é licenciado pela<br/> CC BY-NC 4.0
           </div>
