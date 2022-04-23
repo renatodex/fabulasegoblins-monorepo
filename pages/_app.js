@@ -2,7 +2,7 @@ import '../styles/globals.css'
 import './components/waves'
 import Waves from './components/waves'
 import TendaDoGoblin from './components/tendadogoblin'
-import Flag_br from './components/flag_br'
+import FlagBr from './components/flagbr'
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -15,17 +15,17 @@ function MyApp({ Component, pageProps }) {
         <Component {...pageProps} />
       </main>
 
-      <footer className="mt-10">
-        <Waves className=""></Waves>
+      <footer className="mt-7">
+        <Waves />
 
         <div className="bg-raisin-black pb-5">
           <div className="text-center text-white italic pb-2">
-            <Flag_br></Flag_br> &nbsp; Português Brasil
+            <FlagBr /> &nbsp; Português Brasil
           </div>
 
           <div>
             <div className="w-14 m-auto pb-1">
-              <TendaDoGoblin></TendaDoGoblin>
+              <TendaDoGoblin />
             </div>
           </div>
 
@@ -38,8 +38,9 @@ function MyApp({ Component, pageProps }) {
 
           <div className='text-aero-blue
           italic text-center mt-5'>
-            Todos os direitos reservados.<br/>
-            O Fábulas &amp; Goblins é licenciado pela<br/> CC BY-NC 4.0
+            <p>Todos os direitos reservados.</p>
+            <p>O Fábulas &amp; Goblins é licenciado pela</p>
+            <p>CC BY-NC 4.0</p>
           </div>
         </div>
       </footer>

@@ -1,4 +1,4 @@
-export default function ( {children} ) {
+export default function Button( {children} ) {
     return (
         <button className="
             bg-aero-blue text-dark-charcoal

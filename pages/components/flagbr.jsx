@@ -1,4 +1,4 @@
-export default function () {
+export default function FlagBr() {
     return (
         <svg className= "inline" width="26" height="35" viewBox="0 3 34 35" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M17 35C26.3888 35 34 27.165 34 17.5C34 7.83502 26.3888 0 17 0C7.61116 0 0 7.83502 0 17.5C0 27.165 7.61116 35 17 35Z" fill="#6DA544" />
