@@ -1,5 +1,10 @@
-export default function ( {children} ) {
+export default function Button( {children} ) {
     return (
-        <button>{children}</button>
+        <button className="
+            bg-aero-blue text-dark-charcoal
+            w-full py-2.5 rounded font-semibold
+        ">
+            {children}
+        </button>
     )
 }
