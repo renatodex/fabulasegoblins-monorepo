@@ -45,8 +45,8 @@ export default function Index() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <h1>
+      <main className="p-10 border-2 m-10">
+        <h1 className="text-3xl font-bold underline mb-4">
           Todo List
           <a href="#"
             onClick={e => {
