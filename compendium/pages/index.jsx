@@ -1,13 +1,15 @@
 import Head from 'next/head'
-import Link from 'next/link'
 import Button from './components/button'
+import LoginForm from './components/login'
+import RegisterForm from './components/register'
 import { useState } from 'react'
 
 export default function Index() {
   const title = 'Compendium'
-  const [defaultVisibility, setDefaultVisibility] = useState(true)
-  const [registerVisibility, setRegisterVisibility] = useState(false)
-  const [loginVisibility, setLoginVisibility] = useState(false)
+  const [visibility, setVisibility] = useState({
+    register: false,
+    login: false
+  })
 
   return (
     <div>
@@ -17,30 +19,30 @@ export default function Index() {
       </Head>
       <img src="/header_logo.png" className="m-auto" width={420}></img>
       <div className="mx-6 mt-4">
-        <h1 className="text-4xl font-bold font-serif pt-10 px-4">Crie seu Personagem</h1>
+        <h1 className="text-4xl font-bold font-serif pt-10 px-4">{title}</h1>
         <p className="mt-5 text-sm px-4">
-          Criar um personagem do zero no
-          <span className="font-bold"> Fábulas &amp; Goblins </span>
-           é muito fácil, basta criar uma conta e gerar
-          seus personagens com poucos cliques!
+          Aqui você encontra todo o conteúdo que criamos para vc usar em suas aventuras dentro do universo do
+          <span className="font-bold"> Fábulas &amp; Goblins</span>.
         </p>
 
-        {defaultVisibility && (
+        {!visibility.login && !visibility.register && (
           <div className="px-4">
             <div className="mt-5">
               <Button onClick={e => {
-                setDefaultVisibility(false)
-                setRegisterVisibility(true)
-                setLoginVisibility(false)
+                setVisibility({
+                  register: true,
+                  login: false
+                })
               }}>
-              Crie sua Conta
+              Registrar
               </Button>
             </div>
             <div className="mt-5 pb-5">
               <Button onClick={e => {
-                setDefaultVisibility(false)
-                setRegisterVisibility(false)
-                setLoginVisibility(true)
+                setVisibility({
+                  register: false,
+                  login: true
+                })
               }}>
               Entrar
               </Button>
@@ -48,8 +50,30 @@ export default function Index() {
           </div>
         )}
 
-        {loginVisibility && (
-          <LoginForm />
+        {visibility.login && (
+          <div>
+            <LoginForm onCancel={e => {
+              setVisibility({
+                register: false,
+                login: false
+              })
+            }
+            }></LoginForm>
+          </div>
+        )}
+
+        {visibility.register && (
+          <div>
+            <RegisterForm></RegisterForm>
+            <Button className="mt-5" onClick={e => {
+              setVisibility({
+                register: false,
+                login: false
+              })
+            }}>
+              Cancelar
+            </Button>
+          </div>
         )}
       </div>
     </div>
