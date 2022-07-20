@@ -21,7 +21,7 @@ function Login() {
           <div>
             <Button>Crie sua Conta</Button>
           </div>
-          <div className='mt-4 text-center'>
+          <div className='m-auto text-center pt-3'>
             ou
           </div>
           <div className="mt-3 pb-5">
