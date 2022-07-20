@@ -4,20 +4,28 @@ import Input from '../components/input'
 function Login() {
   return (
     <div>
-      <img src="/logo_flame.png" className="m-auto pt-20" width={80}></img>
-      <div className="mx-6 mt-8">
+      <div className="pt-14">
+        <img src="/logo_flame.png" className="m-auto" width={80}></img>
+      </div>
+      <div className="mx-10 mt-14">
         <div className="pt-10 text-lg">
-          <p className="border rounded-md py-2.5 p-4 font-light ml-3 mr-3">e-mail</p>
-          <p className="border rounded-md py-2.5 p-4 font-light ml-3 mr-3 mt-6 mb-5">senha</p>
-        </div>
-        <p className=" text-sm ml-8">Esqueceu sua senha? <span className="text-aero-blue">Clique aqui para recuperar!</span></p>
-        <div className="px-4">
-          <div className="mt-14">
-            <Button>Entrar</Button>
+          <div className='mt-4'>
+            <Input type='text' name='email' placeholder='e-mail'></Input>
           </div>
-          <p className="mt-4 text-center">ou</p>
-          <div className="mt-4 pb-5">
+          <div className='mt-4'>
+            <Input type='password' name='password' placeholder='senha'></Input>
+          </div>
+        </div>
+        <p className="pt-5 pl-3 text-sm ">Esqueceu sua senha? {' '}<a href='' className="text-aero-blue">Clique aqui</a> para recuperar!</p>
+        <div className="mt-14">
+          <div>
             <Button>Crie sua Conta</Button>
+          </div>
+          <div className='mt-4 text-center'>
+            ou
+          </div>
+          <div className="mt-3 pb-5">
+            <Button>Entrar</Button>
           </div>
         </div>
       </div>

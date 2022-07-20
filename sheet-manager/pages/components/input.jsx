@@ -4,8 +4,7 @@ export default function Input({ children, type, name, placeholder }) {
             type={type}
             name={name}
             placeholder={placeholder}
-            className="">
-            {children}
+            className="p-3.5 bg-transparent border-colombia-blue border rounded-md w-full">
         </input>
     )
 
