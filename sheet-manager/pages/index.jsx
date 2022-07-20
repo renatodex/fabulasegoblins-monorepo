@@ -16,10 +16,10 @@ function HomePage() {
 
         <div className="px-4">
           <div className="mt-5">
-            <Button>Crie sua Conta</Button>
+            <Button href="/login">Crie sua Conta</Button>
           </div>
           <div className="mt-5 pb-5">
-            <Button>Entrar</Button>
+            <Button href="/login">Entrar</Button>
           </div>
         </div>
       </div>
