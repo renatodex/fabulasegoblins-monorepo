@@ -1,4 +1,4 @@
-export default function Input({ children, type, name, placeholder }) {
+export default function Input({ type, name, placeholder }) {
     const inputMarkup = (
         <input
             type={type}
