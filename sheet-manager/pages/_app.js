@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps }) {
         <Component {...pageProps} />
       </main>
 
-      <footer className="mt-7">
+      <footer className="mt-14">
         <Waves />
 
         <div className="bg-raisin-black pb-5">
