@@ -9,3 +9,7 @@ O gerador e gerenciador de personagens do Fábulas & Goblins. A idéia é que se
 ## Compendium
 
 O Banco de dados de Fauna, Flora e características do mundo do Fábulas. A idéia no futuro é que a gente consiga permitir aos jogadores gerenciar suas próprias campanhas de jogo!
+
+## Core
+
+A Aplicação de Backend por trás desses projetos baseada em Ruby on Rails, que tem por objetivo fornecer um conjunto de APIs públicas que vão alimentar tanto o Sheet Manager quanto o Compendium.
