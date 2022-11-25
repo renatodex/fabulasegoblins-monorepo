@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  #devise_for :users
-
   scope :api, defaults: { format: :json } do
     devise_for :users, controllers: { sessions: :sessions },
                        path_names: { sign_in: :login }

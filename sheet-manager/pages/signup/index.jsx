@@ -5,14 +5,19 @@ import Container from '../components/container'
 import { BsArrowLeftCircle } from 'react-icons/bs'
 import Checkbox from '../components/checkbox'
 import Link from '../components/link'
+import Title from '../components/title'
 
 function Signup() {
     return (
         <div>
             <Container>
                 <p>
-                    <span className='text-4xl float-left'><BsArrowLeftCircle></BsArrowLeftCircle></span>
-                    <span className='align-middle text-xl ml-3 mt-1 inline-block'>Voltar</span>
+                    <a href="/">
+                        <span className='text-4xl float-left'><BsArrowLeftCircle></BsArrowLeftCircle></span>
+                        <span className='align-middle text-xl ml-3 mt-1 inline-block'>
+                            Voltar
+                        </span>
+                    </a>
                 </p>
             </Container>
             <div className="pt-14">
@@ -20,7 +25,7 @@ function Signup() {
             </div>
             <Container>
                 <div className='mt-12'>
-                    <h2 className='text-5xl font-semibold'>Nova conta</h2>
+                    <Title>Nova conta</Title>
                 </div>
                 <form action="">
                     <div className='mt-7'>

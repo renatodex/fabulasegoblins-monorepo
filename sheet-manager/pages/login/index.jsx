@@ -19,15 +19,16 @@ function Login() {
           </div>
         </div>
         <p className="pt-5 pl-3 text-sm ">Esqueceu sua senha? {' '}<Link href=''>Clique aqui</Link> para recuperar!</p>
+
         <div className="mt-14">
-          <div>
-            <Button>Crie sua Conta</Button>
-          </div>
           <div className='m-auto text-center pt-3'>
+            <div className="pb-3">
+              <Button>Entrar</Button>
+            </div>
             ou
-          </div>
-          <div className="mt-3 pb-5">
-            <Button>Entrar</Button>
+            <div className="mt-3">
+              <Button href="/signup">Crie sua Conta</Button>
+            </div>
           </div>
         </div>
       </div>
