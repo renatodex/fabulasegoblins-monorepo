@@ -1,22 +1,24 @@
 import Button from './components/button'
-
+import Title from './components/title'
 
 function HomePage() {
   return (
     <div>
       <img src="/header_logo.png" className="m-auto" width={420}></img>
-      <div className="mx-6 mt-4">
-        <h1 className="text-4xl font-bold font-serif pt-10 px-4">Crie seu Personagem</h1>
-        <p className="mt-5 text-sm px-4">
+      <div className="mx-8 mt-4">
+        <Title>
+          Crie seu Personagem
+        </Title>
+        <p className="mt-5 text-sm">
           Criar um personagem do zero no
           <span className="font-bold"> Fábulas &amp; Goblins </span>
            é muito fácil, basta criar uma conta e gerar
           seus personagens com poucos cliques!
         </p>
 
-        <div className="px-4">
+        <div>
           <div className="mt-5">
-            <Button href="/login">Crie sua Conta</Button>
+            <Button href="/signup">Crie sua Conta</Button>
           </div>
           <div className="mt-5 pb-5">
             <Button href="/login">Entrar</Button>
