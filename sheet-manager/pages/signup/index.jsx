@@ -6,8 +6,33 @@ import { BsArrowLeftCircle } from 'react-icons/bs'
 import Checkbox from '../components/checkbox'
 import Link from '../components/link'
 import Title from '../components/title'
+import { useState } from 'react'
 
 function Signup() {
+    const [nickname, setNickName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+    const [terms, setTerms] = useState('')
+
+    function handleSubmit(event) {
+        event.preventDefault()
+        console.log("enviou")
+        if (password == confirmPassword && terms) {
+            fetch('/api/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ nickname, email, password })
+            })
+        } else {
+            console.log("Errorrr")
+        }
+    }
+
+
+
     return (
         <div>
             <Container>
@@ -29,28 +54,52 @@ function Signup() {
                 </div>
                 <form action="">
                     <div className='mt-7'>
-                        <Input label={'Nome'} placeholder='Ex: Fulano da Silva' type={'name'}> </Input>
+                        <Input
+                            label={'Nome'}
+                            placeholder='Ex: Fulano da Silva'
+                            type={'name'}>
+                        </Input>
                     </div>
                     <div className='mt-7'>
-                        <Input label={'Nickname'} placeholder='Ex: fulano29' type={'name'}> </Input>
+                        <Input
+                            onChange={e => setNickName(e.target.value)}
+                            label={'Nickname'}
+                            placeholder='Ex: fulano29'
+                            type={'name'}>
+                        </Input>
                     </div>
                     <div className='mt-7'>
-                        <Input label={'E-mail'} placeholder='Ex: fulano29@gmail.com' type={'e-mail'}> </Input>
+                        <Input
+                            onChange={e => setEmail(e.target.value)}
+                            label={'E-mail'}
+                            placeholder='Ex: fulano29@gmail.com'
+                            type={'e-mail'}>
+                        </Input>
                     </div>
                     <div className='mt-7'>
-                        <Input label={'Senha'} placeholder='Ex: SenhaSecreta123' type={'password'}> </Input>
+                        <Input
+                            onChange={e => setPassword(e.target.value)}
+                            label={'Senha'}
+                            placeholder='Ex: SenhaSecreta123'
+                            type={'password'}>
+                        </Input>
                     </div>
                     <div className='mt-7'>
-                        <Input label={'Confirme sua senha'} placeholder='Ex: SenhaSecreta123' type={'password'}> </Input>
+                        <Input
+                            onChange={e => setConfirmPassword(e.target.value)}
+                            label={'Confirme sua senha'}
+                            placeholder='Ex: SenhaSecreta123'
+                            type={'password'}>
+                        </Input>
                     </div>
                     <div className='mt-10'>
-                        <Checkbox>Estou de acordo com a <Link>Politica de Privacidade.</Link></Checkbox>
+                        <Checkbox onChange={e => setTerms(e.target.checked)}>Estou de acordo com a <Link>Politica de Privacidade.</Link></Checkbox>
                     </div>
                     <div className='mt-5'>
                         <Checkbox>Aceito receber novidades sobre a marca.</Checkbox>
                     </div>
                     <div className='mt-7'>
-                    <Button>Enviar</Button>
+                        <Button onClick={event => handleSubmit(event)}>Enviar</Button>
                     </div>
                 </form>
             </Container>
