@@ -1,3 +1,23 @@
+# == Schema Information
+#
+# Table name: character_role_spells
+#
+#  id                :bigint           not null, primary key
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  character_role_id :bigint           not null
+#  spell_id          :bigint           not null
+#
+# Indexes
+#
+#  index_character_role_spells_on_character_role_id  (character_role_id)
+#  index_character_role_spells_on_spell_id           (spell_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (character_role_id => character_roles.id)
+#  fk_rails_...  (spell_id => spells.id)
+#
 require "test_helper"
 
 class CharacterRoleSpellTest < ActiveSupport::TestCase
