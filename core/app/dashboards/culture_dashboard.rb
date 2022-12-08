@@ -11,8 +11,9 @@ class CultureDashboard < Administrate::BaseDashboard
     id: Field::Number,
     bonuses: Field::Text,
     book_url: Field::Text,
-    description: Field::Text,
+    long_description: Field::Text,
     permalink: Field::String,
+    short_description: Field::Text,
     title: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
@@ -27,7 +28,7 @@ class CultureDashboard < Administrate::BaseDashboard
     id
     bonuses
     book_url
-    description
+    long_description
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -36,8 +37,9 @@ class CultureDashboard < Administrate::BaseDashboard
     id
     bonuses
     book_url
-    description
+    long_description
     permalink
+    short_description
     title
     created_at
     updated_at
@@ -49,8 +51,9 @@ class CultureDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = %i[
     bonuses
     book_url
-    description
+    long_description
     permalink
+    short_description
     title
   ].freeze
 

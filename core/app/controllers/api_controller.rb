@@ -1,46 +1,42 @@
 class ApiController < ApplicationController
-  # allowed_actions :index, :show, :create, :update, :destroy
+  @@generic_render = false
 
-  # def allowed_actions(*actions)
-  #   all_actions = %w(index show create update destroy)
-  #   denied_actions = all_actions - allowed_actions
+  class << self
+    def resource(resource_name)
+      @@resource = resource_name
+    end
+  end
 
-  #   denied_actions.each do |action|
-  #     define_method action do
-  #       render json: { message: "You are not allowed to #{action}." }, status: :unauthorized
-  #     end
-  #   end
-
-  #   allowed_actions.each do |action|
-  #     define_method action do
-  #       send "generic_#{action}"
-  #     end
-  #   end
-  # end
+  def ensure_resource
+    begin
+      @@resource.class
+    rescue
+      raise "No resource specified"
+    end
+  end
 
   def index
-    render json: resource.all
+    ensure_resource
+    render json: @@resource.all
   end
 
   def show
-    render json: resource.find(params[:id])
+    ensure_resource
+    render json: @@resource.find(params[:id])
   end
 
   def create
-    resource.create!(params)
+    ensure_resource
+    @@resource.create!(params)
   end
 
   def update
-    resource.update!(params)
+    ensure_resource
+    @@resource.update!(params)
   end
 
   def destroy
-    resource.destroy!(params)
-  end
-
-  private
-
-  def resource
-    raise "Please define a resource"
+    ensure_resource
+    @@resource.destroy!(params)
   end
 end

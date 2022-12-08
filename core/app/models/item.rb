@@ -19,22 +19,24 @@
 #  title                  :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  attribute_id           :bigint           not null
 #  damage_type_id         :bigint           not null
 #  item_type_id           :bigint           not null
+#  sheet_attribute_id     :bigint           not null
 #
 # Indexes
 #
-#  index_items_on_attribute_id    (attribute_id)
-#  index_items_on_damage_type_id  (damage_type_id)
-#  index_items_on_item_type_id    (item_type_id)
+#  index_items_on_damage_type_id      (damage_type_id)
+#  index_items_on_item_type_id        (item_type_id)
+#  index_items_on_sheet_attribute_id  (sheet_attribute_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (attribute_id => attributes.id)
 #  fk_rails_...  (damage_type_id => damage_types.id)
 #  fk_rails_...  (item_type_id => item_types.id)
+#  fk_rails_...  (sheet_attribute_id => sheet_attributes.id)
 #
 class Item < ApplicationRecord
   belongs_to :item_type
+  belongs_to :sheet_attribute
+  belongs_to :damage_type
 end

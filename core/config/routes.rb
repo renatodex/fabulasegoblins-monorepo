@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     resources :character_role_spells
     resources :character_roles
     resources :characters
-    resources :attributes
+    resources :sheet_attributes
     resources :attack_logics
     resources :action_types
     resources :users
@@ -26,15 +26,37 @@ Rails.application.routes.draw do
     root to: "spells#index"
   end
 
+  namespace :api do
+    resources :damage_types, only: [:index, :show]
+    resources :action_types, only: [:index, :show]
+    resources :attack_logics, only: [:index, :show]
+    resources :sheet_attributes, only: [:index, :show]
+    resources :character_inventorys, only: [:index, :show]
+    resources :character_role_spells, only: [:index, :show]
+    resources :character_roles, only: [:index, :show]
+    resources :culture_initial_items, only: [:index, :show]
+    resources :culture_spells, only: [:index, :show]
+    resources :cultures, only: [:index, :show]
+    resources :elements, only: [:index, :show]
+    resources :initial_items, only: [:index, :show]
+    resources :item_initial_items, only: [:index, :show]
+    resources :item_spells, only: [:index, :show]
+    resources :item_types, only: [:index, :show]
+    resources :items, only: [:index, :show]
+    resources :negative_effects, only: [:index, :show]
+    resources :range_types, only: [:index, :show]
+    resources :specie_spells, only: [:index, :show]
+    resources :species, only: [:index, :show]
+    resources :spells, only: [:index, :show]
+    resources :characters, only: [:index, :show]
+  end
+
   scope :api, defaults: { format: :json } do
     devise_for :users, controllers: { sessions: :sessions },
                        path_names: { sign_in: :login }
 
     resource :user, only: [:show, :update]
-    resources :damage_types, only: [:index]
   end
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
   root to: "index#index"
 end

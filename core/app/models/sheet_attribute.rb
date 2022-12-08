@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: attributes
+# Table name: sheet_attributes
 #
 #  id                :bigint           not null, primary key
 #  title             :string
@@ -11,5 +11,5 @@
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #
-class Attribute < ApplicationRecord
+class SheetAttribute < ApplicationRecord
 end

@@ -1,6 +1,6 @@
 require "administrate/base_dashboard"
 
-class AttributeDashboard < Administrate::BaseDashboard
+class SheetAttributeDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -66,10 +66,10 @@ class AttributeDashboard < Administrate::BaseDashboard
   #   }.freeze
   COLLECTION_FILTERS = {}.freeze
 
-  # Overwrite this method to customize how attributes are displayed
+  # Overwrite this method to customize how sheet attributes are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(attribute)
-  #   "Attribute ##{attribute.id}"
+  # def display_resource(sheet_attribute)
+  #   "SheetAttribute ##{sheet_attribute.id}"
   # end
 end

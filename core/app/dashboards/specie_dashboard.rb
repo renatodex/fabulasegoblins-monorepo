@@ -10,9 +10,11 @@ class SpecieDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     book_url: Field::Text,
-    description: Field::Text,
+    extra_attribute_points: Field::Number,
+    long_description: Field::Text,
     permalink: Field::String,
     playable: Field::Boolean,
+    short_description: Field::Text,
     title: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
@@ -26,8 +28,8 @@ class SpecieDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     id
     book_url
-    description
-    permalink
+    extra_attribute_points
+    long_description
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -35,9 +37,11 @@ class SpecieDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     id
     book_url
-    description
+    extra_attribute_points
+    long_description
     permalink
     playable
+    short_description
     title
     created_at
     updated_at
@@ -48,9 +52,11 @@ class SpecieDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
     book_url
-    description
+    extra_attribute_points
+    long_description
     permalink
     playable
+    short_description
     title
   ].freeze
 

@@ -13,10 +13,11 @@ class CharacterRoleDashboard < Administrate::BaseDashboard
     base_movement: Field::Number,
     base_mp: Field::Number,
     book_url: Field::Text,
-    description: Field::Text,
     hp_per_level: Field::Text,
+    long_description: Field::Text,
     mp_per_level: Field::Text,
     permalink: Field::String,
+    short_description: Field::Text,
     title: Field::String,
     weapon_proficience: Field::String,
     created_at: Field::DateTime,
@@ -43,10 +44,11 @@ class CharacterRoleDashboard < Administrate::BaseDashboard
     base_movement
     base_mp
     book_url
-    description
     hp_per_level
+    long_description
     mp_per_level
     permalink
+    short_description
     title
     weapon_proficience
     created_at
@@ -61,10 +63,11 @@ class CharacterRoleDashboard < Administrate::BaseDashboard
     base_movement
     base_mp
     book_url
-    description
     hp_per_level
+    long_description
     mp_per_level
     permalink
+    short_description
     title
     weapon_proficience
   ].freeze

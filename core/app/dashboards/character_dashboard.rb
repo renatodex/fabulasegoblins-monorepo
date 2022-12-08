@@ -19,6 +19,7 @@ class CharacterDashboard < Administrate::BaseDashboard
     base_spirit: Field::Number,
     base_strength: Field::Number,
     base_survival: Field::Number,
+    character_items: Field::HasMany,
     character_role: Field::BelongsTo,
     code: Field::String,
     culture: Field::BelongsTo,
@@ -35,6 +36,7 @@ class CharacterDashboard < Administrate::BaseDashboard
     hp_points: Field::Number,
     initiative: Field::Number,
     inventory_slots: Field::Number,
+    items: Field::HasMany,
     level: Field::Number,
     long_description: Field::Text,
     magic_attack: Field::Number,
@@ -84,6 +86,7 @@ class CharacterDashboard < Administrate::BaseDashboard
     base_spirit
     base_strength
     base_survival
+    character_items
     character_role
     code
     culture
@@ -100,6 +103,7 @@ class CharacterDashboard < Administrate::BaseDashboard
     hp_points
     initiative
     inventory_slots
+    items
     level
     long_description
     magic_attack
@@ -137,6 +141,7 @@ class CharacterDashboard < Administrate::BaseDashboard
     base_spirit
     base_strength
     base_survival
+    character_items
     character_role
     code
     culture
@@ -153,6 +158,7 @@ class CharacterDashboard < Administrate::BaseDashboard
     hp_points
     initiative
     inventory_slots
+    items
     level
     long_description
     magic_attack

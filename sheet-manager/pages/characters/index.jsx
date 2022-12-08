@@ -17,6 +17,24 @@ function NoCharactersDisplay () {
   )
 }
 
+function CharacterList ({ characters }) {
+  return (
+    <div>
+      {characters.map(character => (
+        <div key={character.id} className='mt-7 flex space-x-4'>
+          <div className='flex-none w-16'>
+            <img src="./small_avatar.png" className='flex-none' />
+          </div>
+          <div className='flex-auto'>
+            <p className='text-2xl text-aero-blue'>{character.title}</p>
+            <p>Grimo de Lunn</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
 export default function () {
   const { token, ping } = useLogin()
   const [characters, setCharacters] = useState([])
@@ -45,7 +63,7 @@ export default function () {
     <Container>
       <Title>Meus Personagens</Title>
 
-      <NoCharactersDisplay />
+      {characters.length > 0 ? <CharacterList characters={characters} /> : <NoCharactersDisplay />}
     </Container>
   )
 }

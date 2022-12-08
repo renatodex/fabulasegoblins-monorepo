@@ -34,16 +34,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_08_025253) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "attributes", force: :cascade do |t|
-    t.string "title"
-    t.text "short_description"
-    t.text "long_description"
-    t.string "permalink"
-    t.text "book_url"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "character_items", force: :cascade do |t|
     t.bigint "character_id", null: false
     t.bigint "item_id", null: false
@@ -75,7 +65,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_08_025253) do
   create_table "character_roles", force: :cascade do |t|
     t.string "title"
     t.string "permalink"
-    t.text "description"
+    t.text "short_description"
+    t.text "long_description"
     t.integer "base_hp"
     t.integer "base_mp"
     t.integer "base_movement"
@@ -161,8 +152,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_08_025253) do
 
   create_table "cultures", force: :cascade do |t|
     t.string "title"
+    t.text "short_description"
+    t.text "long_description"
     t.string "permalink"
-    t.text "description"
     t.text "book_url"
     t.text "bonuses"
     t.datetime "created_at", null: false
@@ -238,7 +230,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_08_025253) do
     t.text "formula"
     t.bigint "item_type_id", null: false
     t.bigint "damage_type_id", null: false
-    t.bigint "attribute_id", null: false
+    t.bigint "sheet_attribute_id", null: false
     t.string "bonus_physical_attack"
     t.string "bonus_magic_attack"
     t.string "bonus_physical_defense"
@@ -250,9 +242,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_08_025253) do
     t.text "book_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["attribute_id"], name: "index_items_on_attribute_id"
     t.index ["damage_type_id"], name: "index_items_on_damage_type_id"
     t.index ["item_type_id"], name: "index_items_on_item_type_id"
+    t.index ["sheet_attribute_id"], name: "index_items_on_sheet_attribute_id"
   end
 
   create_table "negative_effects", force: :cascade do |t|
@@ -275,6 +267,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_08_025253) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "sheet_attributes", force: :cascade do |t|
+    t.string "title"
+    t.text "short_description"
+    t.text "long_description"
+    t.string "permalink"
+    t.text "book_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "specie_spells", force: :cascade do |t|
     t.bigint "specie_id", null: false
     t.bigint "spell_id", null: false
@@ -286,10 +288,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_08_025253) do
 
   create_table "species", force: :cascade do |t|
     t.string "title"
+    t.text "short_description"
+    t.text "long_description"
     t.string "permalink"
-    t.text "description"
     t.text "book_url"
     t.boolean "playable"
+    t.integer "extra_attribute_points", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -347,7 +351,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_08_025253) do
   add_foreign_key "character_role_spells", "spells"
   add_foreign_key "characters", "character_roles"
   add_foreign_key "characters", "cultures"
-  add_foreign_key "characters", "species", column: "specie_id"
+  add_foreign_key "characters", "species"
   add_foreign_key "characters", "users"
   add_foreign_key "culture_initial_items", "cultures"
   add_foreign_key "culture_initial_items", "items", column: "offered_item_id"
@@ -361,10 +365,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_08_025253) do
   add_foreign_key "item_initial_items", "items", column: "original_item_id"
   add_foreign_key "item_spells", "items"
   add_foreign_key "item_spells", "spells"
-  add_foreign_key "items", "attributes"
   add_foreign_key "items", "damage_types"
   add_foreign_key "items", "item_types"
-  add_foreign_key "specie_spells", "species", column: "specie_id"
+  add_foreign_key "items", "sheet_attributes"
+  add_foreign_key "specie_spells", "species"
   add_foreign_key "specie_spells", "spells"
   add_foreign_key "spells", "action_types"
   add_foreign_key "spells", "attack_logics"

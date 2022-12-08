@@ -7,10 +7,11 @@
 #  base_movement      :integer
 #  base_mp            :integer
 #  book_url           :text
-#  description        :text
 #  hp_per_level       :text             default([]), is an Array
+#  long_description   :text
 #  mp_per_level       :text             default([]), is an Array
 #  permalink          :string
+#  short_description  :text
 #  title              :string
 #  weapon_proficience :string
 #  created_at         :datetime         not null

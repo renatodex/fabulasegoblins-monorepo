@@ -8,7 +8,7 @@ class CreateItems < ActiveRecord::Migration[7.0]
       t.text :formula
       t.references :item_type, null: false, foreign_key: true
       t.references :damage_type, null: false, foreign_key: true
-      t.references :attribute, null: false, foreign_key: true
+      t.references :sheet_attribute, null: false, foreign_key: true
       t.string :bonus_physical_attack
       t.string :bonus_magic_attack
       t.string :bonus_physical_defense

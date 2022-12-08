@@ -2,14 +2,15 @@
 #
 # Table name: cultures
 #
-#  id          :bigint           not null, primary key
-#  bonuses     :text
-#  book_url    :text
-#  description :text
-#  permalink   :string
-#  title       :string
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id                :bigint           not null, primary key
+#  bonuses           :text
+#  book_url          :text
+#  long_description  :text
+#  permalink         :string
+#  short_description :text
+#  title             :string
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
 #
 
 one:
