@@ -1,0 +1,43 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  external_id: MyString
+  permalink: MyString
+  short_description: MyText
+  long_description: MyText
+  book_url: MyText
+  magic_cost_number: 1
+  magic_cost: MyString
+  duration_time_number: 1
+  duration_time: MyString
+  attack_logic: one
+  action_type: one
+  cast_distance: MyString
+  cast_distance_number: 1
+  range_amount: MyString
+  range_type: one
+  icon: MyString
+  element: one
+  tags: MyString
+
+two:
+  title: MyString
+  external_id: MyString
+  permalink: MyString
+  short_description: MyText
+  long_description: MyText
+  book_url: MyText
+  magic_cost_number: 1
+  magic_cost: MyString
+  duration_time_number: 1
+  duration_time: MyString
+  attack_logic: two
+  action_type: two
+  cast_distance: MyString
+  cast_distance_number: 1
+  range_amount: MyString
+  range_type: two
+  icon: MyString
+  element: two
+  tags: MyString

@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  permalink: MyString
+  description: MyText
+  base_hp: 1
+  base_mp: 1
+  base_movement: 1
+  weapon_proficience: MyString
+  hp_per_level: MyText
+  mp_per_level: MyText
+  book_url: MyText
+
+two:
+  title: MyString
+  permalink: MyString
+  description: MyText
+  base_hp: 1
+  base_mp: 1
+  base_movement: 1
+  weapon_proficience: MyString
+  hp_per_level: MyText
+  mp_per_level: MyText
+  book_url: MyText

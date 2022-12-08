@@ -1,0 +1,29 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  permalink: MyString
+  description: MyText
+  formula: MyText
+  item_type: one
+  bonus_physical_attack: MyString
+  bonus_magic_attack: MyString
+  bonus_physical_defense: MyString
+  bonus_magical_defense: MyString
+  durability: 1
+  sell_price: 1
+  buy_price: 1
+
+two:
+  title: MyString
+  permalink: MyString
+  description: MyText
+  formula: MyText
+  item_type: two
+  bonus_physical_attack: MyString
+  bonus_magic_attack: MyString
+  bonus_physical_defense: MyString
+  bonus_magical_defense: MyString
+  durability: 1
+  sell_price: 1
+  buy_price: 1

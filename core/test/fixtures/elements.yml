@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  short_description: MyText
+  long_description: MyText
+  permalink: MyString
+  weak_to: one
+  resistent_to: one
+  negative_effect: one
+  book_url: MyText
+
+two:
+  title: MyString
+  short_description: MyText
+  long_description: MyText
+  permalink: MyString
+  weak_to: two
+  resistent_to: two
+  negative_effect: two
+  book_url: MyText

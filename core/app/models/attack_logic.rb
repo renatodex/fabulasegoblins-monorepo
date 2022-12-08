@@ -1,0 +1,2 @@
+class AttackLogic < ApplicationRecord
+end

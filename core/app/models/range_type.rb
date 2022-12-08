@@ -1,0 +1,2 @@
+class RangeType < ApplicationRecord
+end

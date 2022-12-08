@@ -1,0 +1,2 @@
+class NegativeEffect < ApplicationRecord
+end
