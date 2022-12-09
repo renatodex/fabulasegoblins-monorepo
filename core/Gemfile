@@ -51,7 +51,6 @@ gem 'devise'
 gem 'jwt'
 gem 'pry'
 gem 'rack-cors'
-gem 'administrate'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -77,3 +76,4 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+gem "motor-admin", "~> 0.4.2"

@@ -24,11 +24,4 @@ FileUtils.chdir APP_ROOT do
 
   puts "\n== Seeding Database.. =="
   system! "bundle exec rake db:seed"
-
-  puts "\n== Removing Administrate Files.. =="
-  system! "rm -rf app/dashboards"
-  system! "rm -rf app/controllers/admin"
-
-  puts "\n== Generating Administrate Files.. =="
-  system! "bundle exec rails g administrate:install"
 end

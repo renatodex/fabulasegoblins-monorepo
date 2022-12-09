@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount Motor::Admin => '/motor_admin'
   namespace :api do
     resources :damage_types, only: [:index, :show]
     resources :action_types, only: [:index, :show]
