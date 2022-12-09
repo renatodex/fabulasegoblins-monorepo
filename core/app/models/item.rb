@@ -19,9 +19,9 @@
 #  title                  :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  damage_type_id         :bigint           not null
+#  damage_type_id         :bigint
 #  item_type_id           :bigint           not null
-#  sheet_attribute_id     :bigint           not null
+#  sheet_attribute_id     :bigint
 #
 # Indexes
 #

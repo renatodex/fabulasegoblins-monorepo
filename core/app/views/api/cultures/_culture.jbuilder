@@ -1,5 +1,6 @@
 json.id resource.id
 json.title resource.title
 json.permalink resource.permalink
-json.description resource.description
+json.short_description resource.short_description
+json.long_description resource.long_description
 json.book_url resource.book_url

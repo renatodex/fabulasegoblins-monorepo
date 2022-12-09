@@ -27,7 +27,7 @@
 #  fk_rails_...  (weak_to_id => elements.id)
 #
 class Element < ApplicationRecord
-  belongs_to :weak_to
-  belongs_to :resistent_to
+  belongs_to :weak_to, class_name: "Element"
+  belongs_to :resistent_to, class_name: "Element"
   belongs_to :negative_effect
 end

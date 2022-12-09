@@ -1,7 +1,8 @@
 json.id resource.id
 json.title resource.title
 json.permalink resource.permalink
-json.description resource.description
+json.short_description resource.short_description
+json.long_description resource.long_description
 json.base_hp resource.base_hp
 json.base_mp resource.base_mp
 json.base_movement resource.base_movement

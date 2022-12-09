@@ -1,31 +1,4 @@
 Rails.application.routes.draw do
-  namespace :admin do
-    resources :spells
-    resources :specie_spells
-    resources :species
-    resources :range_types
-    resources :negative_effects
-    resources :item_types
-    resources :item_spells
-    resources :item_initial_items
-    resources :items
-    resources :initial_items
-    resources :elements
-    resources :damage_types
-    resources :culture_spells
-    resources :culture_initial_items
-    resources :cultures
-    resources :character_role_spells
-    resources :character_roles
-    resources :characters
-    resources :sheet_attributes
-    resources :attack_logics
-    resources :action_types
-    resources :users
-
-    root to: "spells#index"
-  end
-
   namespace :api do
     resources :damage_types, only: [:index, :show]
     resources :action_types, only: [:index, :show]

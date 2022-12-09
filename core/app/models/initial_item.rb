@@ -16,5 +16,5 @@
 #  fk_rails_...  (offered_item_id => items.id)
 #
 class InitialItem < ApplicationRecord
-  belongs_to :offered_item
+  belongs_to :offered_item, class_name: "Item"
 end

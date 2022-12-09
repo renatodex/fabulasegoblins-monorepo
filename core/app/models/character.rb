@@ -73,4 +73,10 @@ class Character < ApplicationRecord
 
   has_many :character_items
   has_many :items, through: :character_items
+
+  def initial_grimo
+    items.joins(:item_type).where(item_type: {
+      permalink: 'grimo',
+    }).first
+  end
 end

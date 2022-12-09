@@ -32,5 +32,5 @@
 class CharacterItem < ApplicationRecord
   belongs_to :character
   belongs_to :item
-  belongs_to :traded_with
+  belongs_to :traded_with, class_name: 'Item', optional: true
 end
