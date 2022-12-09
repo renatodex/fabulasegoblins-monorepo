@@ -26,8 +26,8 @@ function CharacterList ({ characters }) {
             <img src="./small_avatar.png" className='flex-none' />
           </div>
           <div className='flex-auto'>
-            <p className='text-2xl text-aero-blue'>{character.title}</p>
-            <p>Grimo de Lunn</p>
+            <p className='text-2xl text-aero-blue'>{character.title} - Lv {character.level}</p>
+            <p>Grimo de Lunn - Level {character.level}</p>
           </div>
         </div>
       ))}

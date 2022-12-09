@@ -3,7 +3,7 @@
 // password: 123456
 export default async function handler(req, res) {
   if (req.method === 'POST') {
-    const { email, password, nickname } = req.body;
+    const { email, password } = req.body;
 
     const request = await fetch('http://localhost:5000/api/users', {
       method: 'POST',
@@ -14,7 +14,6 @@ export default async function handler(req, res) {
         user: {
           email,
           password,
-          nickname
         }
       }),
     })

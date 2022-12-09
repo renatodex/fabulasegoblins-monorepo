@@ -12,7 +12,6 @@ import Router from 'next/router'
 
 function Signup() {
   const [email, setEmail] = useState('')
-  const [nickname, setNickname] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [terms, setTerms] = useState(false)
@@ -24,7 +23,7 @@ function Signup() {
       headers: {
           "Content-Type": "application/json"
       },
-      body: JSON.stringify({ email, password, nickname })
+      body: JSON.stringify({ email, password })
     })
 
     const data = await response.json()
@@ -61,14 +60,6 @@ function Signup() {
               <Input
                   label={'Nome'}
                   placeholder='Ex: Fulano da Silva'
-                  type={'name'}
-              />
-          </div>
-          <div className='mt-7'>
-              <Input
-                  onChange={e => setNickname(e.target.value)}
-                  label={'Nickname'}
-                  placeholder='Ex: fulano29'
                   type={'name'}
               />
           </div>
