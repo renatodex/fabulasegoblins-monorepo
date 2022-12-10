@@ -1,15 +1,19 @@
 ---
 engine_version: 0.4.2
-file_version: 2022-12-09 06:22:06.217975000 Z
-resources: []
+file_version: 2022-12-09 06:31:18.200122000 Z
+resources:
+- name: character
+  preferences:
+    columns:
+    - column_type: richtext
+      name: long_description
+  updated_at: 2022-12-09 06:31:18.200122000 +00:00
 configs:
 - key: header.links
   value:
-  - name: Reports
-    link_type: reports
-  - name: Forms
-    link_type: forms
-  updated_at: 2022-12-09 06:22:06.217975000 +00:00
+  - name: "⭐ Star on GitHub"
+    path: https://github.com/motor-admin/motor-admin-rails
+  updated_at: 2022-12-09 06:30:02.836646000 +00:00
 queries: []
 dashboards: []
 forms: []
@@ -20,4 +24,4 @@ api_configs:
   url: "/"
   preferences: {}
   description: 
-  updated_at: 2022-12-09 06:18:38.933290000 +00:00
+  updated_at: 2022-12-09 06:30:02.841170000 +00:00
