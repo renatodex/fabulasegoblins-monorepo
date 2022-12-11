@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     resources :item_spells, only: [:index, :show]
     resources :item_types, only: [:index, :show]
     resources :items, only: [:index, :show]
+    resources :grimos, only: [:index, :show]
     resources :negative_effects, only: [:index, :show]
     resources :range_types, only: [:index, :show]
     resources :specie_spells, only: [:index, :show]

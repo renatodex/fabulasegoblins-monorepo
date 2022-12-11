@@ -6,6 +6,7 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
+## Criando usuário de teste
 User.create!(
   [
     {
@@ -52,7 +53,6 @@ end
   { permalink: "filhos-de-timeria", title: "Filhos de Timéria", short_description: "Como um Filho de Timéria, você nasceu e viveu por um longo tempo nas Terras do Oceano de Timéria, seja em um pequeno vilarejo, ou em uma das grandes cidades submersas como Baion, Cardumia ou Pomedon.", key_values: "Mistério, Equilíbrio, Respeito", clothes_description: "Couro aquático, Exo-Esqueletos, Túnicas de Lã de Algas", common_divinities: "Koroma, Lazan, Gaeria", bonuses: "Elo Mágico +1, Espírito +1, Força +1"},
 ].each do |culture|
   Culture.create!(culture.merge({long_description: culture[:short_description]}))
-
 end
 
 # Criando Papéis de Personagem

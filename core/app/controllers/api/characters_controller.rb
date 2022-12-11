@@ -1,7 +1,9 @@
 class Api::CharactersController < ApiController
   before_action :authenticate_user!
-  resource Character
 
+  def resource
+    Character
+  end
 
   def index
     @characters = Character.where(

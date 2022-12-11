@@ -1,3 +1,5 @@
 class Api::DamageTypesController < ApiController
-  resource DamageType
+  def resource
+    DamageType
+  end
 end

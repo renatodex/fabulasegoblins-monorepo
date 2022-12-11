@@ -1,15 +1,7 @@
 class ApiController < ApplicationController
-  @@generic_render = false
-
-  class << self
-    def resource(resource_name)
-      @@resource = resource_name
-    end
-  end
-
   def ensure_resource
     begin
-      @@resource.class
+      resource.class
     rescue
       raise "No resource specified"
     end
@@ -17,26 +9,32 @@ class ApiController < ApplicationController
 
   def index
     ensure_resource
-    render json: @@resource.all
+
+    data = resource.all.page(params[:page].presence || 0)
+
+    response.set_header('X-Total', data.total_count)
+    response.set_header('X-LastPage', data.last_page?)
+
+    render json: data
   end
 
   def show
     ensure_resource
-    render json: @@resource.find(params[:id])
+    render json: resource.find(params[:id])
   end
 
   def create
     ensure_resource
-    @@resource.create!(params)
+    resource.create!(params)
   end
 
   def update
     ensure_resource
-    @@resource.update!(params)
+    resource.update!(params)
   end
 
   def destroy
     ensure_resource
-    @@resource.destroy!(params)
+    @resource.destroy!(params)
   end
 end
