@@ -12,4 +12,9 @@
 #  updated_at        :datetime         not null
 #
 class ItemType < ApplicationRecord
+  class << self
+    def grimo
+      find_by_permalink("grimo")
+    end
+  end
 end

@@ -71,8 +71,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_061759) do
     t.integer "base_mp"
     t.integer "base_movement"
     t.string "weapon_proficience"
-    t.text "hp_per_level", default: [], array: true
-    t.text "mp_per_level", default: [], array: true
+    t.integer "hp_per_level", default: [], array: true
+    t.integer "mp_per_level", default: [], array: true
     t.text "book_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -180,13 +180,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_061759) do
     t.text "long_description"
     t.string "permalink"
     t.bigint "weak_to_id"
-    t.bigint "resistent_to_id"
+    t.bigint "resistant_to_id"
     t.bigint "negative_effect_id", null: false
     t.text "book_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["negative_effect_id"], name: "index_elements_on_negative_effect_id"
-    t.index ["resistent_to_id"], name: "index_elements_on_resistent_to_id"
+    t.index ["resistant_to_id"], name: "index_elements_on_resistant_to_id"
     t.index ["weak_to_id"], name: "index_elements_on_weak_to_id"
   end
 
@@ -233,11 +233,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_061759) do
     t.text "formula"
     t.bigint "item_type_id", null: false
     t.bigint "damage_type_id"
+    t.bigint "range_type_id"
     t.bigint "sheet_attribute_id"
     t.string "bonus_physical_attack"
     t.string "bonus_magic_attack"
     t.string "bonus_physical_defense"
     t.string "bonus_magical_defense"
+    t.integer "movement_penalty"
+    t.integer "strength_requirement_to_wear"
+    t.integer "tier_requirement_to_wear"
+    t.boolean "itemset_part", default: false
+    t.string "itemset_handle"
     t.integer "durability"
     t.integer "sell_price"
     t.integer "buy_price"
@@ -247,6 +253,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_061759) do
     t.datetime "updated_at", null: false
     t.index ["damage_type_id"], name: "index_items_on_damage_type_id"
     t.index ["item_type_id"], name: "index_items_on_item_type_id"
+    t.index ["range_type_id"], name: "index_items_on_range_type_id"
     t.index ["sheet_attribute_id"], name: "index_items_on_sheet_attribute_id"
   end
 
@@ -565,7 +572,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_061759) do
   add_foreign_key "culture_initial_items", "items", column: "offered_item_id"
   add_foreign_key "culture_spells", "cultures"
   add_foreign_key "culture_spells", "spells"
-  add_foreign_key "elements", "elements", column: "resistent_to_id"
+  add_foreign_key "elements", "elements", column: "resistant_to_id"
   add_foreign_key "elements", "elements", column: "weak_to_id"
   add_foreign_key "elements", "negative_effects"
   add_foreign_key "initial_items", "items", column: "offered_item_id"
@@ -575,6 +582,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_061759) do
   add_foreign_key "item_spells", "spells"
   add_foreign_key "items", "damage_types"
   add_foreign_key "items", "item_types"
+  add_foreign_key "items", "range_types"
   add_foreign_key "items", "sheet_attributes"
   add_foreign_key "motor_alert_locks", "motor_alerts", column: "alert_id"
   add_foreign_key "motor_alerts", "motor_queries", column: "query_id"

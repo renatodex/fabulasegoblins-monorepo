@@ -43,10 +43,46 @@
 #  fk_rails_...  (range_type_id => range_types.id)
 #  fk_rails_...  (sheet_attribute_id => sheet_attributes.id)
 #
-require "test_helper"
+class Grimo < Item
+  class << self
+    def giurad
+      find_by_permalink("brasao-de-giurad")
+    end
 
-class ItemTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+    def kanus
+      find_by_permalink("olho-de-kanus")
+    end
+
+    def lunn
+      find_by_permalink("joia-de-lunn")
+    end
+
+    def allura
+      find_by_permalink("orbe-de-allura")
+    end
+
+    def ravna
+      find_by_permalink("arca-de-ravna")
+    end
+
+    def darian
+      find_by_permalink("totem-de-darian")
+    end
+
+    def valari
+      find_by_permalink("frasco-de-valari")
+    end
+
+    def magni
+      find_by_permalink("aparato-de-magni")
+    end
+
+    def qatun
+      find_by_permalink("insignia-de-qatun")
+    end
+
+    def ixin
+      find_by_permalink("selo-de-ixin")
+    end
+  end
 end

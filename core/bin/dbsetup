@@ -24,4 +24,7 @@ FileUtils.chdir APP_ROOT do
 
   puts "\n== Seeding Database.. =="
   system! "bundle exec rake db:seed"
+
+  puts "\n== Running server =="
+  system! "bundle exec rails s"
 end
