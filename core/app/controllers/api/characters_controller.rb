@@ -1,5 +1,5 @@
 class Api::CharactersController < ApiController
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
 
   def resource
     Character
@@ -9,5 +9,9 @@ class Api::CharactersController < ApiController
     @characters = Character.where(
       user_id: current_user.id,
     )
+  end
+
+  def show
+    @character = resource.find_by(code: params[:id])
   end
 end

@@ -69,12 +69,12 @@ end
 
 # Criando Espécies
 [
-  { title: "Goblins", permalink: "Goblins", playable: true, extra_attribute_points: 2, short_description: "Os Goblins são a raça mais dominante no mundo das Terras Místicas. Alegres e trabalhadores, os Goblins ergueram verdadeiros impérios com sua perseverança e trabalho árduo. Nos dias de hoje, eles sofrem com os impactos do Blecaute, e lutam diariamente para que possam reconquistar tudo que foi perdido." },
-  { title: "Armadons", permalink: "Armadons", playable: true, extra_attribute_points: 0, short_description: "Os Armadons são uma raça pangoliana exclusiva de climas quentes e seco. São biologicamente capazes sobreviver por longos períodos abaixo da terra, sem luz solar e até sem água corrente. Os Armadons são conhecidos como verdadeiros engenheiros, construíndo cidades em locais onde não se imaginava ser possível suportar vida." },
-  { title: "Metalóides", permalink: "Metalóides", playable: true, extra_attribute_points: 0, short_description: "Criados caóticamente a partir da magia bruta, Metalóides são seres mágicos, possuindo bolsões corporais por onde passa um flúido metálico derivado da magia. Capazes de manipular a magia para criar itens mágicos a partir de materiais brutos, Metalóides são conhecidos por suas sociedades fechadas e místicas." },
-  { title: "Razalans", permalink: "Razalans", playable: true, extra_attribute_points: 0, short_description: "Espécie com características Reptilianas e Aviárias, os Razalans são conhecidos por construírem seus reinos isolados em ilhas flutuantes. Tradicionalmente eram conhecidos como agricultores de magia no passado, até que o Blecaute tornou seus campos inférteis, e precisaram formar alianças mais fortes com os outros reinos terrestres. Apesar de possuírem asas, não são capazes de voar, mas podem planar e flutuar a baixas altitudes." },
-  { title: "Valdaris", permalink: "Valdaris", playable: true, extra_attribute_points: 0, short_description: "Os Valdaris são uma espécie de Anfíbios que dominam primariamente os extensos rios e oceanos de Galantia. Fisicamente eles se desenvolveram para se adaptar a viverem submersos, possuindo a capacidade de respirar normalmente tanto dentro quanto fora d'agua." },
-  { title: "Luminins", permalink: "Luminins", playable: true, extra_attribute_points: 0, short_description: "Os Luminins são pequenas criaturas humanóides que possuem alto grau de sensciencia e uma sociedade organizada. Um indivíduo adulto pode chegar a uma média de 1,30m, sendo consideravelmente pequeno até mesmo comparados com raças anatomicamente menores como Armadons. Seus corpos possuem uma bioluminescência natural, emitindo um brilho de tonalidade púrpura, que se extende por seu corpo todo, dos pés a cabeça. Diferente do que se costuma deduzir, os Luminins não são criaturas de constituição mágica, pois seu brilho característico vêm de característica química de seus corpos, não possuindo qualquer vestigio de magia em sua emissão de luz." },
+  { title: "Goblin", permalink: "goblin", playable: true, extra_attribute_points: 2, short_description: "Os Goblins são a raça mais dominante no mundo das Terras Místicas. Alegres e trabalhadores, os Goblins ergueram verdadeiros impérios com sua perseverança e trabalho árduo. Nos dias de hoje, eles sofrem com os impactos do Blecaute, e lutam diariamente para que possam reconquistar tudo que foi perdido." },
+  { title: "Armadon", permalink: "armadon", playable: true, extra_attribute_points: 0, short_description: "Os Armadons são uma raça pangoliana exclusiva de climas quentes e seco. São biologicamente capazes sobreviver por longos períodos abaixo da terra, sem luz solar e até sem água corrente. Os Armadons são conhecidos como verdadeiros engenheiros, construíndo cidades em locais onde não se imaginava ser possível suportar vida." },
+  { title: "Metalóide", permalink: "metaloide", playable: true, extra_attribute_points: 0, short_description: "Criados caóticamente a partir da magia bruta, Metalóides são seres mágicos, possuindo bolsões corporais por onde passa um flúido metálico derivado da magia. Capazes de manipular a magia para criar itens mágicos a partir de materiais brutos, Metalóides são conhecidos por suas sociedades fechadas e místicas." },
+  { title: "Razalan", permalink: "razalan", playable: true, extra_attribute_points: 0, short_description: "Espécie com características Reptilianas e Aviárias, os Razalans são conhecidos por construírem seus reinos isolados em ilhas flutuantes. Tradicionalmente eram conhecidos como agricultores de magia no passado, até que o Blecaute tornou seus campos inférteis, e precisaram formar alianças mais fortes com os outros reinos terrestres. Apesar de possuírem asas, não são capazes de voar, mas podem planar e flutuar a baixas altitudes." },
+  { title: "Valdari", permalink: "valdari", playable: true, extra_attribute_points: 0, short_description: "Os Valdaris são uma espécie de Anfíbios que dominam primariamente os extensos rios e oceanos de Galantia. Fisicamente eles se desenvolveram para se adaptar a viverem submersos, possuindo a capacidade de respirar normalmente tanto dentro quanto fora d'agua." },
+  { title: "Luminin", permalink: "luminin", playable: true, extra_attribute_points: 0, short_description: "Os Luminins são pequenas criaturas humanóides que possuem alto grau de sensciencia e uma sociedade organizada. Um indivíduo adulto pode chegar a uma média de 1,30m, sendo consideravelmente pequeno até mesmo comparados com raças anatomicamente menores como Armadons. Seus corpos possuem uma bioluminescência natural, emitindo um brilho de tonalidade púrpura, que se extende por seu corpo todo, dos pés a cabeça. Diferente do que se costuma deduzir, os Luminins não são criaturas de constituição mágica, pois seu brilho característico vêm de característica química de seus corpos, não possuindo qualquer vestigio de magia em sua emissão de luz." },
 ].each do |specie|
   Specie.create!(specie.merge({long_description: specie[:short_description]}))
 end
@@ -197,13 +197,18 @@ end
 Character.create!(
   [
     {
-      title: "Personagem Teste",
+      title: "Garinori",
       culture: Culture.first,
       user: User.first,
       character_role: CharacterRole.first,
       specie: Specie.first,
       short_description: "Personagem teste",
       long_description: "Personagem teste",
+      temirs: 175,
+      max_mp_points: 42,
+      mp_points: 20,
+      max_hp_points: 28,
+      hp_points: 17,
     },
   ]
 )

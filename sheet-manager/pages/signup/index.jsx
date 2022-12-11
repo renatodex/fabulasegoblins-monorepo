@@ -53,7 +53,9 @@ function Signup() {
       </div>
       <Container>
         <div className='mt-12'>
-            <Title>Nova conta</Title>
+            <div className='pt-10'>
+              <Title>Nova conta</Title>
+            </div>
         </div>
         <form action="" onSubmit={event => handleSubmit(event)}>
           <div className='mt-7'>

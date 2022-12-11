@@ -8,7 +8,10 @@ function NoCharactersDisplay () {
   return (
     <div className='mt-7 text-center'>
       <img src="/avatar.png" className='w-4/6 inline-block'></img>
-      <Subtitle>Você não tem personagens criados, que tal criar um?</Subtitle>
+
+      <div className='pt-10'>
+        <Subtitle>Você não tem personagens criados, que tal criar um?</Subtitle>
+      </div>
 
       <div className="mt-7">
         <Button>Criar Personagem</Button>
@@ -21,7 +24,7 @@ function CharacterList ({ characters }) {
   return (
     <div>
       {characters.map(character => (
-        <div key={character.id} className='mt-7 flex space-x-4'>
+        <div onClick={e => window.location = `/characters/${character.code}`} key={character.id} className='mt-7 flex space-x-4'>
           <div className='flex-none w-16'>
             <img src="./small_avatar.png" className='flex-none' />
           </div>
@@ -61,7 +64,9 @@ export default function () {
 
   return (
     <Container>
-      <Title>Meus Personagens</Title>
+      <div className='pt-10'>
+        <Title>Meus Personagens</Title>
+      </div>
 
       {characters.length > 0 ? <CharacterList characters={characters} /> : <NoCharactersDisplay />}
     </Container>

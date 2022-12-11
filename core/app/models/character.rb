@@ -74,6 +74,8 @@ class Character < ApplicationRecord
   has_many :character_items
   has_many :items, through: :character_items
 
+  has_secure_token :code
+
   def initial_grimo
     items.joins(:item_type).where(item_type: {
       permalink: 'grimo',
