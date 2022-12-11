@@ -38,7 +38,7 @@
 # Foreign Keys
 #
 #  fk_rails_...  (action_type_id => action_types.id)
-#  fk_rails_...  (attack_logic_id => attack_logics.id)
+#  fk_rails_...  (attack_logic_id => damage_types.id)
 #  fk_rails_...  (element_id => elements.id)
 #  fk_rails_...  (range_type_id => range_types.id)
 #

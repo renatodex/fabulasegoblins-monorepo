@@ -14,7 +14,7 @@ class CreateSpells < ActiveRecord::Migration[7.0]
       t.string :magic_cost
       t.integer :duration_time_number
       t.string :duration_time
-      t.references :attack_logic, null: false, foreign_key: true
+      t.references :attack_logic, null: false, index: true, foreign_key: { to_table: :damage_types }
       t.references :action_type, null: false, foreign_key: true
       t.string :cast_distance
       t.integer :cast_distance_number

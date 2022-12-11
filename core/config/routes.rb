@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   namespace :api do
     resources :damage_types, only: [:index, :show]
     resources :action_types, only: [:index, :show]
-    resources :attack_logics, only: [:index, :show]
     resources :sheet_attributes, only: [:index, :show]
     resources :character_inventorys, only: [:index, :show]
     resources :character_role_spells, only: [:index, :show]

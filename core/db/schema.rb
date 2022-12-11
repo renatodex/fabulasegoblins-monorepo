@@ -24,16 +24,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_061759) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "attack_logics", force: :cascade do |t|
-    t.string "title"
-    t.text "short_description"
-    t.text "long_description"
-    t.string "permalink"
-    t.text "book_url"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "character_items", force: :cascade do |t|
     t.bigint "character_id", null: false
     t.bigint "item_id", null: false
@@ -592,7 +582,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_061759) do
   add_foreign_key "specie_spells", "species"
   add_foreign_key "specie_spells", "spells"
   add_foreign_key "spells", "action_types"
-  add_foreign_key "spells", "attack_logics"
+  add_foreign_key "spells", "damage_types", column: "attack_logic_id"
   add_foreign_key "spells", "elements"
   add_foreign_key "spells", "range_types"
 end
