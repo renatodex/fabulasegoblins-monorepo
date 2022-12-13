@@ -4,7 +4,7 @@ import Logo from '../components/logo'
 import Link from '../components/link'
 import { useEffect, useState } from 'react'
 import Router from 'next/router'
-import useLogin from '../hooks/use_login'
+import useLogin from '../../hooks/use_login'
 
 function Login() {
   const [email, setEmail] = useState('')

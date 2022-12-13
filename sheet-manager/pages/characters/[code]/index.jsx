@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Container from '../../components/container';
 import { Title, Subtitle } from '../../components/title'
-import useLogin from '../../hooks/use_login'
+import useLogin from '../../../hooks/use_login'
 import Button from '../../components/button'
 import { useRouter } from 'next/router'
 import CharacterNavigation from '../_navigation'
