@@ -8,4 +8,8 @@ class SessionsController < Devise::SessionsController
       render json: { errors: { 'email or password' => ['is invalid'] } }, status: :unprocessable_entity
     end
   end
+
+  def new
+    render json: { success: true }
+  end
 end

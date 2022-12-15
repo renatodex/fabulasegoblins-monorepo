@@ -1,0 +1,25 @@
+# == Schema Information
+#
+# Table name: item_types
+#
+#  id                :bigint           not null, primary key
+#  book_url          :text
+#  long_description  :text
+#  permalink         :string
+#  short_description :text
+#  title             :string
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#
+
+one:
+  title: MyString
+  permalink: MyString
+  description: MyString
+  book_url: MyText
+
+two:
+  title: MyString
+  permalink: MyString
+  description: MyString
+  book_url: MyText

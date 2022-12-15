@@ -17,17 +17,18 @@ class ApplicationController < ActionController::Base
       authenticate_or_request_with_http_token do |token|
         begin
           jwt_payload = JWT.decode(token, Rails.application.secrets.secret_key_base).first
-
           @current_user_id = jwt_payload['id']
         rescue JWT::ExpiredSignature, JWT::VerificationError, JWT::DecodeError
-          head :unauthorized
+          render json: { error: 'Not Authorized' }, status: :unauthorized
         end
       end
     end
   end
 
   def authenticate_user!(options = {})
-    head :unauthorized unless signed_in?
+    unless signed_in?
+      render json: { error: 'Not Authorized' }, status: :unauthorized
+    end
   end
 
   def current_user

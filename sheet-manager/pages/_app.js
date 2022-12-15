@@ -3,6 +3,8 @@ import './components/waves'
 import Waves from './components/waves'
 import TendaDoGoblin from './components/tendadogoblin'
 import FlagBr from './components/flagbr'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -44,6 +46,8 @@ function MyApp({ Component, pageProps }) {
           </div>
         </div>
       </footer>
+
+      <ToastContainer />
     </div>
   )
 }
