@@ -6,56 +6,104 @@ import { BsArrowLeftCircle } from 'react-icons/bs'
 import Checkbox from '../components/checkbox'
 import Link from '../components/link'
 import Title from '../components/title'
+import { toast } from 'react-toastify'
+import { useState } from 'react'
+import Router from 'next/router'
 
 function Signup() {
-    return (
-        <div>
-            <Container>
-                <p>
-                    <a href="/">
-                        <span className='text-4xl float-left'><BsArrowLeftCircle></BsArrowLeftCircle></span>
-                        <span className='align-middle text-xl ml-3 mt-1 inline-block'>
-                            Voltar
-                        </span>
-                    </a>
-                </p>
-            </Container>
-            <div className="pt-14">
-                <Logo></Logo>
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [terms, setTerms] = useState(false)
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const response = await fetch("/api/users", {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ email, password })
+    })
+
+    const data = await response.json()
+
+    if (response.ok) {
+      Router.push('/login')
+      toast.success("Conta criada com sucesso.")
+    } else {
+      toast.error("Erro ao criar conta. Tente novamente.")
+    }
+  }
+
+  return (
+    <div>
+      <Container>
+        <p>
+          <a href="/">
+              <span className='text-4xl float-left'><BsArrowLeftCircle></BsArrowLeftCircle></span>
+              <span className='align-middle text-xl ml-3 mt-1 inline-block'>
+                  Voltar
+              </span>
+          </a>
+        </p>
+      </Container>
+      <div className="pt-14">
+        <Logo></Logo>
+      </div>
+      <Container>
+        <div className='mt-12'>
+            <div className='pt-10'>
+              <Title>Nova conta</Title>
             </div>
-            <Container>
-                <div className='mt-12'>
-                    <Title>Nova conta</Title>
-                </div>
-                <form action="">
-                    <div className='mt-7'>
-                        <Input label={'Nome'} placeholder='Ex: Fulano da Silva' type={'name'}> </Input>
-                    </div>
-                    <div className='mt-7'>
-                        <Input label={'Nickname'} placeholder='Ex: fulano29' type={'name'}> </Input>
-                    </div>
-                    <div className='mt-7'>
-                        <Input label={'E-mail'} placeholder='Ex: fulano29@gmail.com' type={'e-mail'}> </Input>
-                    </div>
-                    <div className='mt-7'>
-                        <Input label={'Senha'} placeholder='Ex: SenhaSecreta123' type={'password'}> </Input>
-                    </div>
-                    <div className='mt-7'>
-                        <Input label={'Confirme sua senha'} placeholder='Ex: SenhaSecreta123' type={'password'}> </Input>
-                    </div>
-                    <div className='mt-10'>
-                        <Checkbox>Estou de acordo com a <Link>Politica de Privacidade.</Link></Checkbox>
-                    </div>
-                    <div className='mt-5'>
-                        <Checkbox>Aceito receber novidades sobre a marca.</Checkbox>
-                    </div>
-                    <div className='mt-7'>
-                    <Button>Enviar</Button>
-                    </div>
-                </form>
-            </Container>
         </div>
-    )
+        <form action="" onSubmit={event => handleSubmit(event)}>
+          <div className='mt-7'>
+              <Input
+                  label={'Nome'}
+                  placeholder='Ex: Fulano da Silva'
+                  type={'name'}
+              />
+          </div>
+          <div className='mt-7'>
+              <Input
+                  onChange={e => setEmail(e.target.value)}
+                  label={'E-mail'}
+                  placeholder='Ex: fulano29@gmail.com'
+                  type={'e-mail'}
+              />
+          </div>
+          <div className='mt-7'>
+              <Input
+                  onChange={e => setPassword(e.target.value)}
+                  label={'Senha'}
+                  placeholder='Ex: SenhaSecreta123'
+                  type={'password'}
+              />
+          </div>
+          <div className='mt-7'>
+              <Input
+                  onChange={e => setConfirmPassword(e.target.value)}
+                  label={'Confirme sua senha'}
+                  placeholder='Ex: SenhaSecreta123'
+                  type={'password'}
+              />
+          </div>
+          <div className='mt-10'>
+              <Checkbox onChange={e => setTerms(e.target.checked)}>
+                  Estou de acordo com a <Link>Politica de Privacidade.</Link>
+              </Checkbox>
+          </div>
+          <div className='mt-5'>
+              <Checkbox>Aceito receber novidades sobre a marca.</Checkbox>
+          </div>
+          <div className='mt-7'>
+              <Button>Enviar</Button>
+          </div>
+        </form>
+      </Container>
+    </div>
+  )
 }
 
 export default Signup

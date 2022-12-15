@@ -1,0 +1,43 @@
+# == Schema Information
+#
+# Table name: character_roles
+#
+#  id                 :bigint           not null, primary key
+#  base_hp            :integer
+#  base_movement      :integer
+#  base_mp            :integer
+#  book_url           :text
+#  hp_per_level       :integer          default([]), is an Array
+#  long_description   :text
+#  mp_per_level       :integer          default([]), is an Array
+#  permalink          :string
+#  short_description  :text
+#  title              :string
+#  weapon_proficience :string
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#
+
+one:
+  title: MyString
+  permalink: MyString
+  description: MyText
+  base_hp: 1
+  base_mp: 1
+  base_movement: 1
+  weapon_proficience: MyString
+  hp_per_level: MyText
+  mp_per_level: MyText
+  book_url: MyText
+
+two:
+  title: MyString
+  permalink: MyString
+  description: MyText
+  base_hp: 1
+  base_mp: 1
+  base_movement: 1
+  weapon_proficience: MyString
+  hp_per_level: MyText
+  mp_per_level: MyText
+  book_url: MyText

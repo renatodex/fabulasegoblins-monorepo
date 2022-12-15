@@ -2,20 +2,49 @@ import Button from '../components/button'
 import Input from '../components/input'
 import Logo from '../components/logo'
 import Link from '../components/link'
+import { useEffect, useState } from 'react'
+import Router from 'next/router'
+import useLogin from '../../hooks/use_login'
 
 function Login() {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const { token, login } = useLogin()
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    login(email, password)
+  }
+
+  useEffect(() => {
+    if (token) {
+      Router.push('/characters')
+    }
+  }, [])
+
   return (
     <div>
       <div className="pt-14">
         <Logo></Logo>
       </div>
-      <div className="mx-10 mt-14">
+      <form className="mx-10 mt-14" onSubmit={event => handleSubmit(event)}>
         <div className="pt-10 text-lg">
           <div className='mt-4'>
-            <Input type='text' name='email' placeholder='e-mail'></Input>
+            <Input
+              type='text'
+              name='email'
+              placeholder='e-mail'
+              onChange={e => setEmail(e.target.value)}
+            />
           </div>
           <div className='mt-4'>
-            <Input type='password' name='password' placeholder='senha'></Input>
+            <Input
+              type='password'
+              name='password'
+              placeholder='senha'
+              onChange={e => setPassword(e.target.value)}
+            />
           </div>
         </div>
         <p className="pt-5 pl-3 text-sm ">Esqueceu sua senha? {' '}<Link href=''>Clique aqui</Link> para recuperar!</p>
@@ -31,7 +60,7 @@ function Login() {
             </div>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   )
 }

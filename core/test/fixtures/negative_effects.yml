@@ -1,0 +1,27 @@
+# == Schema Information
+#
+# Table name: negative_effects
+#
+#  id                :bigint           not null, primary key
+#  book_url          :text
+#  long_description  :text
+#  permalink         :string
+#  short_description :text
+#  title             :string
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#
+
+one:
+  title: MyString
+  short_description: MyText
+  long_description: MyText
+  permalink: MyString
+  book_url: MyText
+
+two:
+  title: MyString
+  short_description: MyText
+  long_description: MyText
+  permalink: MyString
+  book_url: MyText
