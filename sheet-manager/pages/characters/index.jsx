@@ -13,9 +13,6 @@ function NoCharactersDisplay () {
         <Subtitle>Você não tem personagens criados, que tal criar um?</Subtitle>
       </div>
 
-      <div className="mt-7">
-        <Button>Criar Personagem</Button>
-      </div>
     </div>
   )
 }
@@ -69,6 +66,11 @@ export default function () {
       </div>
 
       {characters.length > 0 ? <CharacterList characters={characters} /> : <NoCharactersDisplay />}
+
+      <div className="mt-7">
+        <Button>Criar Personagem</Button>
+      </div>
+
     </Container>
   )
 }
