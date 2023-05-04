@@ -3,6 +3,7 @@ import Container from '../components/container';
 import { Title, Subtitle } from '../components/title'
 import useLogin from '../../hooks/use_login'
 import Button from '../components/button'
+import Header from './components/header'
 
 function NoCharactersDisplay () {
   return (
@@ -61,6 +62,7 @@ export default function () {
 
   return (
     <Container>
+      <Header></Header>
       <div className='pt-10'>
         <Title>Meus Personagens</Title>
       </div>
