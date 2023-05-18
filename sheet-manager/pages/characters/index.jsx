@@ -70,7 +70,7 @@ export default function () {
       {characters.length > 0 ? <CharacterList characters={characters} /> : <NoCharactersDisplay />}
 
       <div className="mt-7">
-        <Button>Criar Personagem</Button>
+        <Button href={"../characters/new/culture"}>Criar Personagem</Button>
       </div>
 
     </Container>
