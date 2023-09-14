@@ -4,7 +4,7 @@ import { useState, useContext } from 'react'
 import { Title } from '../../components/title'
 import Button from '../../components/button'
 import { ScreenSlideContext } from '../../../src/contexts/screen_slide_context'
-import RoleCard from '../../../src/components/characters/role_card'
+import SectionCard from '../../../src/components/characters/section_card'
 
 export default function Role ({ character, setCharacter }) {
   const { setParentViewVisibility, setSubViewVisibility } = useContext(ScreenSlideContext)
@@ -57,7 +57,7 @@ export default function Role ({ character, setCharacter }) {
 
         <div className='grid grid-cols-2 gap-4 mt-10'>
           {roles.map(role => (
-            <RoleCard
+            <SectionCard
               key={role.permalink}
               item={role}
               folder={'roles'}

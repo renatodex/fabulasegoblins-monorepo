@@ -1,7 +1,7 @@
 import { Subtitle } from '../../../pages/components/title'
 import { BsPatchQuestion } from 'react-icons/bs'
 
-export default function ItemCard ({ item, folder, selectedItem, setSelectedItem }) {
+export default function SectionCard ({ item, folder, selectedItem, setSelectedItem }) {
   const selectedStyle = selectedItem == item.permalink ? "saturate-200" : "saturate-50"
 
   return (
