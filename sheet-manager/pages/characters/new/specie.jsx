@@ -6,37 +6,37 @@ import Button from '../../components/button'
 import { ScreenSlideContext } from '../../../src/contexts/screen_slide_context'
 import RoleCard from '../../../src/components/characters/role_card'
 
-export default function Role ({ character, setCharacter }) {
+export default function Specie ({ character, setCharacter }) {
   const { setParentViewVisibility, setSubViewVisibility } = useContext(ScreenSlideContext)
 
-  const [roles, setRoles] = useState([
+  const [species, setSpecies] = useState([
     {
-      name: 'Carregador',
-      permalink: 'carrier',
+      name: 'Goblins',
+      permalink: 'goblins',
     },
     {
-      name: 'Atirador',
-      permalink: 'shooter',
+      name: 'Armadons',
+      permalink: 'armadons',
     },
     {
-      name: 'Conjurador',
-      permalink: 'caster',
+      name: 'Metalóides',
+      permalink: 'metaloides',
     },
     {
-      name: 'Tanque',
-      permalink: 'tank',
+      name: 'Valdaris',
+      permalink: 'valdaris',
     },
     {
-      name: 'Suporte',
-      permalink: 'support',
+      name: 'Razalans',
+      permalink: 'razalans',
     },
     {
-      name: 'Utilitário',
-      permalink: 'utilitary',
+      name: 'Luminins',
+      permalink: 'luminins',
     },
   ])
 
-  const [selectedRole, setSelectedRole] = useState(null)
+  const [selectedSpecie, setSelectedSpecie] = useState(null)
 
   return (
     <motion.div
@@ -52,17 +52,17 @@ export default function Role ({ character, setCharacter }) {
     >
       <Container>
         <Title>
-          Escolha seu Papel de Jogo
+          Escolha sua Espécie
         </Title>
 
         <div className='grid grid-cols-2 gap-4 mt-10'>
-          {roles.map(role => (
+          {species.map(specie => (
             <RoleCard
-              key={role.permalink}
-              item={role}
-              folder={'roles'}
-              selectedItem={selectedRole?.permalink}
-              setSelectedItem={setSelectedRole}
+              key={specie.permalink}
+              item={specie}
+              folder={'species'}
+              selectedItem={selectedSpecie?.permalink}
+              setSelectedItem={setSelectedSpecie}
             />
           ))}
         </div>
@@ -73,7 +73,7 @@ export default function Role ({ character, setCharacter }) {
             setParentViewVisibility(true)
             setCharacter({
               ...character,
-              role: selectedRole,
+              specie: selectedSpecie,
             })
           }}>
             Próximo

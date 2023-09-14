@@ -7,6 +7,7 @@ export default function ScreenSlideProvider ({ children }) {
   const [subViewX, setSubViewX] = useState("100%")
   const [parentViewVisibility, setParentViewVisibility] = useState(true)
   const [subViewVisibility, setSubViewVisibility] = useState(false)
+  const [selectedSubView, setSelectedSubView] = useState(null)
 
   return (
     <ScreenSlideContext.Provider value={{
@@ -18,6 +19,8 @@ export default function ScreenSlideProvider ({ children }) {
       setParentViewVisibility: setParentViewVisibility,
       subViewVisibility: subViewVisibility,
       setSubViewVisibility: setSubViewVisibility,
+      selectedSubView: selectedSubView,
+      setSelectedSubView: setSelectedSubView,
     }}>
       <div>
         {children}

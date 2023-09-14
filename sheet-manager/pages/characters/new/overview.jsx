@@ -1,10 +1,38 @@
 import Container from "../../components/container"
-import { AnimatePresence, motion } from "framer-motion"
+import { motion } from "framer-motion"
 import { ScreenSlideContext } from '../../../src/contexts/screen_slide_context'
 import { useContext } from 'react'
 
+export function CharacterSection ({ label, subView, item, onSectionClick }) {
+  return (
+    <div
+      className="mt-10 rounded bg-gray-600 border border-solid border-white p-4 bg-cover bg-center"
+      style={{ backgroundImage: `url('/${subView.toLowerCase()}/${item?.permalink}.jpg')`}}
+      onClick={e => {
+        onSectionClick(subView)
+      }}
+    >
+      {item ? (
+          <span>
+            {label}: {item?.name}
+          </span>
+        ) : (
+          <span>
+            {label}: Não selecionado
+          </span>
+        )}
+    </div>
+  )
+}
+
 export default function Overview ({ character, setCharacter = function () {} }) {
-  const { setSubViewVisibility, setParentViewVisibility } = useContext(ScreenSlideContext)
+  const { setSubViewVisibility, setParentViewVisibility, setSelectedSubView } = useContext(ScreenSlideContext)
+
+  const onSectionClick = function (subView) {
+    setParentViewVisibility(false)
+    setSubViewVisibility(true)
+    setSelectedSubView(subView)
+  }
 
   return (
     <motion.div
@@ -20,26 +48,19 @@ export default function Overview ({ character, setCharacter = function () {} }) 
       }}
     >
       <Container>
-        <div className="mt-10 border border-solid border-white p-4" onClick={e => {
-          setParentViewVisibility(false)
-          setSubViewVisibility(true)
-        }}>
-          {character?.role ? (
-              <span>
-                Papel de Jogo: {character?.role}
-              </span>
-            ) : (
-              <span>
-                Papel de Jogo: Não selecionado
-              </span>
-            )}
-        </div>
-        <div className="mt-10 border border-solid border-white p-4" onClick={e => {
-          setParentViewVisibility(false)
-          setSubViewVisibility(true)
-        }}>
-          Especies
-        </div>
+        <CharacterSection
+          label={'Espécie'}
+          subView={'Species'}
+          item={character?.specie}
+          onSectionClick={onSectionClick}
+        />
+
+        <CharacterSection
+          label={'Papel de Jogo'}
+          subView={'Roles'}
+          item={character?.role}
+          onSectionClick={onSectionClick}
+        />
       </Container>
     </motion.div>
   )
