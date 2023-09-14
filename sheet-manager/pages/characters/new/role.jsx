@@ -1,13 +1,13 @@
 import Container from "../../components/container"
-import { motion } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 import { useState, useContext } from 'react'
 import { Title } from '../../components/title'
 import Button from '../../components/button'
 import { ScreenSlideContext } from '../../../src/contexts/screen_slide_context'
 import RoleCard from '../../../src/components/characters/role_card'
 
-export default function Role () {
-  const { subViewX, setSubViewX, setParentViewX } = useContext(ScreenSlideContext)
+export default function Role ({ character, setCharacter }) {
+  const { setParentViewVisibility, setSubViewVisibility } = useContext(ScreenSlideContext)
 
   const [roles, setRoles] = useState([
     {
@@ -44,7 +44,10 @@ export default function Role () {
         x: "100%"
       }}
       animate={{
-        x: subViewX
+        x: 0,
+      }}
+      exit={{
+        x: "100%"
       }}
     >
       <Container>
@@ -65,8 +68,13 @@ export default function Role () {
 
         <div className="mt-7">
           <Button onClick={e => {
-            setParentViewX(0)
-            setSubViewX("100%")
+            setSubViewVisibility(false)
+            setParentViewVisibility(true)
+            console.log(selectedRole)
+            setCharacter({
+              ...character,
+              role: selectedRole,
+            })
           }}>
             Próximo
           </Button>
