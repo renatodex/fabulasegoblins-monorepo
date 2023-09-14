@@ -1,15 +1,15 @@
-import Container from "../../components/container"
+import Container from "../../../components/container"
 import { motion } from "framer-motion"
 import { useState, useContext } from 'react'
-import { Title } from '../../components/title'
-import Button from '../../components/button'
-import { ScreenSlideContext } from '../../../src/contexts/screen_slide_context'
-import SectionCard from '../../../src/components/characters/section_card'
+import { Title } from '../../../components/title'
+import Button from '../../../components/button'
+import { ScreenSlideContext } from '../../../../src/contexts/screen_slide_context'
+import SectionCard from '../../../../src/components/characters/section_card'
 
-export default function Specie ({ character, setCharacter }) {
+export default function Culture ({ character, setCharacter }) {
   const { setParentViewVisibility, setSubViewVisibility } = useContext(ScreenSlideContext)
 
-  const [species, setSpecies] = useState([
+  const [cultures, setCultures] = useState([
     {
       name: 'Goblins',
       permalink: 'goblins',
