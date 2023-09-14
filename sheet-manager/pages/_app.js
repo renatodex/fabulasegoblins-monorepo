@@ -5,10 +5,15 @@ import TendaDoGoblin from './components/tendadogoblin'
 import FlagBr from './components/flagbr'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Head from 'next/head'
 
 function MyApp({ Component, pageProps }) {
   return (
     <div id="app" className="bg-gunmetal h-screen">
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
+
       <header>
         <div className="h-8 bg-aero-blue"></div>
       </header>

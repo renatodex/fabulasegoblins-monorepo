@@ -20,4 +20,8 @@ module.exports = {
     },
   },
   plugins: [],
+  safelist: [
+    'saturate-50',
+    'saturate-200',
+  ]
 }
