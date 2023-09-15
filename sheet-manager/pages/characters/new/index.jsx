@@ -1,7 +1,8 @@
 import { useContext, useState } from 'react'
-import ScreenSlideProvider, { ScreenSlideContext } from '../../../src/contexts/screen_slide_context'
-import Role from './role'
-import Specie from './specie'
+import ScreenSlideProvider, { ScreenSlideContext } from '@/src/contexts/screen_slide_context'
+import Role from './steps/role'
+import Specie from './steps/specie'
+import Culture from './steps/culture'
 import Overview from './overview'
 import { AnimatePresence } from 'framer-motion'
 
@@ -16,14 +17,20 @@ export function Views () {
     specie: {
       name: null,
       permalink: 'default'
+    },
+    culture: {
+      name: null,
+      permalink: 'default'
     }
   })
 
   const renderSubView = function () {
     if (selectedSubView == 'Roles') {
       return <Role character={character} setCharacter={setCharacter} />
-    } else if(selectedSubView == 'Species') {
+    } else if (selectedSubView == 'Species') {
       return <Specie character={character} setCharacter={setCharacter} />
+    } else if (selectedSubView == 'Cultures') {
+      return <Culture character={character} setCharacter={setCharacter} /> 
     }
   }
 

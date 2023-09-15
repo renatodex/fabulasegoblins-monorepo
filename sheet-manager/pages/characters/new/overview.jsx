@@ -1,6 +1,6 @@
-import Container from "../../components/container"
+import Container from "@/pages/components/container"
 import { motion } from "framer-motion"
-import { ScreenSlideContext } from '../../../src/contexts/screen_slide_context'
+import { ScreenSlideContext } from '@/src/contexts/screen_slide_context'
 import { useContext } from 'react'
 
 export function CharacterSection ({ label, subView, item, onSectionClick }) {
@@ -61,6 +61,14 @@ export default function Overview ({ character, setCharacter = function () {} }) 
           item={character?.role}
           onSectionClick={onSectionClick}
         />
+
+        <CharacterSection
+          label={'Cultura'}
+          subView={'Cultures'}
+          item={character?.culture}
+          onSectionClick={onSectionClick}
+        />
+
       </Container>
     </motion.div>
   )
