@@ -1,42 +1,58 @@
-import Container from "../../../components/container"
+import Container from '@/pages/components/container'
 import { motion } from "framer-motion"
 import { useState, useContext } from 'react'
-import { Title } from '../../../components/title'
-import Button from '../../../components/button'
-import { ScreenSlideContext } from '../../../../src/contexts/screen_slide_context'
-import SectionCard from '../../../../src/components/characters/section_card'
+import { Title } from '@/pages/components/title'
+import Button from '@/pages/components/button'
+import { ScreenSlideContext } from '@/src/contexts/screen_slide_context'
+import SectionCard from '@/src/components/characters/section_card'
 
 export default function Culture ({ character, setCharacter }) {
   const { setParentViewVisibility, setSubViewVisibility } = useContext(ScreenSlideContext)
 
   const [cultures, setCultures] = useState([
     {
-      name: 'Goblins',
-      permalink: 'goblins',
+      name: 'Filhos do Orvalho',
+      permalink: 'orvalho',
     },
     {
-      name: 'Armadons',
-      permalink: 'armadons',
+      name: 'Filhos das Areias',
+      permalink: 'areias',
     },
     {
-      name: 'Metalóides',
-      permalink: 'metaloides',
+      name: 'Filhos de Caldera',
+      permalink: 'caldera',
     },
     {
-      name: 'Valdaris',
-      permalink: 'valdaris',
+      name: 'Filhos de Arcádia',                                
+      permalink: 'arcadia',
+    },            
+    {
+      name: 'Filhos das Ilhas',
+      permalink: 'ilhas',
     },
     {
-      name: 'Razalans',
-      permalink: 'razalans',
+      name: 'Filhos do Subterrâneo',
+      permalink: 'subterraneo',
     },
     {
-      name: 'Luminins',
-      permalink: 'luminins',
+      name: 'Filhos da Tempestade',  
+      permalink: 'tempestade',
+    },
+    {
+      name: 'Filhos do Povo Livre',
+      permalink: 'povolivre',
+    },
+    {
+      name: 'Filhos de Eregor',
+      permalink: 'eregor',
+    },
+    {
+      name: 'Filhos de Timéria',
+      permalink: 'timeria',
     },
   ])
 
-  const [selectedSpecie, setSelectedSpecie] = useState(null)
+  const [selectedCulture, setSelectedCulture] = useState(null)
 
   return (
     <motion.div
@@ -52,17 +68,17 @@ export default function Culture ({ character, setCharacter }) {
     >
       <Container>
         <Title>
-          Escolha sua Espécie
+          Escolha sua Cultura
         </Title>
 
         <div className='grid grid-cols-2 gap-4 mt-10'>
-          {species.map(specie => (
+          {cultures.map(culture => (
             <SectionCard
-              key={specie.permalink}
-              item={specie}
-              folder={'species'}
-              selectedItem={selectedSpecie?.permalink}
-              setSelectedItem={setSelectedSpecie}
+              key={culture.permalink}
+              item={culture}
+              folder={'cultures'}
+              selectedItem={selectedCulture?.permalink}
+              setSelectedItem={setSelectedCulture}
             />
           ))}
         </div>
@@ -73,7 +89,7 @@ export default function Culture ({ character, setCharacter }) {
             setParentViewVisibility(true)
             setCharacter({
               ...character,
-              specie: selectedSpecie,
+              culture: selectedCulture,
             })
           }}>
             Próximo
