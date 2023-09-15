@@ -6,7 +6,6 @@ import Culture from './steps/culture'
 import Overview from './overview'
 import { AnimatePresence } from 'framer-motion'
 
-
 export function Views () {
   const { parentViewVisibility, subViewVisibility, selectedSubView } = useContext(ScreenSlideContext)
 
@@ -34,7 +33,7 @@ export function Views () {
       return <Culture character={character} setCharacter={setCharacter} /> 
     }
   }
-  
+
   return (
     <AnimatePresence initial={false}>
       {parentViewVisibility && <Overview character={character} setCharacter={setCharacter} />}
