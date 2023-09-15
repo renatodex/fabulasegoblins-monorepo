@@ -19,7 +19,7 @@ export function CharacterSection ({ label, subView, item, onSectionClick }) {
         ) : (
           <span>
             {label}: Não selecionado
-          </span>  
+          </span>
         )}
     </div>
   )
