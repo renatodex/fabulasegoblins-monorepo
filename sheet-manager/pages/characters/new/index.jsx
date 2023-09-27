@@ -3,6 +3,7 @@ import ScreenSlideProvider, { ScreenSlideContext } from '@/src/contexts/screen_s
 import Role from './steps/role'
 import Specie from './steps/specie'
 import Culture from './steps/culture'
+import Grimo from './steps/grimo'
 import Overview from './overview'
 import { AnimatePresence } from 'framer-motion'
 
@@ -21,7 +22,11 @@ export function Views () {
     culture: {
       name: null,
       permalink: 'default'
-    }
+    },
+    grimo: {
+      name: null,
+      permalink: 'default'
+    },
   })
 
   const renderSubView = function () {
@@ -31,6 +36,8 @@ export function Views () {
       return <Specie character={character} setCharacter={setCharacter} />
     } else if (selectedSubView == 'Cultures') {
       return <Culture character={character} setCharacter={setCharacter} /> 
+    } else if (selectedSubView == 'Grimos') {
+      return <Grimo character={character} setCharacter={setCharacter} /> 
     }
   }
 
