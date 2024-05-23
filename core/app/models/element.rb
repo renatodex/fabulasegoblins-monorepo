@@ -10,7 +10,7 @@
 #  title              :string
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
-#  negative_effect_id :bigint           not null
+#  negative_effect_id :bigint
 #  resistant_to_id    :bigint
 #  weak_to_id         :bigint
 #
@@ -29,7 +29,7 @@
 class Element < ApplicationRecord
   belongs_to :weak_to, class_name: "Element", optional: true
   belongs_to :resistant_to, class_name: "Element", optional: true
-  belongs_to :negative_effect
+  belongs_to :negative_effect, optional: true
 
   class << self
     def fire

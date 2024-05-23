@@ -10,7 +10,7 @@
 #  title              :string
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
-#  negative_effect_id :bigint           not null
+#  negative_effect_id :bigint
 #  resistant_to_id    :bigint
 #  weak_to_id         :bigint
 #

@@ -42,6 +42,7 @@ end
 
 # Criando Culturas
 [
+  { permalink: "filhos-do-orvalho", title: "Filhos do Orvalho", short_description: "Nascidos em pequenos vilarejos ou reinos situados no interior de matas densas, os Filhos da Floresta, a exemplo dos Galanorianos, estão acostumados com a presença da vida selvagem a sua porta.", key_values: "Sobrevivência, Agilidade, Intelecto", clothes_description: "Fibras de Folhas, Peles de Animais, e Couro vegetal", common_divinities: "Musgom, Gumera, Ogoron", bonuses: "Sobrevivência +1, Agilidade +1, Intelecto +1, P.M +2"},
   { permalink: "filhos-das-areias", title: "Filhos das Areias", short_description: "Os Filhos do Deserto representam os povos que habitam as terras áridas e quentes. Suas cidades são verdadeiros Oasis em meio a imensidão de areia e pedra, e sua cultura é marcada pela sobrevivência e pela força.", key_values: "Resiliência, Força, Sobrevivência", clothes_description: "Túnicas Leves, Trajes acolchoados, e Fibra de Cacto", common_divinities: "Moltron, Valamir, Valeon", bonuses: "Resiliência +1, Sobrevivência +1, Força +1, P.V +4"},
   { permalink: "filhos-de-caldera", title: "Filhos da Caldera", short_description: "Acostumados a passar meses velejando no extenso e inexplorado mar de Caldera, esses Aventureiros estão desacostumados com a comodidade da Terra. Reinos portuários como Tol'Deran, Nuvenar e Celendor são com certeza a única porção de terra que eles podem considerar como um \"Porto Seguro\", e até, talvez, chamar de lar.", key_values: "Exploração, Adaptação, Disciplina", clothes_description: "Trajes Leves e Quentes, Tecidos a base de Algodão e Couro especiais para baixas temperaturas", common_divinities: "Ehphyros, Valis, Estiros", bonuses: "Agilidade +1, Influência +1, Resiliência +1, Iniciativa +2"},
   { permalink: "filhos-de-arcadia", title: "Filhos de Arcádia", short_description: "Tudo é diferente no mundo acima das Núvens. E nas Terras Místicas, não é só a vida selvagem que conseguiu se adaptar nas altas altitudes. Parar viver neste mundo, você não precisa necessariamente ter nascido como uma criatura alada, assim como os Razalans e os Luminins, pois qualquer um, até mesmo Goblins podem se aventurar nas alturas do continente flutuante Arcádia.", key_values: "Estudo, Conhecimento, Inovação", clothes_description: "Túnicas chamativas com Algodão Oxidado, Trajes de Frio com muitas camadas", common_divinities: "Zaravos, Ysanar, Qabalis", bonuses: "Intelecto +1, Elo Mágico +1, Destino +1, P.M +3"},
@@ -84,8 +85,24 @@ end
   { title: "Ativa", permalink: 'active', short_description: "Ações ativas custam uma ação para ser utilizada. Em um combate, um personagem pode realizar uma Ação Maior, uma Menor, e muitas Ações Livres, mas todos esses sub-tipos estão contemplados dentro da Ação Ativa." },
   { title: "Passiva", permalink: 'passive', short_description: "Ações passivas não só não custam uma ação menor ou maior para serem realizadas, como também estão ativas o tempo todo, sem que uma ativação explicita seja necessária." },
   { title: "Reação", permalink: 'reaction', short_description: "Diferente das Ações Ativas, as Ações de Reação podem ser utilizadas em resposta a um determinado evento especificado. Geralmente inimigos do tipo Nêmesis possuem muitas Ações de Reação." },
+  { title: "Movimento", permalink: 'movement', short_description: "Essas Ações são usadas no lugar ou em conjunto com ações de movimento." },
+  { title: "Ritual", permalink: 'ritual', short_description: "Ações do tipo Ritual são ações bastante complexas que geralmente exigem um grande tempo de execução e não podem ser realizadas em combate." },
+  { title: "Aprimoramento", permalink: 'upgrade', short_description: "Aprimoramento não é bem uma Ação, mas é uma forma inteligente para mensurar poderes que são 'Evoluções' ou 'Upgrades' de outros poderes." },
+  { title: "Inicial", permalink: 'initial', short_description: "Ações Iniciais são para descrever 'Poderes' que concedem características iniciais aos personagens. Elas se resolvem na hora que são adicionadas e deixam de ser poderes depois." },
+  { title: "Instância", permalink: 'instance', short_description: "Instância é um subtipo de Ação Ativa, usada para descrever poderes que, ao serem usados, se mantém ativos indeterminadamente até serem substituidos ou cancelados pelo conjurador." },
 ].each do |action_type|
   ActionType.create!(action_type.merge({long_description: action_type[:short_description]}))
+end
+
+# Criando Tipos de Ação (não usado ainda)
+[
+  { title: "Física", permalink: 'physical', short_description: "Ações que utilizam capacidades de origem físicas, como atacar com uma Arma ou um Bastão." },
+  { title: "Mágica", permalink: 'magical', short_description: "Ações que utilizam capacidades de origem mágicas, como conjurar uma magia ou ritual." },
+  { title: "Mista", permalink: 'mixed', short_description: "Ações que utilizam ambas capacidades físicas e mágicas." },
+  { title: "Indefinida", permalink: 'notset', short_description: "Ações que não possuem uma definição." },
+  { title: "Nenhuma", permalink: 'none', short_description: "Ações que exigem capacidades nem físicas nem mágicas." },
+].each do |action_type|
+  AttackLogic.create!(action_type.merge({long_description: action_type[:short_description]}))
 end
 
 # Criando Tipos de Alcance
@@ -102,6 +119,8 @@ end
   { title:"Multiplos Alvos", permalink: "targets", short_description: "O conjurador casta a habilidade contra múltiplos alvos." },
   { title:"Linha", permalink: "line", short_description: "A magia é lançada em uma linha reta." },
   { title:"Area Poligonal", permalink: "polygon_area", short_description: "Essa magia tem uma área de efeito customizada, podendo variar bastante." },
+  { title:"Misto", permalink: "mixed", short_description: "Essa magia tem múltiplas variações de tipo de alcance." },
+  { title:"Global", permalink: "global", short_description: "Essa magia sempre afeta todos os alvos participando do combate." },
 ].each do |range_type|
   RangeType.create!(range_type.merge({long_description: range_type[:short_description]}))
 end
@@ -168,7 +187,7 @@ elements = [
   {title: "Ácido", permalink: "acid",	short_description: "Controla os elementos Tóxicos e Ácidos com alto poder de corrosão.", weak_to_proc: lambda { Element.wind }, resistant_to_proc: lambda { Element.nature }, negative_effect: NegativeEffect.corrode },
   {title: "Arcano", permalink: "arcane",	short_description: "Controla a Mágia das Estrelas e a essência do Magiverso.", weak_to_proc: lambda { Element.chaos }, resistant_to_proc: lambda { Element.chaos }, negative_effect: NegativeEffect.silence },
   {title: "Caos", permalink: "chaos",	short_description: "Controla a instabilidade da Magia Caótica, com efeitos intensos e inesperados.", weak_to_proc: lambda { Element.arcane }, resistant_to_proc: lambda { Element.arcane }, negative_effect: NegativeEffect.control },
-  {title: "Trovão", permalink: "thunder",	short_description: "Controla a estática e a eletricidade inerente na matéria do mundo.", weak_to_proc: lambda { Element.materia }, resistant_to_proc: lambda { Element.water }, negative_effect: NegativeEffect.paralize },
+  {title: "Trovão", permalink: "eletric",	short_description: "Controla a estática e a eletricidade inerente na matéria do mundo.", weak_to_proc: lambda { Element.materia }, resistant_to_proc: lambda { Element.water }, negative_effect: NegativeEffect.paralize },
   {title: "Fogo", permalink: "fire",	short_description: "Controla o calor primordial e destruidor do Fogo e da Lava.", weak_to_proc: lambda { Element.water }, resistant_to_proc: lambda { Element.ice }, negative_effect: NegativeEffect.burn },
   {title: "Gelo", permalink: "ice",	short_description: "Controla o frio implacável, o Gelo puro e matéria congelada.", weak_to_proc: lambda { Element.fire }, resistant_to_proc: lambda { Element.materia }, negative_effect: NegativeEffect.slow },
   {title: "Luz", permalink: "holy",	short_description: "Controla a Magia da Luz e a essência do Divino.", weak_to_proc: lambda { Element.darkness }, resistant_to_proc: lambda { Element.darkness }, negative_effect: NegativeEffect.purge },
@@ -176,6 +195,7 @@ elements = [
   {title: "Natureza", permalink: "nature",	short_description: "Controla a vida verde, a flora e suas raízes.", weak_to_proc: lambda { Element.acid }, resistant_to_proc: lambda { Element.wind }, negative_effect: NegativeEffect.constrict },
   {title: "Trevas", permalink: "darkness",	short_description: "Controla a Magia proibida das Trevas.", weak_to_proc: lambda { Element.holy }, resistant_to_proc: lambda { Element.holy }, negative_effect: NegativeEffect.terror },
   {title: "Vento", permalink: "wind",	short_description: "Controla o Ar, a força da densidade e as correntes.", weak_to_proc: lambda { Element.nature }, resistant_to_proc: lambda { Element.acid }, negative_effect: NegativeEffect.push },
+  {title: "Nenhum", permalink: "none",	short_description: "Este poder não possui elemento.", weak_to_proc: lambda { }, resistant_to_proc: lambda { } },
 ]
 elements.each do |element|
   Element.create!(
@@ -192,6 +212,11 @@ elements.each do |element|
     permalink: element[:permalink],
   ).update!(element.except(:weak_to_proc, :resistant_to_proc))
 end
+
+# Sincronizando TODAS MAGIAS do livro
+spells_attributes = SyncSpellsFromBook.new.call
+puts "INSERINDO MAGIAS..."
+Spell.insert_all(spells_attributes)
 
 # Criando Personagem de Exemplo
 Character.create!(
