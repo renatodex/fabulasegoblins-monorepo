@@ -69,6 +69,13 @@ export default function Overview ({ character, setCharacter = function () {} }) 
           onSectionClick={onSectionClick}
         />
 
+        <CharacterSection
+          label={'Grimo'}
+          subView={'Grimos'}
+          item={character?.grimo}
+          onSectionClick={onSectionClick}
+        />
+
       </Container>
     </motion.div>
   )
