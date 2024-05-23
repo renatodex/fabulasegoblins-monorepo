@@ -9,9 +9,7 @@ class ApiController < ApplicationController
 
   def index
     ensure_resource
-
-    data = resource.all.page(params[:page].presence || 0)
-
+    data = resource.ransack(params[:q]).result.page(params[:page].presence || 0)
     response.set_header('X-Total', data.total_count)
     response.set_header('X-LastPage', data.last_page?)
 

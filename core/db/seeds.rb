@@ -94,6 +94,17 @@ end
   ActionType.create!(action_type.merge({long_description: action_type[:short_description]}))
 end
 
+# Criando Tipos de Ação (não usado ainda)
+[
+  { title: "Física", permalink: 'physical', short_description: "Ações que utilizam capacidades de origem físicas, como atacar com uma Arma ou um Bastão." },
+  { title: "Mágica", permalink: 'magical', short_description: "Ações que utilizam capacidades de origem mágicas, como conjurar uma magia ou ritual." },
+  { title: "Mista", permalink: 'mixed', short_description: "Ações que utilizam ambas capacidades físicas e mágicas." },
+  { title: "Indefinida", permalink: 'notset', short_description: "Ações que não possuem uma definição." },
+  { title: "Nenhuma", permalink: 'none', short_description: "Ações que exigem capacidades nem físicas nem mágicas." },
+].each do |action_type|
+  AttackLogic.create!(action_type.merge({long_description: action_type[:short_description]}))
+end
+
 # Criando Tipos de Alcance
 [
   { title:"Alvo", permalink: "target", short_description: "Essa magia tem como foco específico um alvo, ela é travada no alvo de forma que, mesmo que o alvo se mova, ela irá acertá-lo." },
@@ -108,6 +119,8 @@ end
   { title:"Multiplos Alvos", permalink: "targets", short_description: "O conjurador casta a habilidade contra múltiplos alvos." },
   { title:"Linha", permalink: "line", short_description: "A magia é lançada em uma linha reta." },
   { title:"Area Poligonal", permalink: "polygon_area", short_description: "Essa magia tem uma área de efeito customizada, podendo variar bastante." },
+  { title:"Misto", permalink: "mixed", short_description: "Essa magia tem múltiplas variações de tipo de alcance." },
+  { title:"Global", permalink: "global", short_description: "Essa magia sempre afeta todos os alvos participando do combate." },
 ].each do |range_type|
   RangeType.create!(range_type.merge({long_description: range_type[:short_description]}))
 end
@@ -174,7 +187,7 @@ elements = [
   {title: "Ácido", permalink: "acid",	short_description: "Controla os elementos Tóxicos e Ácidos com alto poder de corrosão.", weak_to_proc: lambda { Element.wind }, resistant_to_proc: lambda { Element.nature }, negative_effect: NegativeEffect.corrode },
   {title: "Arcano", permalink: "arcane",	short_description: "Controla a Mágia das Estrelas e a essência do Magiverso.", weak_to_proc: lambda { Element.chaos }, resistant_to_proc: lambda { Element.chaos }, negative_effect: NegativeEffect.silence },
   {title: "Caos", permalink: "chaos",	short_description: "Controla a instabilidade da Magia Caótica, com efeitos intensos e inesperados.", weak_to_proc: lambda { Element.arcane }, resistant_to_proc: lambda { Element.arcane }, negative_effect: NegativeEffect.control },
-  {title: "Trovão", permalink: "thunder",	short_description: "Controla a estática e a eletricidade inerente na matéria do mundo.", weak_to_proc: lambda { Element.materia }, resistant_to_proc: lambda { Element.water }, negative_effect: NegativeEffect.paralize },
+  {title: "Trovão", permalink: "eletric",	short_description: "Controla a estática e a eletricidade inerente na matéria do mundo.", weak_to_proc: lambda { Element.materia }, resistant_to_proc: lambda { Element.water }, negative_effect: NegativeEffect.paralize },
   {title: "Fogo", permalink: "fire",	short_description: "Controla o calor primordial e destruidor do Fogo e da Lava.", weak_to_proc: lambda { Element.water }, resistant_to_proc: lambda { Element.ice }, negative_effect: NegativeEffect.burn },
   {title: "Gelo", permalink: "ice",	short_description: "Controla o frio implacável, o Gelo puro e matéria congelada.", weak_to_proc: lambda { Element.fire }, resistant_to_proc: lambda { Element.materia }, negative_effect: NegativeEffect.slow },
   {title: "Luz", permalink: "holy",	short_description: "Controla a Magia da Luz e a essência do Divino.", weak_to_proc: lambda { Element.darkness }, resistant_to_proc: lambda { Element.darkness }, negative_effect: NegativeEffect.purge },
@@ -182,6 +195,7 @@ elements = [
   {title: "Natureza", permalink: "nature",	short_description: "Controla a vida verde, a flora e suas raízes.", weak_to_proc: lambda { Element.acid }, resistant_to_proc: lambda { Element.wind }, negative_effect: NegativeEffect.constrict },
   {title: "Trevas", permalink: "darkness",	short_description: "Controla a Magia proibida das Trevas.", weak_to_proc: lambda { Element.holy }, resistant_to_proc: lambda { Element.holy }, negative_effect: NegativeEffect.terror },
   {title: "Vento", permalink: "wind",	short_description: "Controla o Ar, a força da densidade e as correntes.", weak_to_proc: lambda { Element.nature }, resistant_to_proc: lambda { Element.acid }, negative_effect: NegativeEffect.push },
+  {title: "Nenhum", permalink: "none",	short_description: "Este poder não possui elemento.", weak_to_proc: lambda { }, resistant_to_proc: lambda { } },
 ]
 elements.each do |element|
   Element.create!(
@@ -198,6 +212,11 @@ elements.each do |element|
     permalink: element[:permalink],
   ).update!(element.except(:weak_to_proc, :resistant_to_proc))
 end
+
+# Sincronizando TODAS MAGIAS do livro
+spells_attributes = SyncSpellsFromBook.new.call
+puts "INSERINDO MAGIAS..."
+Spell.insert_all(spells_attributes)
 
 # Criando Personagem de Exemplo
 Character.create!(

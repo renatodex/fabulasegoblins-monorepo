@@ -1,2 +1,0 @@
-class ActionLogic < ApplicationRecord
-end

@@ -1,9 +1,15 @@
 class SyncSpellsFromBook
+  def get_spells
+    @spells ||= (
+      spells = HTTParty.get("https://www.fabulasegoblins.com.br/spells.json")
+      spells.filter { |sp| sp["tags"].present? }
+    )
+  end
+
   def call
-    spells = HTTParty.get("https://www.fabulasegoblins.com.br/spells.json")
-    spells.filter { |sp| sp["tags"].present? }.map do |spell|
+    get_spells.map do |spell|
       object = find_object(spell)
-      Spell.new(
+      {
         book_url: object&.book_url || nil,
         cast_distance: spell["cast_distance"],
         cast_distance_number: spell["cast_distance"],
@@ -17,16 +23,18 @@ class SyncSpellsFromBook
         range_amount: spell["range_amount"],
         sacrifice: (spell["tags"] || []).include?("sacrifice"),
         short_description: spell["caption"],
-        tags: spell["tags"],
+        tags: (spell["tags"] || []).join(","),
         title: spell["name"],
         ultimate: (spell["tags"] || []).include?("ultimate"),
         external_id: spell["id"],
-        tier: 1,
-        action_type_id: '',
-        attack_logic_id: '',
-        range_type_id: '',
-        element_id: '',
-      )
+        tier: spell["tier"],
+        action_type_id: find_action_type(spell)&.id,
+        attack_logic_id: find_attack_logic(spell)&.id,
+        range_type_id: find_range_type(spell)&.id,
+        element_id: find_element(spell)&.id,
+        created_at: Time.now,
+        updated_at: Time.now
+      }
     end
   end
 
@@ -48,6 +56,80 @@ class SyncSpellsFromBook
     return 'specie' if find_race_by_tags(spell['tags'])
     return 'culture' if find_culture_by_tags(spell['tags'])
     return 'unknown'
+  end
+
+  def find_action_type(spell)
+    action_map = {
+      "Passiva" => "Passiva",
+      "Ativa" => "Ativa",
+      "Inicial" => "Inicial",
+      "Passive" => "Passiva",
+      "Reação" => "Reação",
+      "Aprimoramento" => "Aprimoramento",
+      "Mágico" => "Ativa",
+      "Ritual" => "Ritual",
+      "Ação" => "Ativa",
+      "Instância" => "Instância",
+      "Movimento" => "Movimento",
+      "Ativa e Reação" => "Reação",
+      "Ação e Reação" => "Reação",
+    }
+
+    match = action_map[spell['action_type']]
+    return if match.blank?
+    ActionType.find_by(title: match)
+  end
+
+  def find_attack_logic(spell)
+    logic_map = {
+      "Mágico" => "Mágica",
+      "Físico" => "Física",
+      "Ativa" => "Indefinida",
+      "" => "Nenhuma",
+      "Misto" => "Mista",
+      "Mágica" => "Mágica",
+      "Ritual" => "Mágica",
+      "Aprimoramento" => "Indefinida",
+      nil => "Nenhuma"
+    }
+
+    match = logic_map[spell['attack_logic']]
+    return if match.blank?
+    AttackLogic.find_by(title: match)
+  end
+
+  def find_range_type(spell)
+    range_map = {
+      "Alvo" => "Alvo",
+      "Sí mesmo" => "Sí mesmo",
+      "Misto" => "Misto",
+      "Centro" => "Circular",
+      "Ponto" => "Ponto",
+      "Área" => "Área",
+      "Alvo/Área" => "Misto",
+      "Linha" => "Linha",
+      "Objeto" => "Alvo",
+      "Si mesmo" => "Sí mesmo",
+      "" => "Nenhum",
+      nil => "Nenhum",
+      "Corpo-a-Corpo" => "Corpo-a-Corpo",
+      "Corpo-a-corpo" => "Corpo-a-Corpo",
+      "Circular" => "Circular",
+      "Global" => "Global",
+      "1" => "Alvo",
+      "Círculo" => "Circular",
+      "Area" => "Área",
+      "Pontos" => "Ponto",
+      "Cone" => "Cone",
+    }
+
+    match = range_map[spell['range_type']]
+    return if match.blank?
+    RangeType.find_by(title: match)
+  end
+
+  def find_element(spell)
+    Element.find_by(permalink: spell['element']) || Element.find_by(permalink: "none")
   end
 
   def find_role_by_tags(tags)
@@ -73,28 +155,6 @@ class SyncSpellsFromBook
     match_cultures = tags & permalink_map.keys
     return if match_cultures.blank?
     Culture.find_by(permalink: permalink_map[match_cultures[0]])
-  end
-
-  def find_action_type(spell)
-    action_map = {
-      "Passiva" => "Passiva",
-      "Ativa" => "Ativa",
-      "Inicial" => "Inicial",
-      "Passive" => "Passiva",
-      "Reação" => "Reação",
-      "Aprimoramento" => "Aprimoramento",
-      "Mágico" => "Ativa",
-      "Ritual" => "Ritual",
-      "Ação" => "Ativa",
-      "Instância" => "Instância",
-      "Movimento" => "Movimento",
-      "Ativa e Reação" => "Reação",
-      "Ação e Reação" => "Reação",
-    }
-
-    match = action_map[spell['action_type']]
-    return if match.blank?
-    ActionType.find_by(title: match)
   end
 
   def find_race_by_tags(tags)

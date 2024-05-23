@@ -10,11 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_09_061759) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_23_061829) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "action_types", force: :cascade do |t|
+    t.string "title"
+    t.text "short_description"
+    t.text "long_description"
+    t.string "permalink"
+    t.text "book_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "attack_logics", force: :cascade do |t|
     t.string "title"
     t.text "short_description"
     t.text "long_description"
@@ -171,7 +181,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_061759) do
     t.string "permalink"
     t.bigint "weak_to_id"
     t.bigint "resistant_to_id"
-    t.bigint "negative_effect_id", null: false
+    t.bigint "negative_effect_id"
     t.text "book_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -504,7 +514,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_061759) do
     t.string "magic_cost"
     t.integer "duration_time_number"
     t.string "duration_time"
-    t.bigint "attack_logic_id", null: false
     t.bigint "action_type_id", null: false
     t.string "cast_distance"
     t.integer "cast_distance_number"
@@ -515,6 +524,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_061759) do
     t.text "book_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "attack_logic_id"
     t.index ["action_type_id"], name: "index_spells_on_action_type_id"
     t.index ["attack_logic_id"], name: "index_spells_on_attack_logic_id"
     t.index ["element_id"], name: "index_spells_on_element_id"
@@ -582,7 +592,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_061759) do
   add_foreign_key "specie_spells", "species"
   add_foreign_key "specie_spells", "spells"
   add_foreign_key "spells", "action_types"
-  add_foreign_key "spells", "damage_types", column: "attack_logic_id"
+  add_foreign_key "spells", "attack_logics"
   add_foreign_key "spells", "elements"
   add_foreign_key "spells", "range_types"
 end
