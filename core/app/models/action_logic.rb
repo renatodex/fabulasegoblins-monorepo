@@ -1,0 +1,2 @@
+class ActionLogic < ApplicationRecord
+end
