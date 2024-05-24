@@ -18,4 +18,10 @@
 #  updated_at         :datetime         not null
 #
 class CharacterRole < ApplicationRecord
+  has_many :spell_owners, as: :spell_owner
+  has_many :spells, through: :spell_owners
+
+  def owner_type
+    'CharacterRole'
+  end
 end

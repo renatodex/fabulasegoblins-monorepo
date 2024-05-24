@@ -63,7 +63,7 @@ end
   { title: "Tanque", permalink: "tank", base_hp: 18, base_mp: 12, base_movement: 4, weapon_proficience: "Força ou Resiliência", hp_per_level: [5,5,10,10], mp_per_level: [2,4,4,6],  short_description: "Você é uma parede de tijolos, e se os inimigos querem chegar em seus aliados, terão de passar por você." },
   { title: "Suporte", permalink: "support", base_hp: 12, base_mp: 18, base_movement: 3, weapon_proficience: "Intelecto, Elo Mágico ou Espírito", hp_per_level: [2,4,4,6], mp_per_level: [5,5,10,10],  short_description: "Sua especialidade é auxiliar seus aliados, conjurando auras e benefícios cruciais para mantê-los vivos." },
   { title: "Conjurador", permalink: "caster", base_hp: 12, base_mp: 14, base_movement: 4, weapon_proficience: "Intelecto, Elo Mágico ou Espírito", hp_per_level: [2,4,4,6], mp_per_level: [4,4,8,8],  short_description: "Você prefere manter distância de seus inimigos, utilizando feitiços mágicos para causar muito dano." },
-  { title: "Utilitário", permalink: "utilitary", base_hp: 14, base_mp: 14, base_movement: 4, weapon_proficience: "Qualquer uma", hp_per_level: [3,3,6,6], mp_per_level: [3,3,6,6],  short_description: "O seu estilo é misto, e prefere uma abordagem mais equilibrada que varie combate a distância e corpo a corpo." },
+  { title: "Utilitário", permalink: "utility", base_hp: 14, base_mp: 14, base_movement: 4, weapon_proficience: "Qualquer uma", hp_per_level: [3,3,6,6], mp_per_level: [3,3,6,6],  short_description: "O seu estilo é misto, e prefere uma abordagem mais equilibrada que varie combate a distância e corpo a corpo." },
 ].each do |character_role|
   CharacterRole.create!(character_role.merge({long_description: character_role[:short_description]}))
 end
@@ -149,11 +149,18 @@ end
   { title: "Arca de Ravna", short_description: "Os Adeptos de Ravna acreditam que a forma mais pura de manipular a Magia seja através de seus portadores originais, as Criaturas Selvagens. A variedade de conhecimentos desse Grimo faz com que os Adeptos de Ravna sejam excelente utilitários. Além de conjurar a poderosa magia selvagem das Criaturas, os adeptos aprendem a combater seus inimigos com Garras e Estilingues mágicos, que atingem seus inimigos a uma enorme distância.", permalink: "arca-de-ravna", formula: nil, bonus_magic_attack: nil, bonus_magical_defense: nil, bonus_physical_attack: nil, bonus_physical_defense: nil, buy_price: nil, sell_price: nil, durability: nil, slots_used: nil, damage_type: nil, item_type: ItemType.grimo, sheet_attribute: nil, book_url: nil },
   { title: "Tótem de Darian", short_description: "Os Adeptos de Darian são Xamãs espirituais. O Tótem é conhecido como o Grimo dos Espíritos, e seus Adeptos aprendem a se comunicar com o plano Astral para conjurar magias e rituais poderosos. Cada Adepto de Darian é treinado com a ajuda de um Mentor, escolhido no início de sua jornada. O Mentor ensina o Dariano a navegar pelo perigoso Plano Astral, utilizando para isso o poder residual dos Gravetos e Tábuas Mágicas.", permalink: "totem-de-darian", formula: nil, bonus_magic_attack: nil, bonus_magical_defense: nil, bonus_physical_attack: nil, bonus_physical_defense: nil, buy_price: nil, sell_price: nil, durability: nil, slots_used: nil, damage_type: nil, item_type: ItemType.grimo, sheet_attribute: nil, book_url: nil },
   { title: "Aparato de Magni", short_description: "Os Adeptos de Magni originais acreditavam que a Magia se corrompe sempre que é manipulada diretamente contra seus inimigos. Ao invés disso, eles desenvolveram Magnis, construtos inanimados controlados magicamente por seu portador através de Tecmagi, um tipo de Tecnologia aliada à Magia. Treinados no combate utilitário, esses Tecmagos podem utilizar Bombas e Garruchas como armas principais.", permalink: "aparato-de-magni", formula: nil, bonus_magic_attack: nil, bonus_magical_defense: nil, bonus_physical_attack: nil, bonus_physical_defense: nil, buy_price: nil, sell_price: nil, durability: nil, slots_used: nil, damage_type: nil, item_type: ItemType.grimo, sheet_attribute: nil, book_url: nil },
-  { title: "Frasco de Valari", short_description: "Os Adeptos de Valari são conhecidos como Guerreiros das Trevas, manipulando as próprias Sombras para mascarar sua presença, enquanto embanham suas armas com venenos mortais, derrotando seus inimigos com ataques rápidos e precisos. Muitas vezes interpretados como assassinos, os destemidos Valari são treinados para manipular a Katar e os infames Dardos Venenosos.", permalink: "frasco-de-valari", formula: nil, bonus_magic_attack: nil, bonus_magical_defense: nil, bonus_physical_attack: nil, bonus_physical_defense: nil, buy_price: nil, sell_price: nil, durability: nil, slots_used: nil, damage_type: nil, item_type: ItemType.grimo, sheet_attribute: nil, book_url: nil },
+  { title: "Frasco de Zanari", short_description: "Os Adeptos de Zanari são conhecidos como Assassinos das Sombras, manipulando as próprias trevas para mascarar sua presença, enquanto embanham suas armas com venenos mortais, derrotando seus inimigos com ataques rápidos e precisos. Muitas vezes interpretados como assassinos, os destemidos Zanaris são treinados para manipular a Katar e os infames Dardos Venenosos.", permalink: "frasco-de-zanari", formula: nil, bonus_magic_attack: nil, bonus_magical_defense: nil, bonus_physical_attack: nil, bonus_physical_defense: nil, buy_price: nil, sell_price: nil, durability: nil, slots_used: nil, damage_type: nil, item_type: ItemType.grimo, sheet_attribute: nil, book_url: nil },
   { title: "Insígnia de Qatun", short_description: "Ilusão é a única palavra que pode definir um  Adepto de Qatun.Esses curiosos Feiticeiros são treinados na arte de manipular a mente e a matéria, criando ilusões convincentes que podem confundir seus inimigos. Além de Mestres do Ilusionismo e dominadores da Magia do Caos, esses elegantes Fortunos são treinados para combater com Bengalas e Espadas portáteis conhecidas como Saxos.", permalink: "insignia-de-qatun", formula: nil, bonus_magic_attack: nil, bonus_magical_defense: nil, bonus_physical_attack: nil, bonus_physical_defense: nil, buy_price: nil, sell_price: nil, durability: nil, slots_used: nil, damage_type: nil, item_type: ItemType.grimo, sheet_attribute: nil, book_url: nil },
   { title: "Selo de Ixin", short_description: "Os Guerreiros de Ixin manipulam a Energia Rúnica, cuja origem ainda é um enigma para a civilização moderna. Para isso, os Adeptos utilizam as 3 Runas Templárias, Urt, Xah e Rah, e podem materializar Feixes de Luzes poderosos, Linhas Etéreas e uma série de poderes Ofensivos e utilitários. Os Guerreiros de Ixin são treinados no combate ágil, e podem combater com Manoplas rúnicas e Bastões.", permalink: "selo-de-ixin", formula: nil, bonus_magic_attack: nil, bonus_magical_defense: nil, bonus_physical_attack: nil, bonus_physical_defense: nil, buy_price: nil, sell_price: nil, durability: nil, slots_used: nil, damage_type: nil, item_type: ItemType.grimo, sheet_attribute: nil, book_url: nil },
 ].each do |grimo|
   Grimo.create!(grimo.merge({long_description: grimo[:short_description]}))
+end
+
+# Criando Items
+[
+  { title: "Poção de Cura", short_description: "Uma poção de cura comum", permalink: "healing-potion", formula: "1d12", item_type: ItemType.find_by_permalink('potion'), bonus_magic_attack: nil, bonus_magical_defense: nil, bonus_physical_attack: nil, bonus_physical_defense: nil, buy_price: nil, sell_price: nil, durability: nil, slots_used: nil, damage_type: nil, sheet_attribute: nil, book_url: nil },
+].each do |item|
+  Item.create!(item.merge({long_description: item[:short_description]}))
 end
 
 # Criar Condições Negativas
@@ -213,10 +220,31 @@ elements.each do |element|
   ).update!(element.except(:weak_to_proc, :resistant_to_proc))
 end
 
-# Sincronizando TODAS MAGIAS do livro
-spells_attributes = SyncSpellsFromBook.new.call
-puts "INSERINDO MAGIAS..."
-Spell.insert_all(spells_attributes)
+# Sincronizando TODAS AS MAGIAS do livro
+spells_data = SyncSpellsFromBook.new.call
+Spell.transaction do
+  # Bulk insert spells
+  spells_attributes = spells_data.map { |data| data[:spell_attributes] }
+  imported_spells = Spell.import(spells_attributes, validate: false, on_duplicate_key_ignore: true)
+
+  # Collect all owners
+  spell_owner_records = []
+  imported_spells.ids.each_with_index do |spell_id, index|
+    spells_data[index][:owner_references].each do |owner|
+      spell_owner_records << {
+        spell_id: spell_id,
+        spell_owner_type: owner.owner_type,
+        spell_owner_id: owner.id,
+        created_at: Time.now,
+        updated_at: Time.now
+      }
+    end
+  end
+
+  # Bulk insert spell owners
+  SpellOwner.import(spell_owner_records, validate: false, on_duplicate_key_ignore: true)
+end
+
 
 # Criando Personagem de Exemplo
 Character.create!(

@@ -69,8 +69,8 @@ class Grimo < Item
       find_by_permalink("totem-de-darian")
     end
 
-    def valari
-      find_by_permalink("frasco-de-valari")
+    def zanari
+      find_by_permalink("frasco-de-zanari")
     end
 
     def magni

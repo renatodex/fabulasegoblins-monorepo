@@ -7,10 +7,17 @@ class SyncSpellsFromBook
   end
 
   def call
-    get_spells.map do |spell|
-      object = find_object(spell)
-      {
-        book_url: object&.book_url || nil,
+    get_spells.map.with_index do |spell, index|
+      build_spell(spell, index)
+    end
+  end
+
+  def build_spell(spell, index)
+    spell_owners = find_spell_owners(spell)
+    puts "Syncing Skill [##{index.to_s.green}] - #{spell['name'].cyan}"
+    {
+      spell_attributes: {
+        book_url: spell_owners.first&.book_url,
         cast_distance: spell["cast_distance"],
         cast_distance_number: spell["cast_distance"],
         duration_time: spell["duration_time"],
@@ -31,30 +38,32 @@ class SyncSpellsFromBook
         action_type_id: find_action_type(spell)&.id,
         attack_logic_id: find_attack_logic(spell)&.id,
         range_type_id: find_range_type(spell)&.id,
-        element_id: find_element(spell)&.id,
+        element_id: find_element(spell)&.first&.id,
         created_at: Time.now,
         updated_at: Time.now
-      }
-    end
+      },
+      owner_references: find_spell_owners(spell)
+    }
   end
 
-  def find_object(spell)
-    object =
-      find_grimo_by_tags(spell['tags']) ||
-      find_role_by_tags(spell['tags']) ||
-      find_race_by_tags(spell['tags']) ||
+  def find_spell_owners(spell)
+    spell_owners = [
+      find_grimo_by_tags(spell['tags']),
+      find_role_by_tags(spell['tags']),
+      find_specie_by_tags(spell['tags']),
       find_culture_by_tags(spell['tags'])
+    ].flatten.compact
 
-    return if object.blank?
+    return if spell_owners.blank?
 
-    object
+    spell_owners
   end
 
   def spell_type(spell)
-    return 'grimo' if find_grimo_by_tags(spell['tags'])
-    return 'role' if find_role_by_tags(spell['tags'])
-    return 'specie' if find_race_by_tags(spell['tags'])
-    return 'culture' if find_culture_by_tags(spell['tags'])
+    return 'grimo' if find_grimo_by_tags(spell['tags']).present?
+    return 'role' if find_role_by_tags(spell['tags']).present?
+    return 'specie' if find_specie_by_tags(spell['tags']).present?
+    return 'culture' if find_culture_by_tags(spell['tags']).present?
     return 'unknown'
   end
 
@@ -129,13 +138,13 @@ class SyncSpellsFromBook
   end
 
   def find_element(spell)
-    Element.find_by(permalink: spell['element']) || Element.find_by(permalink: "none")
+    Element.where(permalink: spell['element']).presence || Element.where(permalink: "none")
   end
 
   def find_role_by_tags(tags)
-    string = (CharacterRole.all.map(&:permalink).map { |perma| perma.split('-').last } & tags).first
-    return if string.blank?
-    CharacterRole.where("permalink LIKE ?","%#{string}%").first
+    strings = (CharacterRole.all.map(&:permalink).map { |perma| perma.split('-').last } & tags)
+    return if strings.blank?
+    CharacterRole.where(permalink: strings)
   end
 
   def find_culture_by_tags(tags)
@@ -154,18 +163,52 @@ class SyncSpellsFromBook
 
     match_cultures = tags & permalink_map.keys
     return if match_cultures.blank?
-    Culture.find_by(permalink: permalink_map[match_cultures[0]])
+    Culture.where(permalink: permalink_map[match_cultures[0]])
   end
 
-  def find_race_by_tags(tags)
-    string = (Specie.all.map(&:permalink).map { |perma| perma.split('-').last } & tags).first
-    return if string.blank?
-    Specie.where("permalink LIKE ?","%#{string}%").first
+  def find_specie_by_tags(tags)
+    strings = (Specie.all.map(&:permalink).map { |perma| perma.split('-').last } & tags)
+    return if strings.blank?
+    Specie.where(permalink: strings)
   end
 
   def find_grimo_by_tags(tags)
-    string = (Grimo.all.map(&:permalink).map { |perma| perma.split('-').last } & tags).first
-    return if string.blank?
-    Grimo.where("permalink LIKE ?","%#{string}%").first
+    strings = (Grimo.all.map(&:permalink).map { |perma| perma.split('-').last } & tags)
+    return if strings.blank?
+
+    like_conditions = strings.map { |string| "permalink LIKE ?" }.join(' OR ')
+    values = strings.map { |string| "%#{string}%" }
+
+    Grimo.where(like_conditions, *values)
   end
 end
+
+ # get_spells.map do |spell|
+    #   object = find_object(spell)
+    #   {
+    #     book_url: object&.book_url || nil,
+    #     cast_distance: spell["cast_distance"],
+    #     cast_distance_number: spell["cast_distance"],
+    #     duration_time: spell["duration_time"],
+    #     duration_time_number: spell["duration_time"],
+    #     icon: spell["icon"],
+    #     long_description: spell["description"],
+    #     magic_cost: spell["magic_cost"],
+    #     magic_cost_number: spell["magic_cost"],
+    #     permalink: spell["id"],
+    #     range_amount: spell["range_amount"],
+    #     sacrifice: (spell["tags"] || []).include?("sacrifice"),
+    #     short_description: spell["caption"],
+    #     tags: (spell["tags"] || []).join(","),
+    #     title: spell["name"],
+    #     ultimate: (spell["tags"] || []).include?("ultimate"),
+    #     external_id: spell["id"],
+    #     tier: spell["tier"],
+    #     action_type_id: find_action_type(spell)&.id,
+    #     attack_logic_id: find_attack_logic(spell)&.id,
+    #     range_type_id: find_range_type(spell)&.id,
+    #     element_id: find_element(spell)&.id,
+    #     created_at: Time.now,
+    #     updated_at: Time.now
+    #   }
+    # end
