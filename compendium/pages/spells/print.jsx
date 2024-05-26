@@ -1,23 +1,52 @@
 import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
-import * as Icons from 'react-icons/gi'
 import Spell from 'src/components/spell'
+import { useRouter } from 'next/router'
 
 export default function Print() {
   const title = 'Poderes'
+  const baseUrl = 'http://localhost:5000/api/spells'
+
   const [spells, setSpells] = useState([])
+  const router = useRouter()
+
+  const ids = router.query['q[id_in][]']
 
   useEffect(() => {
+    const permalinkSet = new Set()
+
     async function loadSpells(page) {
-      const result = await fetch(`http://localhost:5000/api/spells?page=1`)
+      // Build Params to get multiple Spells
+      const queryParams = new URLSearchParams();
+      ids.forEach(id => queryParams.append('q[id_in][]', id));
+
+      // Make the request and handle the json
+      const result = await fetch(`${baseUrl}?${queryParams.toString()}&page=${page}`)
       const response = await result.json()
-      setSpells(response)
-      const totalPages = result.headers.get('X-Pages') || ''
-      const totalPagesParsed = parseInt(totalPages, 10)
+
+      // Filter spells with the same permalink (in case the same API call executes twice)
+      const filteredSpells = response.filter(spell => {
+        if (!permalinkSet.has(spell.permalink)) {
+          permalinkSet.add(spell.permalink)
+          return true
+        }
+        return false
+      })
+
+      // Get the headers and save content
+      setSpells(prevSpells => [...prevSpells, ...filteredSpells])
+      const lastPage = result.headers.get('X-LastPage')
+
+      // Loop recurviely over next pages.
+      if (!JSON.parse(lastPage)) {
+        loadSpells(page + 1)
+      }
     }
 
-    loadSpells()
-  }, [])
+    if (router.query['q[id_in][]']) {
+      loadSpells(1)
+    }
+  }, [ids])
 
   return (
     <div>
@@ -27,12 +56,10 @@ export default function Print() {
       </Head>
 
       <div className="mx-3 md:mx-6 mt-4">
-        <div className='grid grid-cols-2 gap-6'>
+        <div className='flex flex-wrap gap-6'>
           {spells.map(spell => {
-            const Icon = Icons[spell.icon]
-
             return (
-              <div className="">
+              <div key={spell.permalink} className="w-[600px] m-auto">
                 <Spell spell={spell} />
               </div>
             )
