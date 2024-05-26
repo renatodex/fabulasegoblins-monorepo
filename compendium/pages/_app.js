@@ -1,31 +1,30 @@
+import React from 'react'
 import '../styles/globals.css'
-import './components/waves'
-import Waves from './components/waves'
-import TendaDoGoblin from './components/tendadogoblin'
-import FlagBr from './components/flagbr'
+import Waves from '../src/components/waves'
+import FlagBr from '../src/components/flagbr'
 
 export default function MyApp({ Component, pageProps }) {
   return (
-    <div id="app" className="bg-gunmetal">
+    <div id="app" className="bg-gunmetal print:bg-transparent rounded-3xl sm:m-4 md:m-8 lg:mt-10 lg:max-w-[1200px] lg:m-auto">
       <header>
-        <div className="h-8 bg-aero-blue"></div>
+        <div className="h-8 bg-aero-blue rounded-t-xl print:hidden"></div>
       </header>
 
       <main className="text-white mt-6">
         <Component {...pageProps} />
       </main>
 
-      <footer className="mt-7">
+      <footer className="mt-7 print:hidden">
         <Waves />
 
-        <div className="bg-raisin-black pb-5">
+        <div className="bg-raisin-black pb-5 rounded-b-xl">
           <div className="text-center text-white italic pb-2">
             <FlagBr /> {' '} Português Brasil
           </div>
 
           <div>
-            <div className="w-14 m-auto pb-1">
-              <TendaDoGoblin />
+            <div className="w-20 m-auto pb-1">
+              <img src="tenda-logo.png" />
             </div>
           </div>
 

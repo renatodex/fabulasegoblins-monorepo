@@ -1,11 +1,9 @@
+import React from 'react'
 import Head from 'next/head'
-import Button from './components/button'
-import LoginForm from './components/login'
-import RegisterForm from './components/register'
 import { useState } from 'react'
 
 export default function Index() {
-  const title = 'Compendium'
+  const title = 'Compêndio do Aventureiro'
   const [visibility, setVisibility] = useState({
     register: false,
     login: false
@@ -21,60 +19,23 @@ export default function Index() {
       <div className="mx-6 mt-4">
         <h1 className="text-4xl font-bold font-serif pt-10 px-4">{title}</h1>
         <p className="mt-5 text-sm px-4">
-          Aqui você encontra todo o conteúdo que criamos para vc usar em suas aventuras dentro do universo do
+          Aqui você encontra todo o conteúdo que criamos para você usar em suas aventuras dentro do universo do
           <span className="font-bold"> Fábulas &amp; Goblins</span>.
         </p>
 
-        {!visibility.login && !visibility.register && (
-          <div className="px-4">
-            <div className="mt-5">
-              <Button onClick={e => {
-                setVisibility({
-                  register: true,
-                  login: false
-                })
-              }}>
-              Registrar
-              </Button>
-            </div>
-            <div className="mt-5 pb-5">
-              <Button onClick={e => {
-                setVisibility({
-                  register: false,
-                  login: true
-                })
-              }}>
-              Entrar
-              </Button>
-            </div>
-          </div>
-        )}
+        <div className='grid grid-cols-2 md:grid-cols-3 mt-5 text-sm px-4 gap-3 md:gap-5'>
+          <a href="/spells" className='p-4 border border-slate-900 rounded-xl bg-slate-500'>
+            Poderes
+          </a>
 
-        {visibility.login && (
-          <div>
-            <LoginForm onCancel={e => {
-              setVisibility({
-                register: false,
-                login: false
-              })
-            }
-            }></LoginForm>
+          <div className='p-4 border border-slate-900 rounded-xl bg-slate-500'>
+            Inimigos
           </div>
-        )}
 
-        {visibility.register && (
-          <div>
-            <RegisterForm></RegisterForm>
-            <Button className="mt-5" onClick={e => {
-              setVisibility({
-                register: false,
-                login: false
-              })
-            }}>
-              Cancelar
-            </Button>
+          <div className='p-4 border border-slate-900 rounded-xl bg-slate-500'>
+            Fichas Prontas
           </div>
-        )}
+        </div>
       </div>
     </div>
   )
