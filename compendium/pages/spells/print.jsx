@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import Spell from 'src/components/spell'
 import { useRouter } from 'next/router'
+import PdfButton from 'src/components/download_pdf';
+import PdfSpells from 'src/components/pdf_spells';
 
 export default function Print() {
   const title = 'Poderes'
@@ -10,7 +12,7 @@ export default function Print() {
   const [spells, setSpells] = useState([])
   const router = useRouter()
 
-  const ids = router.query['q[id_in][]']
+  let ids = router.query['q[id_in][]']
 
   useEffect(() => {
     const permalinkSet = new Set()
@@ -18,6 +20,10 @@ export default function Print() {
     async function loadSpells(page) {
       // Build Params to get multiple Spells
       const queryParams = new URLSearchParams();
+
+      if (typeof(ids) !== 'object') {
+        ids = [ids]
+      }
       ids.forEach(id => queryParams.append('q[id_in][]', id));
 
       // Make the request and handle the json
@@ -59,7 +65,7 @@ export default function Print() {
         <div className='flex flex-wrap gap-6'>
           {spells.map(spell => {
             return (
-              <div key={spell.permalink} className="w-[600px] m-auto">
+              <div key={spell.permalink} className="w-[600px]">
                 <Spell spell={spell} />
               </div>
             )

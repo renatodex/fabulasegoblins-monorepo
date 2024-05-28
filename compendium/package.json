@@ -13,6 +13,7 @@
     "autoprefixer": "^10.4.5",
     "babel-eslint": "^10.1.0",
     "classnames": "^2.5.1",
+    "html-to-react": "^1.7.0",
     "next": "12.1.5",
     "postcss": "^8.4.12",
     "react": "18.0.0",

@@ -8,6 +8,7 @@
 #  cast_distance_number :integer
 #  duration_time        :string
 #  duration_time_number :integer
+#  filter_tags          :string
 #  icon                 :string
 #  long_description     :text
 #  magic_cost           :string
@@ -77,6 +78,7 @@ class Spell < ApplicationRecord
       "sacrifice",
       "short_description",
       "tags",
+      "filter_tags",
       "tier",
       "title",
       "ultimate",

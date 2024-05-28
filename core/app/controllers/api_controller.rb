@@ -1,7 +1,7 @@
 class ApiController < ApplicationController
   before_action :set_access_control_headers
 
-  RECORDS_PER_PAGE = 40.freeze
+  RECORDS_PER_PAGE = 50.freeze
 
   def set_access_control_headers
     headers['Access-Control-Expose-Headers'] = 'X-Total, X-LastPage, X-Pages'

@@ -22,4 +22,16 @@
 class SpellOwner < ApplicationRecord
   belongs_to :spell
   belongs_to :spell_owner, polymorphic: true
+
+  belongs_to :culture
+  belongs_to :grimo
+  belongs_to :specie
+  belongs_to :character_role
+
+  has_many :species, through: :spell_owner
+
+  scope :species, -> { where(spell_owner_type: 'Specie')  }
+  scope :cultures, -> { where(spell_owner_type: 'Culture')  }
+  scope :grimos, -> { where(spell_owner_type: 'Grimo')  }
+  scope :character_roles, -> { where(spell_owner_type: 'CharacterRole')  }
 end

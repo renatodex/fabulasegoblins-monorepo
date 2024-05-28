@@ -35,6 +35,7 @@ class SyncSpellsFromBook
         ultimate: (spell["tags"] || []).include?("ultimate"),
         external_id: spell["id"],
         tier: spell["tier"],
+        filter_tags: spell_owners.map(&:permalink).join(','),
         action_type_id: find_action_type(spell)&.id,
         attack_logic_id: find_attack_logic(spell)&.id,
         range_type_id: find_range_type(spell)&.id,
@@ -42,7 +43,7 @@ class SyncSpellsFromBook
         created_at: Time.now,
         updated_at: Time.now
       },
-      owner_references: find_spell_owners(spell)
+      owner_references: spell_owners
     }
   end
 

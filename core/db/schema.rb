@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_23_232018) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_28_041248) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -536,6 +536,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_23_232018) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "attack_logic_id"
+    t.string "filter_tags"
     t.index ["action_type_id"], name: "index_spells_on_action_type_id"
     t.index ["attack_logic_id"], name: "index_spells_on_attack_logic_id"
     t.index ["element_id"], name: "index_spells_on_element_id"

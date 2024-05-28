@@ -6,6 +6,8 @@ import Spell from 'src/components/spell'
 import { TbCards } from "react-icons/tb";
 import { useRouter } from 'next/router'
 import Layout from 'src/layouts/layout'
+import { AiOutlineFilter, AiFillFilter } from "react-icons/ai";
+import { IoTrashOutline } from "react-icons/io5";
 
 const Cart = ({ isOpen, onClose, children, onSubmit, total }) => {
   return (
@@ -44,6 +46,11 @@ export default function Index() {
   const [cartSpells, setCartSpells] = useState(null)
   const [selectedSpell, setSelectedSpell] = useState(null)
   const [cartOpen, setCartOpen] = useState(false)
+  const [selectedGrimo, setSelectedGrimo] = useState(null)
+  const [selectedCulture, setSelectedCulture] = useState(null)
+  const [selectedSpecie, setSelectedSpecie] = useState(null)
+  const [selectedCharacterRole, setSelectedCharacterRole] = useState(null)
+  const [filterOpen, setFilterOpen] = useState(false)
 
   const router = useRouter()
 
@@ -62,18 +69,21 @@ export default function Index() {
 
   useEffect(() => {
     async function loadSpells(page) {
-      const result = await fetch(`http://localhost:5000/api/spells?page=${page}`)
+      const permalinks = [selectedGrimo, selectedCulture, selectedSpecie, selectedCharacterRole].filter(element => element !== null)
+      const queryParams = new URLSearchParams();
+      queryParams.append('q[filter_tags_eq_any]', `${permalinks.join(',')}`);
+
+      const result = await fetch(`http://localhost:5000/api/spells?page=${page}&${queryParams.toString()}`)
       const response = await result.json()
       setSpells(response)
       setTotalPages(response.totalPages)
 
-      console.log(result.headers)
       const totalPages = result.headers.get('X-Pages') || ''
       setTotalPages(parseInt(totalPages, 10))
     }
 
     loadSpells(currentPage)
-  }, [currentPage])
+  }, [currentPage, selectedGrimo, selectedCharacterRole, selectedCulture, selectedSpecie])
 
   const handlePrevPage = () => {
     if (currentPage > 1) {
@@ -113,7 +123,7 @@ export default function Index() {
                 <button
                   onClick={e => setSelectedSpell(spell)}
                   key={spell.id}
-                  className={classNames('w-full p-4 text-left my-2 rounded-md border', {
+                  className={classNames('relative w-full p-4 text-left my-2 rounded-md border', {
                     'bg-gradient-to-r from-purple-700 to-green-700': spell.ultimate,
                     'bg-gradient-to-r from-yellow-600 to-red-900': spell.sacrifice,
                     'bg-black-200 text-white border-gray-400 border': !spell.ultimate && !spell.sacrifice
@@ -123,6 +133,16 @@ export default function Index() {
                     <Icon />
                   </span>
                   {spell.title}
+                  <button
+                    className='absolute right-2 top-3 text-2xl align-top'
+                    onClick={e => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setCartSpells(cartSpells.filter(cspell => cspell.permalink != spell.permalink))
+                    }}
+                  >
+                    <IoTrashOutline />
+                  </button>
                 </button>
               )
             })}
@@ -135,25 +155,172 @@ export default function Index() {
             {title}
           </span>
           {!cartSpells && (
-            <button
-              onClick={e => setCartSpells([])}
-              className='text-lg text-black bg-emerald-200 px-2 py-1 rounded-xl'
-            >
-              Novo deck de Poderes
-            </button>
+            <div className='flex gap-3'>
+              <button
+                onClick={e => setFilterOpen(!filterOpen)}
+                className='text-lg text-black bg-emerald-200 px-2 py-1 rounded-xl'
+              >
+                {filterOpen ? <AiFillFilter /> : <AiOutlineFilter />}
+              </button>
+              <button
+                onClick={e => setCartSpells([])}
+                className='text-lg text-black bg-emerald-200 px-2 py-1 rounded-xl'
+              >
+                Novo deck de Poderes
+              </button>
+            </div>
           )}
           {cartSpells && (
-            <button
-              className='text-3xl border border-black rounded-xl px-2 py-1 bg-green-200 text-black'
-              onClick={e => setCartOpen(true)}
-            >
-              <TbCards className='inline-block' /> <span className='text-2xl'>({cartSpells.length})</span>
-            </button>
+            <div className='flex gap-3'>
+              <button
+                onClick={e => setFilterOpen(!filterOpen)}
+                className='text-lg text-black bg-emerald-200 px-2 py-1 rounded-xl'
+              >
+                {filterOpen ? <AiFillFilter /> : <AiOutlineFilter />}
+              </button>
+              <button
+                className='text-3xl border border-black rounded-xl px-2 py-1 bg-green-200 text-black'
+                onClick={e => setCartOpen(true)}
+              >
+                <TbCards className='inline-block' /> <span className='text-2xl'>({cartSpells.length})</span>
+              </button>
+            </div>
           )}
         </h1>
 
+        <div className={`fixed z-50 left-0 top-0 bg-slate-900 bg-opacity-90 h-full w-72 px-7 py-7 transform transition-transform ${
+          filterOpen ? 'translate-x-0' : 'translate-x-[-18rem]'
+        }`}>
+          <div className='text-3xl'>
+            Filtros
+          </div>
+
+          <div>
+            <button
+              className="absolute top-6 right-8 text-4xl text-white hover:text-gray-400"
+              onClick={e => { setFilterOpen(false)}}
+            >
+              &times;
+            </button>
+          </div>
+
+          <div className='align-middle'>
+            <span className='mr-3 mt-7 block'>Grimo</span>
+            <select
+              value={selectedGrimo}
+              onChange={e => setSelectedGrimo(e.target.value)}
+              className='text-black border border-black text-md rounded-md px-2 py-1'
+            >
+              <option value={null}>-</option>
+              <option value={'brasao-de-giurad'}>Giurad {selectedGrimo === 'giurad' && '(x)'}</option>
+              <option value={'joia-de-lunn'}>Lunn</option>
+              <option value={'orbe-de-allura'}>Allura</option>
+              <option value={'olho-de-kanus'}>Kanus</option>
+              <option value={'arca-de-ravna'}>Ravna</option>
+              <option value={'totem-de-darian'}>Darian</option>
+              <option value={'aparato-de-magni'}>Magni</option>
+              <option value={'frasco-de-zanari'}>Zanari</option>
+              <option value={'insignia-de-qatun'}>Qatun</option>
+              <option value={'selo-de-ixin'}>Ixin</option>
+            </select>
+
+            {selectedGrimo && (
+              <button
+                onClick={e => setSelectedGrimo('')}
+                className='border-blue-900 text-sm align-middle ml-2 inline-block'
+              >
+                ✖
+              </button>
+            )}
+          </div>
+
+          <div>
+            <span className='mr-3 mt-7 inline-block'>Cultura</span>
+            <select
+              value={selectedCulture}
+              onChange={e => setSelectedCulture(e.target.value)}
+              className='text-black border border-black text-md rounded-md px-2 py-1'
+            >
+              <option value={null}>-</option>
+              <option value={'filhos-do-orvalho'}>Filhos do Orvalho</option>
+              <option value={'filhos-das-areias'}>Filhos das Areias</option>
+              <option value={'filhos-de-caldera'}>Filhos da Caldera</option>
+              <option value={'filhos-de-arcadia'}>Filhos de Arcádia</option>
+              <option value={'filhos-das-ilhas'}>Filhos das Ilhas</option>
+              <option value={'filhos-do-subterraneo'}>Filhos do Subterrâneo</option>
+              <option value={'filhos-da-tempestade'}>Filhos da Tempestade</option>
+              <option value={'filhos-do-povo-livre'}>Filhos do Povo Livre</option>
+              <option value={'filhos-de-eregor'}>Filhos de Eregor</option>
+              <option value={'filhos-de-timeria'}>Filhos de Timéria</option>
+            </select>
+
+            {selectedCulture && (
+              <button
+                onClick={e => setSelectedCulture('')}
+                className='border-blue-900 text-sm align-middle ml-2 inline-block'
+              >
+                ✖
+              </button>
+            )}
+          </div>
+
+          <div>
+            <span className='mr-3 mt-7 block'>Espécie</span>
+            <select
+              value={selectedSpecie}
+              onChange={e => setSelectedSpecie(e.target.value)}
+              className='text-black border border-black text-md rounded-md px-2 py-1'
+            >
+              <option value={null}>-</option>
+              <option value={'goblin'}>Goblin {selectedGrimo === 'giurad' && '(x)'}</option>
+              <option value={'armadon'}>Armadon</option>
+              <option value={'metaloide'}>Metalóide</option>
+              <option value={'razalan'}>Razalan</option>
+              <option value={'valdari'}>Valdari</option>
+              <option value={'luminin'}>Luminin</option>
+            </select>
+
+            {selectedSpecie && (
+              <button
+                onClick={e => setSelectedSpecie('')}
+                className='border-blue-900 text-sm align-middle ml-2 inline-block'
+              >
+                ✖
+              </button>
+            )}
+          </div>
+
+          <div>
+            <span className='mr-3 mt-7 block'>Papel de Jogo</span>
+            <select
+              value={selectedCharacterRole}
+              onChange={e => setSelectedCharacterRole(e.target.value)}
+              className='text-black border border-black text-md rounded-md px-2 py-1'>
+              <option value={null}>-</option>
+              <option value={'carrier'}>Carregador</option>
+              <option value={'shooter'}>Atirador</option>
+              <option value={'tank'}>Tanque</option>
+              <option value={'support'}>Suporte</option>
+              <option value={'caster'}>Conjurador</option>
+              <option value={'utility'}>Utilitário</option>
+            </select>
+
+            {selectedCharacterRole && (
+              <button
+                onClick={e => setSelectedCharacterRole('')}
+                className='border-blue-900 text-sm align-middle ml-2 inline-block'
+              >
+                ✖
+              </button>
+            )}
+          </div>
+        </div>
+
         {selectedSpell && (
-          <div className="fixed inset-0 flex xs:justify-center items-start xs:items-center bg-black bg-opacity-50 overflow-x-scroll">
+          <div
+            className="fixed inset-0 flex xs:justify-center items-start xs:items-center bg-black bg-opacity-50 overflow-x-scroll"
+            onClick={e => setSelectedSpell(null)}
+          >
             <div className="relative bg-slate-700 rounded-lg shadow-lg w-full xs:w-11/12 sm:w-11/12 md:w-[800px] lg:w-[800px] p-6">
               <button
                 className="fixed xs:absolute right-3 top-0 text-white hover:text-gray-900 text-4xl"
@@ -197,6 +364,16 @@ export default function Index() {
                 <span className='inline-block mr-2 text-lg align-middle'>
                   <Icon />
                 </span>
+                {spell.tier && (
+                  <span className={classNames(`inline-block mr-2 align-top text-xs w-4 h-4 leading-tight rounded-full text-black font-black`, {
+                    'bg-green-200': spell.tier == 1,
+                    'bg-blue-200': spell.tier == 2,
+                    'bg-orange-200': spell.tier == 3,
+                    'bg-red-200': spell.tier == 4,
+                  })}>
+                    {spell.tier}
+                  </span>
+                )}
                 {spell.title}
               </button>
             )

@@ -13,6 +13,7 @@ json.range_amount resource.range_amount
 json.sacrifice resource.sacrifice
 json.short_description resource.short_description
 json.tags resource.tags
+json.filter_tags resource.filter_tags
 json.tier resource.tier
 json.title resource.title
 json.ultimate resource.ultimate
@@ -22,6 +23,14 @@ json.action_type_id resource.action_type_id
 json.attack_logic_id resource.attack_logic_id
 json.element_id resource.element_id
 json.external_id resource.external_id
+
+spell_owners = resource.spell_owners
+
+json.cultures resource.spell_owners.select { |so| so.spell_owner_type == 'Culture' }.map(&:spell_owner)
+json.grimos resource.spell_owners.select { |so| so.spell_owner_type == 'Grimo' }.map(&:spell_owner)
+json.species resource.spell_owners.select { |so| so.spell_owner_type == 'Specie' }.map(&:spell_owner)
+json.character_roles resource.spell_owners.select { |so| so.spell_owner_type == 'CharacterRole' }.map(&:spell_owner)
+
 json.range_type do
   json.id resource.range_type.id
   json.title resource.range_type.title
