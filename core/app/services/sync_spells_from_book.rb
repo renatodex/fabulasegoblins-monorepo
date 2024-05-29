@@ -17,7 +17,7 @@ class SyncSpellsFromBook
     puts "Syncing Skill [##{index.to_s.green}] - #{spell['name'].cyan}"
     {
       spell_attributes: {
-        book_url: spell_owners.first&.book_url,
+        book_url: spell_owners&.first&.book_url,
         cast_distance: spell["cast_distance"],
         cast_distance_number: spell["cast_distance"],
         duration_time: spell["duration_time"],
@@ -55,7 +55,7 @@ class SyncSpellsFromBook
       find_culture_by_tags(spell['tags'])
     ].flatten.compact
 
-    return if spell_owners.blank?
+    return [] if spell_owners.blank?
 
     spell_owners
   end
