@@ -25,16 +25,24 @@ export default function Index() {
         </p>
 
         <div className='grid grid-cols-2 md:grid-cols-3 mt-5 text-sm px-4 gap-3 md:gap-5'>
-          <a href="/spells" className='p-4 border border-slate-900 rounded-xl bg-slate-500'>
-            Poderes
+          <a href="/spells" className='p-4 border border-slate-200 rounded-xl bg-slate-500'>
+            🧙‍♂️ Poderes
           </a>
 
-          <div className='p-4 border border-slate-900 rounded-xl bg-slate-500'>
-            Inimigos
+          <div className='p-4 border border-slate-900 rounded-xl bg-gray-500 cursor-not-allowed'>
+            🔒 Inimigos
           </div>
 
-          <div className='p-4 border border-slate-900 rounded-xl bg-slate-500'>
-            Fichas Prontas
+          <div className='p-4 border border-slate-900 rounded-xl bg-gray-500 cursor-not-allowed'>
+            🔒 Itens
+          </div>
+
+          <div className='p-4 border border-slate-900 rounded-xl bg-gray-500 cursor-not-allowed'>
+            🔒 Aventuras
+          </div>
+
+          <div className='p-4 border border-slate-900 rounded-xl bg-gray-500 cursor-not-allowed'>
+            🔒 Fichas Prontas
           </div>
         </div>
       </div>

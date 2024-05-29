@@ -38,9 +38,9 @@ export default function Index({ fallbackSpell, apiHostUrl }) {
   )
 }
 
-export async function getStaticProps() {
+export async function getStaticProps(context) {
   const apiHostUrl = process.env.CORE_HOST_URL
-  const permalink = params.permalink
+  const permalink = context.params.permalink
 
   // Initial fetch to provide a fallback spell for build time rendering
   const fallbackSpell = await fetch(`${apiHostUrl}/api/spells?q[permalink_cont]=${permalink}`)

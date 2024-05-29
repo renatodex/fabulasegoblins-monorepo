@@ -65,6 +65,11 @@ export default function Index({ apiHostUrl }) {
       document.body.classList.remove('no-scroll');
     }
 
+    if (selectedSpell) {
+      window.history.pushState(null, '', `/spells/${selectedSpell.permalink}`);
+    } else {
+      window.history.pushState(null, '', '/spells');
+    }
   }, [selectedSpell, cartOpen])
 
   useEffect(() => {
@@ -96,6 +101,20 @@ export default function Index({ apiHostUrl }) {
       setCurrentPage(currentPage + 1)
     }
   }
+
+  const handleSpellSelect = (e, spell) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setSelectedSpell(spell)
+    setCartOpen(false)
+    // router.push(`/spells/${spell.permalink}`, undefined, { shallow: true })
+  };
+
+  const handleCloseSpell = (e) => {
+    e.preventDefault()
+    setSelectedSpell(null)
+    // router.push('/spells', undefined, { shallow: true })
+  };
 
   const submitSpells = () => {
     const baseUrl = '/spells/print';
@@ -319,12 +338,12 @@ export default function Index({ apiHostUrl }) {
         {selectedSpell && (
           <div
             className="fixed inset-0 flex xs:justify-center items-start xs:items-center bg-black bg-opacity-50 overflow-x-scroll"
-            onClick={e => setSelectedSpell(null)}
+            onClick={e => handleCloseSpell(e)}
           >
             <div className="relative bg-slate-700 rounded-lg shadow-lg w-full xs:w-11/12 sm:w-11/12 md:w-[800px] lg:w-[800px] p-6">
               <button
                 className="fixed xs:absolute right-3 top-0 text-white hover:text-gray-900 text-4xl"
-                onClick={e => { setSelectedSpell(null)}}
+                onClick={e => { handleCloseSpell(e)}}
               >
                 &times;
               </button>
@@ -335,7 +354,7 @@ export default function Index({ apiHostUrl }) {
                 onClick={e => {
                   setCartSpells([...(cartSpells || []), selectedSpell])
                   setCartOpen(true)
-                  setSelectedSpell(null)
+                  handleCloseSpell(e)
                 }}
               >
                 Adicionar Magia ao Deck
@@ -351,8 +370,7 @@ export default function Index({ apiHostUrl }) {
             return (
               <button
                 onClick={e => {
-                  setSelectedSpell(spell)
-                  setCartOpen(false)
+                  handleSpellSelect(e, spell)
                 }}
                 key={spell.id}
                 className={classNames('rounded-md border p-2', {
