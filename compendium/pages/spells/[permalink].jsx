@@ -66,18 +66,25 @@ export async function getStaticPaths() {
     }
   }
 
-  const apiHostUrl = process.env.CORE_HOST_URL
-  const spellSet = await loadSpells(apiHostUrl)
+  // const apiHostUrl = process.env.CORE_HOST_URL
+  // const spellSet = await loadSpells(apiHostUrl)
 
-  const paths = Array.from(spellSet).map(spell => ({
-    params: { fallbackSpell: spell.permalink },
-  }))
+  // const paths = Array.from(spellSet).map(spell => ({
+  //   params: { fallbackSpell: spell.permalink },
+  // }))
 
-  // { fallback: false } means other routes should 404
-  return { paths, fallback: false }
+  // // { fallback: false } means other routes should 404
+  // return { paths, fallback: false }
+
+  return {
+    paths: [],
+    fallback: true,
+  };
 }
 
 async function loadSpells(page, spellSet = null) {
+  const apiHostUrl = process.env.CORE_HOST_URL
+
   // Build Params to get multiple Spells
   if (!spellSet) {
     spellSet = new Set()
