@@ -39,9 +39,18 @@ export default function Index({ fallbackSpell, apiHostUrl }) {
 }
 
 export async function getStaticProps() {
+  const apiHostUrl = process.env.CORE_HOST_URL
+  const permalink = params.permalink
+
+  // Initial fetch to provide a fallback spell for build time rendering
+  const fallbackSpell = await fetch(`${apiHostUrl}/api/spells?q[permalink_cont]=${permalink}`)
+    .then((res) => res.json())
+    .then((data) => data[0] || null)
+
   return {
     props: {
-      apiHostUrl: process.env.CORE_HOST_URL
+      fallbackSpell,
+      apiHostUrl
     }
   }
 }
@@ -57,14 +66,11 @@ export async function getStaticPaths() {
     }
   }
 
-  // Call an external API endpoint to get posts
-  const spellSet = await loadSpells()
+  const apiHostUrl = process.env.CORE_HOST_URL
+  const spellSet = await loadSpells(apiHostUrl)
 
-  // Get the paths we want to prerender based on posts
-  // In production environments, prerender all pages
-  // (slower builds, but faster initial page load)
-  const paths = spellSet.keys().toArray().map(spell => ({
-    params: { fallbackSpell: spell },
+  const paths = Array.from(spellSet).map(spell => ({
+    params: { fallbackSpell: spell.permalink },
   }))
 
   // { fallback: false } means other routes should 404
