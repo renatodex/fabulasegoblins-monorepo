@@ -38,7 +38,7 @@ const Cart = ({ isOpen, onClose, children, onSubmit, total }) => {
   );
 };
 
-export default function Index() {
+export default function Index({ apiHostUrl }) {
   const title = 'Poderes'
   const [spells, setSpells] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
@@ -73,7 +73,7 @@ export default function Index() {
       const queryParams = new URLSearchParams();
       queryParams.append('q[filter_tags_eq_any]', `${permalinks.join(',')}`);
 
-      const result = await fetch(`http://localhost:5000/api/spells?page=${page}&${queryParams.toString()}`)
+      const result = await fetch(`${apiHostUrl}/api/spells?page=${page}&${queryParams.toString()}`)
       const response = await result.json()
       setSpells(response)
       setTotalPages(response.totalPages)
@@ -400,4 +400,12 @@ export default function Index() {
       </div>
     </Layout>
   )
+}
+
+export async function getStaticProps() {
+  return {
+    props: {
+      apiHostUrl: process.env.CORE_HOST_URL
+    }
+  }
 }

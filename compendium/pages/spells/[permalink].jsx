@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Spell from 'src/components/spell'
 import { useRouter } from 'next/router'
 
-export default function Index() {
+export default function Index({ apiHostUrl }) {
   const title = 'Poderes'
   const [spell, setSpell] = useState(null)
 
@@ -12,7 +12,7 @@ export default function Index() {
 
   useEffect(() => {
     async function loadSpells(page) {
-      const result = await fetch(`http://localhost:5000/api/spells?q[permalink_cont]=${router.query.permalink}`)
+      const result = await fetch(`${apiHostUrl}/api/spells?q[permalink_cont]=${router.query.permalink}`)
       const response = await result.json()
       setSpell(response[0])
     }
@@ -33,4 +33,12 @@ export default function Index() {
       <Spell spell={spell} />
     </div>
   )
+}
+
+export async function getStaticProps() {
+  return {
+    props: {
+      apiHostUrl: process.env.CORE_HOST_URL
+    }
+  }
 }

@@ -5,9 +5,8 @@ import { useRouter } from 'next/router'
 import PdfButton from 'src/components/download_pdf';
 import PdfSpells from 'src/components/pdf_spells';
 
-export default function Print() {
+export default function Print({ apiHostUrl }) {
   const title = 'Poderes'
-  const baseUrl = 'http://localhost:5000/api/spells'
 
   const [spells, setSpells] = useState([])
   const router = useRouter()
@@ -27,7 +26,7 @@ export default function Print() {
       ids.forEach(id => queryParams.append('q[id_in][]', id));
 
       // Make the request and handle the json
-      const result = await fetch(`${baseUrl}?${queryParams.toString()}&page=${page}`)
+      const result = await fetch(`${apiHostUrl}/api/spells?${queryParams.toString()}&page=${page}`)
       const response = await result.json()
 
       // Filter spells with the same permalink (in case the same API call executes twice)
@@ -74,4 +73,12 @@ export default function Print() {
       </div>
     </div>
   )
+}
+
+export async function getStaticProps() {
+  return {
+    props: {
+      apiHostUrl: process.env.CORE_HOST_URL
+    }
+  }
 }
