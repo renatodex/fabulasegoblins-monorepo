@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Spell from 'src/components/spell'
 import { useRouter } from 'next/router'
 
-export default function Index({ apiHostUrl }) {
+export default function Index({ spell, apiHostUrl }) {
   const title = 'Poderes'
   const [spell, setSpell] = useState(null)
 
@@ -11,14 +11,14 @@ export default function Index({ apiHostUrl }) {
   const permalink = router.query.permalink
 
   useEffect(() => {
-    async function loadSpells(page) {
+    async function loadSpell() {
       const result = await fetch(`${apiHostUrl}/api/spells?q[permalink_cont]=${router.query.permalink}`)
       const response = await result.json()
       setSpell(response[0])
     }
 
-    if (permalink) {
-      loadSpells()
+    if (!spell && permalink) {
+      loadSpell()
     }
   }, [permalink])
 
@@ -40,5 +40,57 @@ export async function getStaticProps() {
     props: {
       apiHostUrl: process.env.CORE_HOST_URL
     }
+  }
+}
+
+export async function getStaticPaths() {
+  // When this is true (in preview environments) don't
+  // prerender any static pages
+  // (faster builds, but slower initial page load)
+  if (process.env.SKIP_BUILD_STATIC_GENERATION) {
+    return {
+      paths: [],
+      fallback: 'blocking',
+    }
+  }
+
+  // Call an external API endpoint to get posts
+  const spellSet = await loadSpells()
+
+  // Get the paths we want to prerender based on posts
+  // In production environments, prerender all pages
+  // (slower builds, but faster initial page load)
+  const paths = spellSet.keys().toArray().map(spell => ({
+    params: { spell },
+  }))
+
+  // { fallback: false } means other routes should 404
+  return { paths, fallback: false }
+}
+
+async function loadSpells(page, spellSet = null) {
+  // Build Params to get multiple Spells
+  if (!spellSet) {
+    spellSet = new Set()
+  }
+
+  // Make the request and handle the json
+  const result = await fetch(`${apiHostUrl}/api/spells?page=${page}`)
+  const response = await result.json()
+
+  // Filter spells with the same permalink (in case the same API call executes twice)
+  response.filter(spell => {
+    if (!spellSet.has(spell.permalink)) {
+      spellSet.add(spell)
+      return true
+    }
+    return false
+  })
+
+  // Loop recurviely over next pages.
+  if (!JSON.parse(result.headers.get('X-LastPage'))) {
+    return loadSpells(page + 1, spellSet)
+  } else {
+    return spellSet
   }
 }
