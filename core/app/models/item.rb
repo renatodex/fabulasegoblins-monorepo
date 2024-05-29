@@ -47,4 +47,40 @@ class Item < ApplicationRecord
   belongs_to :item_type
   belongs_to :sheet_attribute, optional: true
   belongs_to :damage_type, optional: true
+
+  has_many :spell_owners, as: :spell_owner
+  has_many :spells, through: :spell_owners
+
+  def owner_type
+    "Item"
+  end
+
+  def self.ransackable_attributes(auth_object = nil)
+    [
+      "bonus_magic_attack",
+      "bonus_magical_defense",
+      "bonus_physical_attack",
+      "bonus_physical_defense",
+      "book_url",
+      "buy_price",
+      "damage_type_id",
+      "durability",
+      "formula",
+      "id",
+      "item_type_id",
+      "itemset_handle",
+      "itemset_part",
+      "long_description",
+      "movement_penalty",
+      "permalink",
+      "range_type_id",
+      "sell_price",
+      "sheet_attribute_id",
+      "short_description",
+      "slots_used",
+      "strength_requirement_to_wear",
+      "tier_requirement_to_wear",
+      "title",
+    ]
+  end
 end

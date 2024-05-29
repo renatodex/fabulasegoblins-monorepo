@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_23_061829) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_28_041248) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -500,6 +500,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_23_061829) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "spell_owners", force: :cascade do |t|
+    t.bigint "spell_id", null: false
+    t.string "spell_owner_type", null: false
+    t.bigint "spell_owner_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["spell_id"], name: "index_spell_owners_on_spell_id"
+    t.index ["spell_owner_type", "spell_owner_id"], name: "index_spell_owners_on_spell_owner"
+    t.index ["spell_owner_type", "spell_owner_id"], name: "index_spell_owners_on_spell_owner_type_and_spell_owner_id"
+  end
+
   create_table "spells", force: :cascade do |t|
     t.string "title"
     t.string "external_id"
@@ -525,6 +536,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_23_061829) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "attack_logic_id"
+    t.string "filter_tags"
     t.index ["action_type_id"], name: "index_spells_on_action_type_id"
     t.index ["attack_logic_id"], name: "index_spells_on_attack_logic_id"
     t.index ["element_id"], name: "index_spells_on_element_id"
@@ -591,6 +603,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_23_061829) do
   add_foreign_key "motor_taggable_tags", "motor_tags", column: "tag_id"
   add_foreign_key "specie_spells", "species"
   add_foreign_key "specie_spells", "spells"
+  add_foreign_key "spell_owners", "spells"
   add_foreign_key "spells", "action_types"
   add_foreign_key "spells", "attack_logics"
   add_foreign_key "spells", "elements"

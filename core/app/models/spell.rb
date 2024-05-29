@@ -8,6 +8,7 @@
 #  cast_distance_number :integer
 #  duration_time        :string
 #  duration_time_number :integer
+#  filter_tags          :string
 #  icon                 :string
 #  long_description     :text
 #  magic_cost           :string
@@ -48,6 +49,12 @@ class Spell < ApplicationRecord
   belongs_to :range_type
   belongs_to :element
 
+  has_many :spell_owners
+  has_many :items, through: :spell_owners, source: :spell_owner, source_type: 'Item'
+  has_many :cultures, through: :spell_owners, source: :spell_owner, source_type: 'Culture'
+  has_many :character_roles, through: :spell_owners, source: :spell_owner, source_type: 'CharacterRole'
+  has_many :species, through: :spell_owners, source: :spell_owner, source_type: 'Specie'
+
   def self.ransackable_attributes(auth_object = nil)
     [
       "action_type_id",
@@ -71,10 +78,24 @@ class Spell < ApplicationRecord
       "sacrifice",
       "short_description",
       "tags",
+      "filter_tags",
       "tier",
       "title",
       "ultimate",
       "updated_at"
+    ]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    [
+      "action_type",
+      "attack_logic",
+      "character_roles",
+      "cultures",
+      "element",
+      "items",
+      "range_type",
+      "species",
     ]
   end
 end

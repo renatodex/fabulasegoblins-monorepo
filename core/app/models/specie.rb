@@ -14,4 +14,10 @@
 #  updated_at             :datetime         not null
 #
 class Specie < ApplicationRecord
+  has_many :spell_owners, as: :spell_owner
+  has_many :spells, through: :spell_owners
+
+  def owner_type
+    'Specie'
+  end
 end

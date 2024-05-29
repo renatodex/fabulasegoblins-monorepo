@@ -16,4 +16,25 @@
 #  updated_at          :datetime         not null
 #
 class Culture < ApplicationRecord
+  has_many :spell_owners, as: :spell_owner
+  has_many :spells, through: :spell_owners
+
+  def owner_type
+    'Culture'
+  end
+
+  def self.ransackable_attributes(auth_object = nil)
+    [
+      "bonuses",
+      "book_url",
+      "clothes_description",
+      "common_divinities",
+      "id",
+      "key_values",
+      "long_description",
+      "permalink",
+      "short_description",
+      "title",
+    ]
+  end
 end
