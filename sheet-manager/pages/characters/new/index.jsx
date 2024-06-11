@@ -4,6 +4,7 @@ import Role from './steps/role'
 import Specie from './steps/specie'
 import Culture from './steps/culture'
 import Grimo from './steps/grimo'
+import Attributes from './steps/attributes'
 import Overview from './overview'
 import { AnimatePresence } from 'framer-motion'
 
@@ -35,9 +36,11 @@ export function Views () {
     } else if (selectedSubView == 'Species') {
       return <Specie character={character} setCharacter={setCharacter} />
     } else if (selectedSubView == 'Cultures') {
-      return <Culture character={character} setCharacter={setCharacter} /> 
+      return <Culture character={character} setCharacter={setCharacter} />
     } else if (selectedSubView == 'Grimos') {
-      return <Grimo character={character} setCharacter={setCharacter} /> 
+      return <Grimo character={character} setCharacter={setCharacter} />
+    } else if (selectedSubView == 'Attributes') {
+      return <Attributes character={character} setCharacter={setCharacter} />
     }
   }
 

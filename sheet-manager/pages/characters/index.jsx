@@ -3,6 +3,7 @@ import Container from '../components/container';
 import { Title, Subtitle } from '../components/title'
 import useLogin from '../../hooks/use_login'
 import Button from '../components/button'
+import Link from 'next/link';
 
 function NoCharactersDisplay () {
   return (
@@ -68,7 +69,16 @@ export default function () {
         <Title>Meus Personagens</Title>
       </div>
 
+      <div className='mt-7'>
+        <Link href="/characters/new" passHref>
+          <a className="border w-full rounded-lg border-dashed inline-block bg-dark-charcoal p-4">
+            ➕ Novo Personagem
+          </a>
+        </Link>
+      </div>
+
       {characters.length > 0 ? <CharacterList characters={characters} /> : <NoCharactersDisplay />}
+
     </Container>
   )
 }
