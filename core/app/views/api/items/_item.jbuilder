@@ -8,13 +8,12 @@ json.buy_price resource.buy_price
 json.durability resource.durability
 json.formula resource.formula
 json.long_description resource.long_description
+json.icon resource.icon
 json.permalink resource.permalink
 json.sell_price resource.sell_price
 json.short_description resource.short_description
 json.slots_used resource.slots_used
 json.title resource.title
-json.created_at resource.created_at
-json.updated_at resource.updated_at
-json.damage_type_id resource.damage_type_id
-json.item_type_id resource.item_type_id
-json.sheet_attribute_id resource.sheet_attribute_id
+json.damage_type resource.damage_type&.title
+json.item_type resource.item_type&.title
+json.sheet_attribute resource.sheet_attribute&.title

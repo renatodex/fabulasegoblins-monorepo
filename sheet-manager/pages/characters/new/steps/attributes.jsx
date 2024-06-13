@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Container from '@/pages/components/container';
 import { motion } from 'framer-motion';
 import { Title } from '@/pages/components/title';
@@ -9,16 +9,7 @@ import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { TouchBackend } from 'react-dnd-touch-backend';
 import { isTouchDevice } from 'react-device-detect';
-import { GiStrong } from 'react-icons/gi';
-import { GiRunningNinja } from 'react-icons/gi';
-import { GiShield } from 'react-icons/gi';
-import { GiBrain } from 'react-icons/gi';
-import { GiInnerSelf } from 'react-icons/gi';
-import { GiMagicSwirl } from 'react-icons/gi';
-import { GiConversation } from 'react-icons/gi';
-import { GiSprint } from 'react-icons/gi';
-import { GiCrystalBall } from 'react-icons/gi';
-
+import { GiStrong, GiRunningNinja, GiShield, GiBrain, GiInnerSelf, GiMagicSwirl, GiConversation, GiSprint, GiCrystalBall } from 'react-icons/gi';
 
 const ItemTypes = {
   MODIFIER: 'modifier',
@@ -34,6 +25,18 @@ const icons = {
   'Influência': <GiConversation />,
   'Sobrevivência': <GiSprint />,
   'Destino': <GiCrystalBall />
+};
+
+const attributeMap = {
+  'Força': 'base_strength',
+  'Agilidade': 'base_agility',
+  'Resiliência': 'base_resilience',
+  'Intelecto': 'base_intelect',
+  'Espírito': 'base_spirit',
+  'Elo Mágico': 'base_magic_elo',
+  'Influência': 'base_influence',
+  'Sobrevivência': 'base_survival',
+  'Destino': 'base_destiny'
 };
 
 const Modifier = ({ id, value, isSelected, isUsed, onClick }) => {
@@ -65,7 +68,7 @@ const Modifier = ({ id, value, isSelected, isUsed, onClick }) => {
   );
 };
 
-const AttributeBox = ({ attribute, character, setCharacter, selectedModifier, setSelectedModifier, appliedModifiers, setAppliedModifiers }) => {
+const AttributeBox = ({ attribute, selectedModifier, characterAttributes, setCharacterAttributes, setSelectedModifier, appliedModifiers, setAppliedModifiers }) => {
   const [{ isOver }, drop] = useDrop(() => ({
     accept: ItemTypes.MODIFIER,
     drop: (item) => {
@@ -79,9 +82,9 @@ const AttributeBox = ({ attribute, character, setCharacter, selectedModifier, se
         });
       }
 
-      setCharacter((prev) => ({
+      setCharacterAttributes((prev) => ({
         ...prev,
-        [attribute]: item.value,
+        [attributeMap[attribute]]: item.value,
       }));
       setAppliedModifiers((prev) => ({
         ...prev,
@@ -92,7 +95,7 @@ const AttributeBox = ({ attribute, character, setCharacter, selectedModifier, se
     collect: (monitor) => ({
       isOver: monitor.isOver(),
     }),
-  }), [attribute, appliedModifiers, setCharacter, setAppliedModifiers, setSelectedModifier]);
+  }), [attribute, appliedModifiers, setCharacterAttributes, setAppliedModifiers, setSelectedModifier]);
 
   const handleAttributeClick = () => {
     if (selectedModifier !== null) {
@@ -106,9 +109,9 @@ const AttributeBox = ({ attribute, character, setCharacter, selectedModifier, se
         });
       }
 
-      setCharacter((prev) => ({
+      setCharacterAttributes((prev) => ({
         ...prev,
-        [attribute]: selectedModifier.value,
+        [attributeMap[attribute]]: selectedModifier.value,
       }));
       setAppliedModifiers((prev) => ({
         ...prev,
@@ -121,9 +124,9 @@ const AttributeBox = ({ attribute, character, setCharacter, selectedModifier, se
   const handleResetClick = () => {
     const modifierId = Object.keys(appliedModifiers).find(id => appliedModifiers[id] === attribute);
     if (modifierId) {
-      setCharacter((prev) => ({
+      setCharacterAttributes((prev) => ({
         ...prev,
-        [attribute]: 0,
+        [attributeMap[attribute]]: 0,
       }));
       setAppliedModifiers((prev) => {
         const newAppliedModifiers = { ...prev };
@@ -142,7 +145,7 @@ const AttributeBox = ({ attribute, character, setCharacter, selectedModifier, se
         onClick={handleAttributeClick}
         className={`w-34 h-20 rounded border border-green-300 mt-2 leading-[4.8rem] text-center text-5xl cursor-pointer ${isOver ? 'bg-green-100' : ''}`}
       >
-        {character[attribute] || 0}
+        {characterAttributes[attributeMap[attribute]] || 0}
       </div>
       {isModifierApplied && (
         <div className=''>
@@ -160,6 +163,17 @@ export default function Attributes({ character, setCharacter }) {
   const { setParentViewVisibility, setSubViewVisibility } = useContext(ScreenSlideContext);
   const [selectedModifier, setSelectedModifier] = useState(null);
   const [appliedModifiers, setAppliedModifiers] = useState({});
+  const [characterAttributes, setCharacterAttributes] = useState({
+    'base_strength': 0,
+    'base_agility': 0,
+    'base_resilience': 0,
+    'base_intelect': 0,
+    'base_spirit': 0,
+    'base_magic_elo': 0,
+    'base_influence': 0,
+    'base_survival': 0,
+    'base_destiny': 0,
+  })
 
   const modifiers = [
     { id: 1, value: +2 },
@@ -177,6 +191,10 @@ export default function Attributes({ character, setCharacter }) {
   const handleModifierClick = (modifier) => {
     setSelectedModifier((prev) => (prev && prev.id === modifier.id ? null : modifier)); // Toggle selection
   };
+
+  const validateAttributes = function () {
+    return Object.values(appliedModifiers).length == modifiers.length
+  }
 
   return (
     <DndProvider backend={isTouchDevice ? TouchBackend : HTML5Backend}>
@@ -209,8 +227,8 @@ export default function Attributes({ character, setCharacter }) {
                 </div>
                 <AttributeBox
                   attribute={attribute}
-                  character={character}
-                  setCharacter={setCharacter}
+                  characterAttributes={characterAttributes}
+                  setCharacterAttributes={setCharacterAttributes}
                   selectedModifier={selectedModifier}
                   setSelectedModifier={setSelectedModifier}
                   appliedModifiers={appliedModifiers}
@@ -221,16 +239,25 @@ export default function Attributes({ character, setCharacter }) {
           </div>
 
           <div className='mt-7'>
-            <Button onClick={(e) => {
-              setSubViewVisibility(false);
-              setParentViewVisibility(true);
-              setCharacter({
-                ...character,
-                grimo: selectedGrimo,
-              });
-            }}>
-              Próximo
-            </Button>
+            {validateAttributes() ? (
+              <Button onClick={() => {
+                setSubViewVisibility(false);
+                setParentViewVisibility(true);
+                setCharacter({
+                  ...character,
+                  attributes: {
+                    ...characterAttributes,
+                    permalink: 'attributes',
+                  },
+                })
+              }}>
+                Próximo
+              </Button>
+            ) : (
+              <Button disabled>
+                ❕ Faltam ({modifiers.length - Object.values(appliedModifiers).length}) modificadores ❕
+              </Button>
+            )}
           </div>
         </Container>
       </motion.div>

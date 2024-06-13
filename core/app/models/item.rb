@@ -11,11 +11,14 @@
 #  buy_price                    :integer
 #  durability                   :integer
 #  formula                      :text
+#  icon                         :text
 #  itemset_handle               :string
 #  itemset_part                 :boolean          default(FALSE)
 #  long_description             :text
+#  magical_formula              :text
 #  movement_penalty             :integer
 #  permalink                    :string
+#  physical_formula             :text
 #  sell_price                   :integer
 #  short_description            :text
 #  slots_used                   :integer          default(1)
@@ -81,6 +84,9 @@ class Item < ApplicationRecord
       "strength_requirement_to_wear",
       "tier_requirement_to_wear",
       "title",
+      "magical_formula",
+      "physical_formula",
+      "icon",
     ]
   end
 end
