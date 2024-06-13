@@ -54,6 +54,8 @@ class Item < ApplicationRecord
   has_many :spell_owners, as: :spell_owner
   has_many :spells, through: :spell_owners
 
+  scope :grimos, -> { joins(:item_type).where(item_type: { title: 'Grimo'}) }
+
   def owner_type
     "Item"
   end

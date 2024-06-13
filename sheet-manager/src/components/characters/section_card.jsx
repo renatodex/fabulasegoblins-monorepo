@@ -12,17 +12,17 @@ export default function SectionCard ({ item, folder, selectedItem, setSelectedIt
         className="h-36 bg-blue rounded-lg border-white border-solid border bg-cover"
         style={{ backgroundImage: `url('/${folder}/${item.permalink}.jpg')`, height: '10rem' }}
       />
-        <div className="text-center">
-          <div className="mt-2 text-aero-blue">
-            <Subtitle>
-              <span className="text-xl">
-                {item.name}
-                {selectedItem === item.permalink}
-              </span>
-              {' '}
-              <BsPatchQuestion className="inline" />
-            </Subtitle>
-          </div>
+      <div className="text-center">
+        <div className="mt-2 text-aero-blue">
+          <Subtitle>
+            <span className="text-xl">
+              {item.name || item.title}
+              {selectedItem === item.permalink}
+            </span>
+            {' '}
+            <BsPatchQuestion className="inline" />
+          </Subtitle>
+        </div>
       </div>
     </div>
   )

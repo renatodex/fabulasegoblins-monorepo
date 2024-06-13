@@ -3,11 +3,12 @@
 # Table name: sheet_attributes
 #
 #  id                :bigint           not null, primary key
-#  title             :string
-#  short_description :text
+#  book_url          :text
+#  icon              :text
 #  long_description  :text
 #  permalink         :string
-#  book_url          :text
+#  short_description :text
+#  title             :string
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #

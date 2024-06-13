@@ -17,3 +17,4 @@ json.title resource.title
 json.damage_type resource.damage_type&.title
 json.item_type resource.item_type&.title
 json.sheet_attribute resource.sheet_attribute&.title
+json.sheet_attribute_icon resource.sheet_attribute&.icon
