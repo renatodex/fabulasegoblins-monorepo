@@ -142,7 +142,7 @@ create_rows(SheetAttribute, [
 ])
 
 # Criando Grimos
-create_rows(Grimo, [
+create_rows(Item, [
   { title: "Brasão de Giurad", short_description: "O s Guerreiros de Giurad são treinados para se tornarem cavaleiros da justiça nas Academias de combate. Lá, eles aprendem a manipular a Espada e o Escudo, utilizando poderosas habilidades estratégicas para beneficiar seus aliados enquanto causam dano em seus inimigos. Todo Cavaleiro faz um juramento de lealdade a um Tutor, figura sábia e respeitada cujo papel é orientá-lo em sua jornada.", permalink: "brasao-de-giurad", formula: nil, bonus_magic_attack: nil, bonus_magical_defense: nil, bonus_physical_attack: nil, bonus_physical_defense: nil, buy_price: nil, sell_price: nil, durability: nil, slots_used: nil, damage_type: nil, item_type: ItemType.grimo, sheet_attribute: nil, book_url: nil },
   { title: "Jóia de Lunn", short_description: "A Jóia de Lunn é o Grimo dos Sacerdotes da Igreja de Lunn. (também conhecido como Luniísmo). Seus Adeptos aprendem a arte da Cura e do Suporte em sua forma mais pura, e são vistos como os Pilares que combatem o crescimento do mal. A palavra de Lunn é venerada em diversos cantos do mundo, e seus Sacerdotes são caracterízados pelo porte do Cajado e da Cruz de Lunn.", permalink: "joia-de-lunn", formula: nil, bonus_magic_attack: nil, bonus_magical_defense: nil, bonus_physical_attack: nil, bonus_physical_defense: nil, buy_price: nil, sell_price: nil, durability: nil, slots_used: nil, damage_type: nil, item_type: ItemType.grimo, sheet_attribute: nil, book_url: nil },
   { title: "Orbe de Allura", short_description: "A Orbe de Allura é um Grimo elemental, que ao ser vinculado, pode adquirir qualquer um dos 12 Aspectos Elementais do mundo. Os Adeptos de Allura se tornam Arcanistas elementais que canalizam seu poder à partir do Grimo podendo conjurar poderosos feitiços ofensivos e defensivos. Os Adeptos de Allura também aprendem a utilizar o Cetro e a Orbe para canalizar o poder dos Elementos.", permalink: "orbe-de-allura", formula: nil, bonus_magic_attack: nil, bonus_magical_defense: nil, bonus_physical_attack: nil, bonus_physical_defense: nil, buy_price: nil, sell_price: nil, durability: nil, slots_used: nil, damage_type: nil, item_type: ItemType.grimo, sheet_attribute: nil, book_url: nil },
@@ -301,7 +301,7 @@ create_rows(Character, [
 ], :code)
 
 create_rows(CharacterItem, [
-  item: Grimo.allura,
+  item: Item.allura,
   character: Character.first,
   notes: "Elemento Fogo - Fraqueza Agua - Efeito Queimar",
   property: "fire",

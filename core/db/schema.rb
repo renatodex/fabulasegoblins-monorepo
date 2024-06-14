@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_06_13_190605) do
+ActiveRecord::Schema[7.0].define(version: 2024_06_14_054221) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -188,6 +188,30 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_13_190605) do
     t.index ["negative_effect_id"], name: "index_elements_on_negative_effect_id"
     t.index ["resistant_to_id"], name: "index_elements_on_resistant_to_id"
     t.index ["weak_to_id"], name: "index_elements_on_weak_to_id"
+  end
+
+  create_table "grimo_starter_items", force: :cascade do |t|
+    t.bigint "grimo_id", null: false
+    t.bigint "item_id", null: false
+    t.boolean "guaranteed", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["grimo_id", "item_id"], name: "index_grimo_weapons_on_grimo_and_item", unique: true
+    t.index ["grimo_id"], name: "index_grimo_starter_items_on_grimo_id"
+    t.index ["item_id"], name: "index_grimo_starter_items_on_item_id"
+  end
+
+  create_table "grimos", force: :cascade do |t|
+    t.string "title"
+    t.string "permalink", null: false
+    t.bigint "item_id", null: false
+    t.text "short_description"
+    t.text "long_description"
+    t.text "entry_requisites"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["item_id"], name: "index_grimos_on_item_id"
+    t.index ["permalink"], name: "index_grimos_on_permalink", unique: true
   end
 
   create_table "initial_items", force: :cascade do |t|
@@ -593,6 +617,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_13_190605) do
   add_foreign_key "elements", "elements", column: "resistant_to_id"
   add_foreign_key "elements", "elements", column: "weak_to_id"
   add_foreign_key "elements", "negative_effects"
+  add_foreign_key "grimo_starter_items", "grimos"
+  add_foreign_key "grimo_starter_items", "items"
+  add_foreign_key "grimos", "items"
   add_foreign_key "initial_items", "items", column: "offered_item_id"
   add_foreign_key "item_initial_items", "items", column: "offered_item_id"
   add_foreign_key "item_initial_items", "items", column: "original_item_id"

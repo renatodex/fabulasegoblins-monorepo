@@ -21,8 +21,19 @@
 #
 #  fk_rails_...  (item_id => items.id)
 #
-class Grimo < ApplicationRecord
-  belongs_to :item
-  has_many :grimo_starter_items
-  has_many :items, through: :grimo_starter_items
-end
+
+one:
+  title: MyString
+  permalink: MyString
+  item: one
+  short_description: MyText
+  long_description: MyText
+  entry_requisites: MyText
+
+two:
+  title: MyString
+  permalink: MyString
+  item: two
+  short_description: MyText
+  long_description: MyText
+  entry_requisites: MyText

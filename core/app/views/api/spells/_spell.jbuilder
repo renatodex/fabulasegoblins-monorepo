@@ -26,10 +26,10 @@ json.external_id resource.external_id
 
 spell_owners = resource.spell_owners
 
-json.cultures resource.spell_owners.select { |so| so.spell_owner_type == 'Culture' }.map(&:spell_owner)
-json.grimos resource.spell_owners.select { |so| so.spell_owner_type == 'Grimo' }.map(&:spell_owner)
-json.species resource.spell_owners.select { |so| so.spell_owner_type == 'Specie' }.map(&:spell_owner)
-json.character_roles resource.spell_owners.select { |so| so.spell_owner_type == 'CharacterRole' }.map(&:spell_owner)
+# json.cultures resource.spell_owners.select { |so| so.spell_owner_type == 'Culture' }.map(&:spell_owner)
+# json.grimos resource.spell_owners.select { |so| so.spell_owner_type == 'Item' }.map(&:spell_owner)
+# json.species resource.spell_owners.select { |so| so.spell_owner_type == 'Specie' }.map(&:spell_owner)
+# json.character_roles resource.spell_owners.select { |so| so.spell_owner_type == 'CharacterRole' }.map(&:spell_owner)
 
 json.range_type do
   json.id resource.range_type.id

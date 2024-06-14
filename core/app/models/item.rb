@@ -53,6 +53,8 @@ class Item < ApplicationRecord
 
   has_many :spell_owners, as: :spell_owner
   has_many :spells, through: :spell_owners
+  has_many :grimo_starter_items
+  has_many :grimos, through: :grimo_starter_items
 
   scope :grimos, -> { joins(:item_type).where(item_type: { title: 'Grimo'}) }
 
@@ -90,5 +92,47 @@ class Item < ApplicationRecord
       "physical_formula",
       "icon",
     ]
+  end
+
+  class << self
+    def giurad
+      find_by_permalink("brasao-de-giurad")
+    end
+
+    def kanus
+      find_by_permalink("olho-de-kanus")
+    end
+
+    def lunn
+      find_by_permalink("joia-de-lunn")
+    end
+
+    def allura
+      find_by_permalink("orbe-de-allura")
+    end
+
+    def ravna
+      find_by_permalink("arca-de-ravna")
+    end
+
+    def darian
+      find_by_permalink("totem-de-darian")
+    end
+
+    def zanari
+      find_by_permalink("frasco-de-zanari")
+    end
+
+    def magni
+      find_by_permalink("aparato-de-magni")
+    end
+
+    def qatun
+      find_by_permalink("insignia-de-qatun")
+    end
+
+    def ixin
+      find_by_permalink("selo-de-ixin")
+    end
   end
 end

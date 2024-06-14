@@ -174,13 +174,13 @@ class SyncSpellsFromBook
   end
 
   def find_grimo_by_tags(tags)
-    strings = (Grimo.all.map(&:permalink).map { |perma| perma.split('-').last } & tags)
+    strings = (Item.all.map(&:permalink).map { |perma| perma.split('-').last } & tags)
     return if strings.blank?
 
     like_conditions = strings.map { |string| "permalink LIKE ?" }.join(' OR ')
     values = strings.map { |string| "%#{string}%" }
 
-    Grimo.where(like_conditions, *values)
+    Item.where(like_conditions, *values)
   end
 end
 

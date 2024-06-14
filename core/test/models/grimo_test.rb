@@ -21,8 +21,10 @@
 #
 #  fk_rails_...  (item_id => items.id)
 #
-class Grimo < ApplicationRecord
-  belongs_to :item
-  has_many :grimo_starter_items
-  has_many :items, through: :grimo_starter_items
+require "test_helper"
+
+class GrimoTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
 end
