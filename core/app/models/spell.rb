@@ -34,6 +34,7 @@
 #  index_spells_on_action_type_id   (action_type_id)
 #  index_spells_on_attack_logic_id  (attack_logic_id)
 #  index_spells_on_element_id       (element_id)
+#  index_spells_on_permalink        (permalink) UNIQUE
 #  index_spells_on_range_type_id    (range_type_id)
 #
 # Foreign Keys

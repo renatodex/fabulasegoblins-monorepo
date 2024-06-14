@@ -11,9 +11,10 @@
 #
 # Indexes
 #
-#  index_spell_owners_on_spell_id                             (spell_id)
-#  index_spell_owners_on_spell_owner                          (spell_owner_type,spell_owner_id)
-#  index_spell_owners_on_spell_owner_type_and_spell_owner_id  (spell_owner_type,spell_owner_id)
+#  index_spell_owners_on_spell_id                              (spell_id)
+#  index_spell_owners_on_spell_id_and_owner_type_and_owner_id  (spell_id,spell_owner_type,spell_owner_id) UNIQUE
+#  index_spell_owners_on_spell_owner                           (spell_owner_type,spell_owner_id)
+#  index_spell_owners_on_spell_owner_type_and_spell_owner_id   (spell_owner_type,spell_owner_id)
 #
 # Foreign Keys
 #

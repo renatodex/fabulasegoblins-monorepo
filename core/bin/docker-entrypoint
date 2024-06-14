@@ -1,5 +1,11 @@
-#!/bin/bash -e
+#!/bin/bash
+set -e
 
-# Add any container initialization steps here
+# Ensure the database is ready
+./bin/rails db:prepare
 
+# Run database seeds
+./bin/rails db:seed
+
+# Then, execute the original command
 exec "${@}"

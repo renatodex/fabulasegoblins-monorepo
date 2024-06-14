@@ -6,19 +6,34 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
+def create_rows(klass, rows, unique_field = :permalink)
+  rows.each do |row|
+    item =
+      if unique_field == :all
+        klass.find_or_initialize_by(row)
+      else
+        klass.find_or_initialize_by("#{unique_field}": row[unique_field])
+      end
+
+    if row.key? :short_description
+      item.update(row.merge({short_description: row[:long_description]}))
+    else
+      item.update(row)
+    end
+  end
+end
+
 ## Criando usuário de teste
-User.create!(
-  [
-    {
-      email: "teste@tendadogoblin.com",
-      password: "test123",
-      password_confirmation: "test123"
-    }
-  ]
-)
+create_rows(User, [
+  {
+    email: "teste@tendadogoblin.com",
+    password: "test123",
+    password_confirmation: "test123"
+  }
+], :email)
 
 ## Criando Tipos de Itens
-[
+create_rows(ItemType, [
   {title: "Armadura",	permalink: "armor", long_description: "Armaduras aumentam a sobrevivência do seu personagem, reduzindo a possibilidade de receber dano de inimigos no combate. Elas também podem te deixar mais lento."},
   {title: "Arma",	permalink: "weapon", long_description: "Armas são sua forma mais básica de ataque, cada classe costuma ter sua própria especialização, mas é possível se especializar em novos tipos armas com o passar do tempo."},
   {title: "Grimo",	permalink: "grimo", long_description: "Grimos são sua principal fonte de poder mágico, e é através dele que você aumenta seu vínculo com a magia enfraquecida das Terras Místicas"},
@@ -28,25 +43,20 @@ User.create!(
   {title: "Armazenamento",	permalink: "storage", long_description: "As masmorras possuem muitos tesouros, mas de nada adianta se não puder carregá-los. Os itens de Armazenamento aqui serão seus melhores aliados!"},
   {title: "Ferramentas",	permalink: "tool", long_description: "Ferramentas são o canivete suiço de todo aventureiro, seja parar quebrar, emendar ou separar, é sempre bom contar estes amiguinhos metálicos."},
   {title: "Especial",	permalink: "special", long_description: "Os Itens especiais geralmente não podem ser equipados ou carregados. São apenas Itens de Interação que podem desencadear Bençãos ou Maldições"}
-].each do |item_type|
-  ItemType.create!(item_type.merge({short_description: item_type[:long_description]}))
-end
+])
 
 ## Criando Tipos de Dano
-[
+create_rows(DamageType, [
   { title: "Físico", permalink: 'physical', long_description: "O dano físico é aquele normalmente realizado por armas comuns ou que não utilizam propriedades mágicas." },
   { title: "Mágico", permalink: 'magic', long_description: "O dano mágico é aquele que é realizado por poderes, Grimos, armas ou artefatos que possuem essência mágica, sendo capazes de causar dano elemental, não-elemental, ou até realizar proezas extraordinárias que não seriam possíveis pelos meios comuns." },
-  { title: "Perfurante", permalink: 'physical', long_description: "O dano físico é aquele normalmente realizado por armas comuns ou que não utilizam propriedades mágicas." },
-  { title: "Contusivo", permalink: 'physical', long_description: "O dano físico é aquele normalmente realizado por armas comuns ou que não utilizam propriedades mágicas." },
-  { title: "Cortante", permalink: 'physical', long_description: "O dano físico é aquele normalmente realizado por armas comuns ou que não utilizam propriedades mágicas." },
+  { title: "Perfurante", permalink: 'piercing', long_description: "O dano físico é aquele normalmente realizado por armas comuns ou que não utilizam propriedades mágicas." },
+  { title: "Contusivo", permalink: 'contusive', long_description: "O dano físico é aquele normalmente realizado por armas comuns ou que não utilizam propriedades mágicas." },
+  { title: "Cortante", permalink: 'cutting', long_description: "O dano físico é aquele normalmente realizado por armas comuns ou que não utilizam propriedades mágicas." },
   { title: "Físico", permalink: 'physical', long_description: "O dano físico é aquele normalmente realizado por armas comuns ou que não utilizam propriedades mágicas." },
-
-].each do |damage_type|
-  DamageType.create!(damage_type.merge({short_description: damage_type[:long_description]}))
-end
+])
 
 # Criando Culturas
-[
+create_rows(Culture, [
   { permalink: "filhos-do-orvalho", title: "Filhos do Orvalho", short_description: "Nascidos em pequenos vilarejos ou reinos situados no interior de matas densas, os Filhos da Floresta, a exemplo dos Galanorianos, estão acostumados com a presença da vida selvagem a sua porta.", key_values: "Sobrevivência, Agilidade, Intelecto", clothes_description: "Fibras de Folhas, Peles de Animais, e Couro vegetal", common_divinities: "Musgom, Gumera, Ogoron", bonuses: "Sobrevivência +1, Agilidade +1, Intelecto +1, P.M +2"},
   { permalink: "filhos-das-areias", title: "Filhos das Areias", short_description: "Os Filhos do Deserto representam os povos que habitam as terras áridas e quentes. Suas cidades são verdadeiros Oasis em meio a imensidão de areia e pedra, e sua cultura é marcada pela sobrevivência e pela força.", key_values: "Resiliência, Força, Sobrevivência", clothes_description: "Túnicas Leves, Trajes acolchoados, e Fibra de Cacto", common_divinities: "Moltron, Valamir, Valeon", bonuses: "Resiliência +1, Sobrevivência +1, Força +1, P.V +4"},
   { permalink: "filhos-de-caldera", title: "Filhos da Caldera", short_description: "Acostumados a passar meses velejando no extenso e inexplorado mar de Caldera, esses Aventureiros estão desacostumados com a comodidade da Terra. Reinos portuários como Tol'Deran, Nuvenar e Celendor são com certeza a única porção de terra que eles podem considerar como um \"Porto Seguro\", e até, talvez, chamar de lar.", key_values: "Exploração, Adaptação, Disciplina", clothes_description: "Trajes Leves e Quentes, Tecidos a base de Algodão e Couro especiais para baixas temperaturas", common_divinities: "Ehphyros, Valis, Estiros", bonuses: "Agilidade +1, Influência +1, Resiliência +1, Iniciativa +2"},
@@ -57,36 +67,30 @@ end
   { permalink: "filhos-do-povo-livre", title: "Filhos do Povo Livre", short_description: "Imensos acampamentos itinerantes se extendem por kilômetros nas grandes Planícies Mediterrâneas das Terras Místicas. Esses reinos móveis foram originalmente fundados por Nativos que moravam nas Ilhas externas ao continente, que acabaram migrando para os Reinos Mediterrâneos, mas não conseguiram se adaptar na vida nas cidades.", key_values: "Agricultura, Comércio, Fronteiras", clothes_description: "Trajes típico de viajantes, com muitas aberturas e bolsos", common_divinities: "Somonir, Joromur, Aypheria", bonuses: "Influência +1, Agilidade +1, Pontos de Ataque +1"},
   { permalink: "filhos-de-eregor", title: "Filhos de Eregor", short_description: "O Povo Eregor é representado pelos aglomerados de reinos e cidades que populam grandes conjuntos de montanhas e desfiladeiros. Acostumados com a arte de forja e magia, esses reinos prosperaram devido a sua localização privilegiada, tornando-se locais propícios para aqueles que buscam aprender tecnologia.", key_values: "Ceticismo, Tecnologia, Forja", clothes_description: "Roupas ornamentadas, túnicas banhadas em ouro e pequenas jóias como adereços", common_divinities: "Moltron, Razandibu e Beremord", bonuses: "Força +1, Influência + 1, Resiliência +1"},
   { permalink: "filhos-de-timeria", title: "Filhos de Timéria", short_description: "Como um Filho de Timéria, você nasceu e viveu por um longo tempo nas Terras do Oceano de Timéria, seja em um pequeno vilarejo, ou em uma das grandes cidades submersas como Baion, Cardumia ou Pomedon.", key_values: "Mistério, Equilíbrio, Respeito", clothes_description: "Couro aquático, Exo-Esqueletos, Túnicas de Lã de Algas", common_divinities: "Koroma, Lazan, Gaeria", bonuses: "Elo Mágico +1, Espírito +1, Força +1"},
-].each do |culture|
-  Culture.create!(culture.merge({long_description: culture[:short_description]}))
-end
+])
 
 # Criando Papéis de Personagem
-[
+create_rows(CharacterRole, [
   { title: "Carregador", permalink: "carrier", base_hp: 14, base_mp: 12, base_movement: 5, weapon_proficience: "Força ou Agilidade", hp_per_level: [4, 4, 8, 8], mp_per_level: [2,4,4,6],  short_description: "Você prioriza o combate próximo e está disposto a receber dano se isso significar causar mais dano." },
   { title: "Atirador", permalink: "shooter", base_hp: 14, base_mp: 12, base_movement: 5, weapon_proficience: "Agilidade ou Sobrevivência", hp_per_level: [3,3,6,6], mp_per_level: [3,3,6,6],  short_description: "Você prioriza o combate a distância e prefere não receber dano e ainda sim causar muito dano." },
   { title: "Tanque", permalink: "tank", base_hp: 18, base_mp: 12, base_movement: 4, weapon_proficience: "Força ou Resiliência", hp_per_level: [5,5,10,10], mp_per_level: [2,4,4,6],  short_description: "Você é uma parede de tijolos, e se os inimigos querem chegar em seus aliados, terão de passar por você." },
   { title: "Suporte", permalink: "support", base_hp: 12, base_mp: 18, base_movement: 3, weapon_proficience: "Intelecto, Elo Mágico ou Espírito", hp_per_level: [2,4,4,6], mp_per_level: [5,5,10,10],  short_description: "Sua especialidade é auxiliar seus aliados, conjurando auras e benefícios cruciais para mantê-los vivos." },
   { title: "Conjurador", permalink: "caster", base_hp: 12, base_mp: 14, base_movement: 4, weapon_proficience: "Intelecto, Elo Mágico ou Espírito", hp_per_level: [2,4,4,6], mp_per_level: [4,4,8,8],  short_description: "Você prefere manter distância de seus inimigos, utilizando feitiços mágicos para causar muito dano." },
   { title: "Utilitário", permalink: "utility", base_hp: 14, base_mp: 14, base_movement: 4, weapon_proficience: "Qualquer uma", hp_per_level: [3,3,6,6], mp_per_level: [3,3,6,6],  short_description: "O seu estilo é misto, e prefere uma abordagem mais equilibrada que varie combate a distância e corpo a corpo." },
-].each do |character_role|
-  CharacterRole.create!(character_role.merge({long_description: character_role[:short_description]}))
-end
+])
 
 # Criando Espécies
-[
+create_rows(Specie, [
   { title: "Goblin", permalink: "goblin", playable: true, extra_attribute_points: 2, short_description: "Os Goblins são a raça mais dominante no mundo das Terras Místicas. Alegres e trabalhadores, os Goblins ergueram verdadeiros impérios com sua perseverança e trabalho árduo. Nos dias de hoje, eles sofrem com os impactos do Blecaute, e lutam diariamente para que possam reconquistar tudo que foi perdido." },
   { title: "Armadon", permalink: "armadon", playable: true, extra_attribute_points: 0, short_description: "Os Armadons são uma raça pangoliana exclusiva de climas quentes e seco. São biologicamente capazes sobreviver por longos períodos abaixo da terra, sem luz solar e até sem água corrente. Os Armadons são conhecidos como verdadeiros engenheiros, construíndo cidades em locais onde não se imaginava ser possível suportar vida." },
   { title: "Metalóide", permalink: "metaloide", playable: true, extra_attribute_points: 0, short_description: "Criados caóticamente a partir da magia bruta, Metalóides são seres mágicos, possuindo bolsões corporais por onde passa um flúido metálico derivado da magia. Capazes de manipular a magia para criar itens mágicos a partir de materiais brutos, Metalóides são conhecidos por suas sociedades fechadas e místicas." },
   { title: "Razalan", permalink: "razalan", playable: true, extra_attribute_points: 0, short_description: "Espécie com características Reptilianas e Aviárias, os Razalans são conhecidos por construírem seus reinos isolados em ilhas flutuantes. Tradicionalmente eram conhecidos como agricultores de magia no passado, até que o Blecaute tornou seus campos inférteis, e precisaram formar alianças mais fortes com os outros reinos terrestres. Apesar de possuírem asas, não são capazes de voar, mas podem planar e flutuar a baixas altitudes." },
   { title: "Valdari", permalink: "valdari", playable: true, extra_attribute_points: 0, short_description: "Os Valdaris são uma espécie de Anfíbios que dominam primariamente os extensos rios e oceanos de Galantia. Fisicamente eles se desenvolveram para se adaptar a viverem submersos, possuindo a capacidade de respirar normalmente tanto dentro quanto fora d'agua." },
   { title: "Luminin", permalink: "luminin", playable: true, extra_attribute_points: 0, short_description: "Os Luminins são pequenas criaturas humanóides que possuem alto grau de sensciencia e uma sociedade organizada. Um indivíduo adulto pode chegar a uma média de 1,30m, sendo consideravelmente pequeno até mesmo comparados com raças anatomicamente menores como Armadons. Seus corpos possuem uma bioluminescência natural, emitindo um brilho de tonalidade púrpura, que se extende por seu corpo todo, dos pés a cabeça. Diferente do que se costuma deduzir, os Luminins não são criaturas de constituição mágica, pois seu brilho característico vêm de característica química de seus corpos, não possuindo qualquer vestigio de magia em sua emissão de luz." },
-].each do |specie|
-  Specie.create!(specie.merge({long_description: specie[:short_description]}))
-end
+])
 
 # Criando Tipos de Ação (não usado ainda)
-[
+create_rows(ActionType, [
   { title: "Ativa", permalink: 'active', short_description: "Ações ativas custam uma ação para ser utilizada. Em um combate, um personagem pode realizar uma Ação Maior, uma Menor, e muitas Ações Livres, mas todos esses sub-tipos estão contemplados dentro da Ação Ativa." },
   { title: "Passiva", permalink: 'passive', short_description: "Ações passivas não só não custam uma ação menor ou maior para serem realizadas, como também estão ativas o tempo todo, sem que uma ativação explicita seja necessária." },
   { title: "Reação", permalink: 'reaction', short_description: "Diferente das Ações Ativas, as Ações de Reação podem ser utilizadas em resposta a um determinado evento especificado. Geralmente inimigos do tipo Nêmesis possuem muitas Ações de Reação." },
@@ -95,23 +99,19 @@ end
   { title: "Aprimoramento", permalink: 'upgrade', short_description: "Aprimoramento não é bem uma Ação, mas é uma forma inteligente para mensurar poderes que são 'Evoluções' ou 'Upgrades' de outros poderes." },
   { title: "Inicial", permalink: 'initial', short_description: "Ações Iniciais são para descrever 'Poderes' que concedem características iniciais aos personagens. Elas se resolvem na hora que são adicionadas e deixam de ser poderes depois." },
   { title: "Instância", permalink: 'instance', short_description: "Instância é um subtipo de Ação Ativa, usada para descrever poderes que, ao serem usados, se mantém ativos indeterminadamente até serem substituidos ou cancelados pelo conjurador." },
-].each do |action_type|
-  ActionType.create!(action_type.merge({long_description: action_type[:short_description]}))
-end
+])
 
 # Criando Tipos de Ação (não usado ainda)
-[
+create_rows(AttackLogic, [
   { title: "Física", permalink: 'physical', short_description: "Ações que utilizam capacidades de origem físicas, como atacar com uma Arma ou um Bastão." },
   { title: "Mágica", permalink: 'magical', short_description: "Ações que utilizam capacidades de origem mágicas, como conjurar uma magia ou ritual." },
   { title: "Mista", permalink: 'mixed', short_description: "Ações que utilizam ambas capacidades físicas e mágicas." },
   { title: "Indefinida", permalink: 'notset', short_description: "Ações que não possuem uma definição." },
   { title: "Nenhuma", permalink: 'none', short_description: "Ações que exigem capacidades nem físicas nem mágicas." },
-].each do |action_type|
-  AttackLogic.create!(action_type.merge({long_description: action_type[:short_description]}))
-end
+])
 
 # Criando Tipos de Alcance
-[
+create_rows(RangeType, [
   { title:"Alvo", permalink: "target", short_description: "Essa magia tem como foco específico um alvo, ela é travada no alvo de forma que, mesmo que o alvo se mova, ela irá acertá-lo." },
   { title:"Ponto", permalink: "point", short_description: "Essa magia foca em um quadrado específico do mapa. Caso o alvo se mova desse quadrado, a magia erra o alvo." },
   { title:"Área", permalink: "area", short_description: "O conjurador lança a magia em uma área de N quadrados iniciando a partir do centro do quadrado escolhido." },
@@ -126,12 +126,10 @@ end
   { title:"Area Poligonal", permalink: "polygon_area", short_description: "Essa magia tem uma área de efeito customizada, podendo variar bastante." },
   { title:"Misto", permalink: "mixed", short_description: "Essa magia tem múltiplas variações de tipo de alcance." },
   { title:"Global", permalink: "global", short_description: "Essa magia sempre afeta todos os alvos participando do combate." },
-].each do |range_type|
-  RangeType.create!(range_type.merge({long_description: range_type[:short_description]}))
-end
+])
 
 # Criando Atributos da Ficha
-[
+create_rows(SheetAttribute, [
   { icon: 'GiMuscleUp', title: "Força", permalink: "strength", long_description: "Representa a sua Força, e é usado para definir seus Pontos de Vida e sua capacidade de carregamento de itens."},
   { icon: 'GiShield', title: "Resiliência", permalink: "resilience", long_description: "Define sua resistência a atributos negativos e Traumas."},
   { icon: 'GiRunningNinja', title: "Agilidade", permalink: "agility", long_description: "Define sua agilidade e melhora sua movimentação. Também é usada para definir sua habilidade com armas de projéteis."},
@@ -141,12 +139,10 @@ end
   { icon: 'GiDiceSixFacesFive', title: "Destino", permalink: "destiny", long_description: "Define o quão Destinado você é, usado em Ações de Perícia."},
   { icon: 'GiCampfire', title: "Sobrevivência", permalink: "survival", long_description: "Define sua capacidade de sobreviver em situações difíceis. Define sua capacidade de se adaptar à condições climáticas, encontrar coisas e improvisar."},
   { icon: 'GiConversation', title: "Influência", permalink: "influence", long_description: "Define sua eloquência e poder de influência sobre as pessoas. Melhora os preços em Mercadores, e também é usado para Diplomacia e Manipulação."},
-].each do |sheet_attribute|
-  SheetAttribute.create!(sheet_attribute.merge({short_description: sheet_attribute[:long_description]}))
-end
+])
 
 # Criando Grimos
-[
+create_rows(Grimo, [
   { title: "Brasão de Giurad", short_description: "O s Guerreiros de Giurad são treinados para se tornarem cavaleiros da justiça nas Academias de combate. Lá, eles aprendem a manipular a Espada e o Escudo, utilizando poderosas habilidades estratégicas para beneficiar seus aliados enquanto causam dano em seus inimigos. Todo Cavaleiro faz um juramento de lealdade a um Tutor, figura sábia e respeitada cujo papel é orientá-lo em sua jornada.", permalink: "brasao-de-giurad", formula: nil, bonus_magic_attack: nil, bonus_magical_defense: nil, bonus_physical_attack: nil, bonus_physical_defense: nil, buy_price: nil, sell_price: nil, durability: nil, slots_used: nil, damage_type: nil, item_type: ItemType.grimo, sheet_attribute: nil, book_url: nil },
   { title: "Jóia de Lunn", short_description: "A Jóia de Lunn é o Grimo dos Sacerdotes da Igreja de Lunn. (também conhecido como Luniísmo). Seus Adeptos aprendem a arte da Cura e do Suporte em sua forma mais pura, e são vistos como os Pilares que combatem o crescimento do mal. A palavra de Lunn é venerada em diversos cantos do mundo, e seus Sacerdotes são caracterízados pelo porte do Cajado e da Cruz de Lunn.", permalink: "joia-de-lunn", formula: nil, bonus_magic_attack: nil, bonus_magical_defense: nil, bonus_physical_attack: nil, bonus_physical_defense: nil, buy_price: nil, sell_price: nil, durability: nil, slots_used: nil, damage_type: nil, item_type: ItemType.grimo, sheet_attribute: nil, book_url: nil },
   { title: "Orbe de Allura", short_description: "A Orbe de Allura é um Grimo elemental, que ao ser vinculado, pode adquirir qualquer um dos 12 Aspectos Elementais do mundo. Os Adeptos de Allura se tornam Arcanistas elementais que canalizam seu poder à partir do Grimo podendo conjurar poderosos feitiços ofensivos e defensivos. Os Adeptos de Allura também aprendem a utilizar o Cetro e a Orbe para canalizar o poder dos Elementos.", permalink: "orbe-de-allura", formula: nil, bonus_magic_attack: nil, bonus_magical_defense: nil, bonus_physical_attack: nil, bonus_physical_defense: nil, buy_price: nil, sell_price: nil, durability: nil, slots_used: nil, damage_type: nil, item_type: ItemType.grimo, sheet_attribute: nil, book_url: nil },
@@ -157,18 +153,14 @@ end
   { title: "Frasco de Zanari", short_description: "Os Adeptos de Zanari são conhecidos como Assassinos das Sombras, manipulando as próprias trevas para mascarar sua presença, enquanto embanham suas armas com venenos mortais, derrotando seus inimigos com ataques rápidos e precisos. Muitas vezes interpretados como assassinos, os destemidos Zanaris são treinados para manipular a Katar e os infames Dardos Venenosos.", permalink: "frasco-de-zanari", formula: nil, bonus_magic_attack: nil, bonus_magical_defense: nil, bonus_physical_attack: nil, bonus_physical_defense: nil, buy_price: nil, sell_price: nil, durability: nil, slots_used: nil, damage_type: nil, item_type: ItemType.grimo, sheet_attribute: nil, book_url: nil },
   { title: "Insígnia de Qatun", short_description: "Ilusão é a única palavra que pode definir um  Adepto de Qatun.Esses curiosos Feiticeiros são treinados na arte de manipular a mente e a matéria, criando ilusões convincentes que podem confundir seus inimigos. Além de Mestres do Ilusionismo e dominadores da Magia do Caos, esses elegantes Fortunos são treinados para combater com Bengalas e Espadas portáteis conhecidas como Saxos.", permalink: "insignia-de-qatun", formula: nil, bonus_magic_attack: nil, bonus_magical_defense: nil, bonus_physical_attack: nil, bonus_physical_defense: nil, buy_price: nil, sell_price: nil, durability: nil, slots_used: nil, damage_type: nil, item_type: ItemType.grimo, sheet_attribute: nil, book_url: nil },
   { title: "Selo de Ixin", short_description: "Os Guerreiros de Ixin manipulam a Energia Rúnica, cuja origem ainda é um enigma para a civilização moderna. Para isso, os Adeptos utilizam as 3 Runas Templárias, Urt, Xah e Rah, e podem materializar Feixes de Luzes poderosos, Linhas Etéreas e uma série de poderes Ofensivos e utilitários. Os Guerreiros de Ixin são treinados no combate ágil, e podem combater com Manoplas rúnicas e Bastões.", permalink: "selo-de-ixin", formula: nil, bonus_magic_attack: nil, bonus_magical_defense: nil, bonus_physical_attack: nil, bonus_physical_defense: nil, buy_price: nil, sell_price: nil, durability: nil, slots_used: nil, damage_type: nil, item_type: ItemType.grimo, sheet_attribute: nil, book_url: nil },
-].each do |grimo|
-  Grimo.create!(grimo.merge({long_description: grimo[:short_description]}))
-end
+])
 
 # Criando Items
-[
+create_rows(Item, [
   { title: "Poção de Cura", short_description: "Uma poção de cura comum", permalink: "healing-potion", formula: "1d12", item_type: ItemType.find_by_permalink('potion'), bonus_magic_attack: nil, bonus_magical_defense: nil, bonus_physical_attack: nil, bonus_physical_defense: nil, buy_price: nil, sell_price: nil, durability: nil, slots_used: nil, damage_type: nil, sheet_attribute: nil, book_url: nil },
-].each do |item|
-  Item.create!(item.merge({long_description: item[:short_description]}))
-end
+])
 
-items = [
+create_rows(Item, [
   { title: "Adaga de Madeira", short_description: "Uma adaga feita de madeira.", permalink: "wooden-dagger", physical_formula: "2d8 + 2", magical_formula: "0", formula: "2d8 + 2", item_type: ItemType.find_by_permalink('weapon'), bonus_magic_attack: nil, bonus_physical_attack: nil, buy_price: 200, damage_type: DamageType.find_by_title("Perfurante"), sheet_attribute: SheetAttribute.find_by_title("Agilidade"), durability: 2, icon: "GiBowieKnife" },
   { title: "Arco de Madeira", short_description: "Um arco feito de madeira.", permalink: "wooden-bow", physical_formula: "2d10 + 2", magical_formula: "0", formula: "2d10 + 2", item_type: ItemType.find_by_permalink('weapon'), bonus_magic_attack: nil, bonus_physical_attack: nil, buy_price: 200, damage_type: DamageType.find_by_title("Perfurante"), sheet_attribute: SheetAttribute.find_by_title("Sobrevivência"), durability: 2, icon: "GiWoodAxe" },
   { title: "Bastão de Madeira", short_description: "Um bastão feito de madeira.", permalink: "wooden-staff", physical_formula: "2d6 + 2", magical_formula: "0", formula: "2d6 + 2", item_type: ItemType.find_by_permalink('weapon'), bonus_magic_attack: nil, bonus_physical_attack: nil, buy_price: 200, damage_type: DamageType.find_by_title("Contusivo"), sheet_attribute: SheetAttribute.find_by_title("Agilidade"), durability: 2, icon: "GiStraightPipe" },
@@ -176,7 +168,7 @@ items = [
   { title: "Besta de Madeira", short_description: "Uma besta feita de madeira.", permalink: "wooden-crossbow", physical_formula: "2d10 + 2", magical_formula: "0", formula: "2d10 + 2", item_type: ItemType.find_by_permalink('weapon'), bonus_magic_attack: nil, bonus_physical_attack: nil, buy_price: 200, damage_type: DamageType.find_by_title("Perfurante"), sheet_attribute: SheetAttribute.find_by_title("Sobrevivência"), durability: 2, icon: "GiCrossbow" },
   { title: "Chicote de Madeira", short_description: "Um chicote feito de madeira.", permalink: "wooden-whip", physical_formula: "2d6 + 2", magical_formula: "0", formula: "2d6 + 2", item_type: ItemType.find_by_permalink('weapon'), bonus_magic_attack: nil, bonus_physical_attack: nil, buy_price: 200, damage_type: DamageType.find_by_title("Cortante"), sheet_attribute: SheetAttribute.find_by_title("Agilidade"), durability: 2, icon: "GiWhip" },
   { title: "Clava de Madeira", short_description: "Uma clava feita de madeira.", permalink: "wooden-club", physical_formula: "2d10 + 2", magical_formula: "0", formula: "2d10 + 2", item_type: ItemType.find_by_permalink('weapon'), bonus_magic_attack: nil, bonus_physical_attack: nil, buy_price: 200, damage_type: DamageType.find_by_title("Contusivo"), sheet_attribute: SheetAttribute.find_by_title("Resiliência"), durability: 2, icon: "GiWoodClub" },
-  { title: "Cruz de Madeira", short_description: "Uma cruz feita de madeira.", permalink: "wooden-cross", physical_formula: "2d10 + 2", magical_formula: "0", formula: "2d10 + 2", item_type: ItemType.find_by_permalink('weapon'), bonus_magic_attack: nil, bonus_physical_attack: nil, buy_price: 300, damage_type: DamageType.find_by_title("Contusivo/Perfurante"), sheet_attribute: SheetAttribute.find_by_title("Espírito"), durability: 2, icon: "GiHolySymbol" },
+  { title: "Cruz de Madeira", short_description: "Uma cruz feita de madeira.", permalink: "wooden-cross", physical_formula: "2d10 + 2", magical_formula: "0", formula: "2d10 + 2", item_type: ItemType.find_by_permalink('weapon'), bonus_magic_attack: nil, bonus_physical_attack: nil, buy_price: 300, damage_type: DamageType.find_by_title("Contusivo"), sheet_attribute: SheetAttribute.find_by_title("Espírito"), durability: 2, icon: "GiHolySymbol" },
   { title: "Dardos de Madeira", short_description: "Dardos feitos de madeira.", permalink: "wooden-darts", physical_formula: "2d4 + 2", magical_formula: "0", formula: "2d4 + 2", item_type: ItemType.find_by_permalink('weapon'), bonus_magic_attack: nil, bonus_physical_attack: nil, buy_price: 200, damage_type: DamageType.find_by_title("Perfurante"), sheet_attribute: SheetAttribute.find_by_title("Destino"), durability: 2, icon: "GiDart" },
   { title: "Espada de Madeira", short_description: "Uma espada feita de madeira.", permalink: "wooden-sword", physical_formula: "2d10 + 2", magical_formula: "0", formula: "2d10 + 2", item_type: ItemType.find_by_permalink('weapon'), bonus_magic_attack: nil, bonus_physical_attack: nil, buy_price: 200, damage_type: DamageType.find_by_title("Cortante"), sheet_attribute: SheetAttribute.find_by_title("Força"), durability: 2, icon: "GiBroadsword" },
   { title: "Estilingue de Madeira", short_description: "Um estilingue feito de madeira.", permalink: "wooden-sling", physical_formula: "2d6 + 2", magical_formula: "0", formula: "2d6 + 2", item_type: ItemType.find_by_permalink('weapon'), bonus_magic_attack: nil, bonus_physical_attack: nil, buy_price: 200, damage_type: DamageType.find_by_title("Contusivo"), sheet_attribute: SheetAttribute.find_by_title("Sobrevivência"), durability: 2, icon: "GiSlingshot" },
@@ -202,14 +194,10 @@ items = [
   { title: "Orbe de Pó de Gema", short_description: "Um orbe feito de pó de gema mágica.", permalink: "gem-dust-orb", physical_formula: "2d4", magical_formula: "2d10 + 2", formula: "2d10 + 2", item_type: ItemType.find_by_permalink('weapon'), bonus_magic_attack: nil, bonus_physical_attack: nil, buy_price: 300, damage_type: DamageType.find_by_title("Mágico"), sheet_attribute: SheetAttribute.find_by_title("Elo Mágico"), durability: 2, icon: "GiOrbWand" },
   { title: "Urna de Pó de Gema", short_description: "Uma urna feita de pó de gema mágica.", permalink: "gem-dust-urn", physical_formula: "2d4", magical_formula: "2d12 + 2", formula: "2d12 + 2", item_type: ItemType.find_by_permalink('weapon'), bonus_magic_attack: nil, bonus_physical_attack: nil, buy_price: 300, damage_type: DamageType.find_by_title("Mágico"), sheet_attribute: SheetAttribute.find_by_title("Espírito"), durability: 2, icon: "GiPorcelainVase" },
   { title: "Livro de Pó de Gema", short_description: "Um livro feito de pó de gema mágica.", permalink: "gem-dust-book", physical_formula: "2d4", magical_formula: "2d10 + 2", formula: "2d10 + 2", item_type: ItemType.find_by_permalink('weapon'), bonus_magic_attack: nil, bonus_physical_attack: nil, buy_price: 300, damage_type: DamageType.find_by_title("Mágico"), sheet_attribute: SheetAttribute.find_by_title("Intelecto"), durability: 2, icon: "GiSpellBook" }
-]
-
-items.each do |item|
-  Item.create!(item.merge({ long_description: item[:short_description] }))
-end
+])
 
 # Criar Condições Negativas
-[
+create_rows(NegativeEffect, [
   { permalink: "poison", title: "Envenenar (D)/(T)", short_description: "Aflige o alvo com uma substância venenosa, que causa Dano fixo por turno (D) durante (T) turnos." },
   { permalink: "burn", title: "Queimar (D)/(T)", short_description: "Causa (D) de dano elemental de fogo continuo por turno, cuja duração é de (T) turnos. Enquanto estiver queimando, personagens não podem atacar alvos ou realizar ações que exigem concentração a menos que sejam bem sucedidos em um teste de Resiliência com Desvantagem." },
   { permalink: "control", title: "Controlar (C)", short_description: "O personagem passa a ser controlado magicamente, não podendo realizar ações de acordo com a sua vontade em seu turno. A condição dura indefinidamente, e exige que o personagem realize um teste de Resiliência com desvantagem contra a Dificuldade (C) para quebrar o controle. Ao ser bem sucedido, o turno do personagem finaliza imediatamente." },
@@ -229,9 +217,7 @@ end
   { permalink: "sleep", title: "Adormecer (T)", short_description: "O personagem cai no chão e fica subitamente inconsciente por (T) turnos, até que seja atacado ou acordado. Enquanto estiver inconsciente, ele falha automaticamente em testes de Defesa." },
   { permalink: "purge", title: "Expurgar", short_description: "O Expurgo elimina instantaneamente criaturas Decrépitas como Mortos-Vivos, Fantasmas, Aparições, Maldições e Demônios. Não funciona contra inimigos líderes ou superior." },
   { permalink: "knock", title: "Derrubar", short_description: "O alvo cai no chão, e precisa se levantar se quiser se mover. Alvos no chão recebem desvantagem em testes de Defesa." },
-].each do |negative_effect|
-  NegativeEffect.create!(negative_effect.merge({long_description: negative_effect[:short_description]}))
-end
+])
 
 # Criar Elementos
 elements = [
@@ -250,7 +236,9 @@ elements = [
   {title: "Nenhum", permalink: "none",	short_description: "Este poder não possui elemento.", weak_to_proc: lambda { }, resistant_to_proc: lambda { } },
 ]
 elements.each do |element|
-  Element.create!(
+  Element.find_or_initialize_by(
+    permalink: element[:permalink],
+  ).update!(
     element
       .except(:weak_to_proc, :resistant_to_proc)
       .merge({long_description: element[:short_description]}),
@@ -270,12 +258,14 @@ spells_data = SyncSpellsFromBook.new.call
 Spell.transaction do
   # Bulk insert spells
   spells_attributes = spells_data.map { |data| data[:spell_attributes] }
-  imported_spells = Spell.import(spells_attributes, validate: false, on_duplicate_key_ignore: true)
+  Spell.upsert_all(spells_attributes, unique_by: :permalink)
 
   # Collect all owners
   spell_owner_records = []
-  imported_spells.ids.each_with_index do |spell_id, index|
-    spells_data[index][:owner_references].each do |owner|
+  spell_ids = Spell.where(permalink: spells_attributes.map { |attr| attr[:permalink] }).pluck(:permalink, :id).to_h
+  spells_data.each_with_index do |data, index|
+    data[:owner_references].each do |owner|
+      spell_id = spell_ids[data[:spell_attributes][:permalink]]
       spell_owner_records << {
         spell_id: spell_id,
         spell_owner_type: owner.owner_type,
@@ -286,35 +276,33 @@ Spell.transaction do
     end
   end
 
-  # Bulk insert spell owners
-  SpellOwner.import(spell_owner_records, validate: false, on_duplicate_key_ignore: true)
+  # Bulk upsert spell owners
+  SpellOwner.upsert_all(spell_owner_records, unique_by: [:spell_id, :spell_owner_type, :spell_owner_id])
 end
 
 
 # Criando Personagem de Exemplo
-Character.create!(
-  [
-    {
-      title: "Garinori",
-      culture: Culture.first,
-      user: User.first,
-      character_role: CharacterRole.first,
-      specie: Specie.first,
-      short_description: "Personagem teste",
-      long_description: "Personagem teste",
-      temirs: 175,
-      max_mp_points: 42,
-      mp_points: 20,
-      max_hp_points: 28,
-      hp_points: 17,
-    },
-  ]
-)
+create_rows(Character, [
+  {
+    title: "Garinori",
+    culture: Culture.first,
+    code: 'garinori123',
+    user: User.first,
+    character_role: CharacterRole.first,
+    specie: Specie.first,
+    short_description: "Personagem teste",
+    long_description: "Personagem teste",
+    temirs: 175,
+    max_mp_points: 42,
+    mp_points: 20,
+    max_hp_points: 28,
+    hp_points: 17,
+  },
+], :code)
 
-# Criando Itens do Personagem de Exemplo
-CharacterItem.create!(
+create_rows(CharacterItem, [
   item: Grimo.allura,
   character: Character.first,
   notes: "Elemento Fogo - Fraqueza Agua - Efeito Queimar",
   property: "fire",
-)
+], :all)

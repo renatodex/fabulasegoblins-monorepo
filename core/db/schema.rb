@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_06_13_150740) do
+ActiveRecord::Schema[7.0].define(version: 2024_06_13_190605) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -510,6 +510,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_13_150740) do
     t.bigint "spell_owner_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["spell_id", "spell_owner_type", "spell_owner_id"], name: "index_spell_owners_on_spell_id_and_owner_type_and_owner_id", unique: true
     t.index ["spell_id"], name: "index_spell_owners_on_spell_id"
     t.index ["spell_owner_type", "spell_owner_id"], name: "index_spell_owners_on_spell_owner"
     t.index ["spell_owner_type", "spell_owner_id"], name: "index_spell_owners_on_spell_owner_type_and_spell_owner_id"
@@ -544,6 +545,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_13_150740) do
     t.index ["action_type_id"], name: "index_spells_on_action_type_id"
     t.index ["attack_logic_id"], name: "index_spells_on_attack_logic_id"
     t.index ["element_id"], name: "index_spells_on_element_id"
+    t.index ["permalink"], name: "index_spells_on_permalink", unique: true
     t.index ["range_type_id"], name: "index_spells_on_range_type_id"
   end
 
