@@ -56,8 +56,10 @@ class Item < ApplicationRecord
 
   has_many :spell_owners, as: :spell_owner
   has_many :spells, through: :spell_owners
-  has_many :grimo_starter_items, through: :grimo
+
   has_many :grimos
+  has_one :grimo
+  has_many :grimo_starter_items, through: :grimo
 
   has_many :proficiencies, as: :proficiencer
   has_many :sheet_attributes, through: :proficiencies
