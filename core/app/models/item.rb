@@ -9,6 +9,7 @@
 #  bonus_physical_defense       :string
 #  book_url                     :text
 #  buy_price                    :integer
+#  common_starter_weapon        :boolean
 #  durability                   :integer
 #  formula                      :text
 #  icon                         :text
@@ -19,10 +20,12 @@
 #  movement_penalty             :integer
 #  permalink                    :string
 #  physical_formula             :text
+#  ranged                       :string
 #  sell_price                   :integer
 #  short_description            :text
 #  slots_used                   :integer          default(1)
 #  strength_requirement_to_wear :integer
+#  targets                      :text
 #  tier_requirement_to_wear     :integer
 #  title                        :string
 #  created_at                   :datetime         not null
@@ -53,8 +56,8 @@ class Item < ApplicationRecord
 
   has_many :spell_owners, as: :spell_owner
   has_many :spells, through: :spell_owners
-  has_many :grimo_starter_items
-  has_many :grimos, through: :grimo_starter_items
+  has_many :grimo_starter_items, through: :grimo
+  has_many :grimos
 
   scope :grimos, -> { joins(:item_type).where(item_type: { title: 'Grimo'}) }
 

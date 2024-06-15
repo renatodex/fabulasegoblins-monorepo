@@ -9,6 +9,7 @@
 #  bonus_physical_defense       :string
 #  book_url                     :text
 #  buy_price                    :integer
+#  common_starter_weapon        :boolean
 #  durability                   :integer
 #  formula                      :text
 #  icon                         :text
@@ -19,10 +20,12 @@
 #  movement_penalty             :integer
 #  permalink                    :string
 #  physical_formula             :text
+#  ranged                       :string
 #  sell_price                   :integer
 #  short_description            :text
 #  slots_used                   :integer          default(1)
 #  strength_requirement_to_wear :integer
+#  targets                      :text
 #  tier_requirement_to_wear     :integer
 #  title                        :string
 #  created_at                   :datetime         not null

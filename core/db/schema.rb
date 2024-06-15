@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_06_14_054221) do
+ActiveRecord::Schema[7.0].define(version: 2024_06_15_035549) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -278,6 +278,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_14_054221) do
     t.text "physical_formula"
     t.text "magical_formula"
     t.text "icon"
+    t.boolean "common_starter_weapon"
+    t.text "targets"
+    t.string "ranged"
     t.index ["damage_type_id"], name: "index_items_on_damage_type_id"
     t.index ["item_type_id"], name: "index_items_on_item_type_id"
     t.index ["range_type_id"], name: "index_items_on_range_type_id"
