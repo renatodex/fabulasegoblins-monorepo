@@ -97,8 +97,8 @@ export default function Overview ({ character, setCharacter = function () {} }) 
           label={'o Grimo'}
           subView={'Grimos'}
           item={character?.grimo}
-          filledCheck={item => item?.name}
-          filledValue={item => item?.name}
+          filledCheck={item => item?.title}
+          filledValue={item => item?.title}
           onSectionClick={onSectionClick}
         />
 
