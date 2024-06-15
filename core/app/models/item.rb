@@ -59,6 +59,9 @@ class Item < ApplicationRecord
   has_many :grimo_starter_items, through: :grimo
   has_many :grimos
 
+  has_many :proficiencies, as: :proficiencer
+  has_many :sheet_attributes, through: :proficiencies
+
   scope :grimos, -> { joins(:item_type).where(item_type: { title: 'Grimo'}) }
 
   def owner_type

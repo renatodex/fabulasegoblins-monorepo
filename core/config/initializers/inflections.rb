@@ -17,4 +17,5 @@
 
 ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.singular 'species', 'specie'
+  inflect.irregular 'proficiency', 'proficiencies'
 end
