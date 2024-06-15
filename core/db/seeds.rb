@@ -33,6 +33,19 @@ create_rows(User, [
   }
 ], :email)
 
+# Criando Atributos da Ficha
+create_rows(SheetAttribute, [
+  { icon: 'GiMuscleUp', title: "Força", permalink: "strength", long_description: "Representa a sua Força, e é usado para definir seus Pontos de Vida e sua capacidade de carregamento de itens."},
+  { icon: 'GiShield', title: "Resiliência", permalink: "resilience", long_description: "Define sua resistência a atributos negativos e Traumas."},
+  { icon: 'GiRunningNinja', title: "Agilidade", permalink: "agility", long_description: "Define sua agilidade e melhora sua movimentação. Também é usada para definir sua habilidade com armas de projéteis."},
+  { icon: 'GiCrystalBall', title: "Elo Mágico", permalink: "magic_elo", long_description: "Representa o \"quão mágico\" você é para o mundo. Usado para definir seus Pontos de Magia."},
+  { icon: 'GiAngelWings', title: "Espírito", permalink: "spirit", long_description: "Representa sua Mediunidade, Define sua Defesa Mágica geral, e é usado para definir sua habilidade com armas espirituais ."},
+  { icon: 'GiBrain', title: "Intelecto", permalink: "intelect", long_description: "Define seu Grau de Erudição e permite destravar vínculos adicionais com Grimos."},
+  { icon: 'GiDiceSixFacesFive', title: "Destino", permalink: "destiny", long_description: "Define o quão Destinado você é, usado em Ações de Perícia."},
+  { icon: 'GiCampfire', title: "Sobrevivência", permalink: "survival", long_description: "Define sua capacidade de sobreviver em situações difíceis. Define sua capacidade de se adaptar à condições climáticas, encontrar coisas e improvisar."},
+  { icon: 'GiConversation', title: "Influência", permalink: "influence", long_description: "Define sua eloquência e poder de influência sobre as pessoas. Melhora os preços em Mercadores, e também é usado para Diplomacia e Manipulação."},
+])
+
 ## Criando Tipos de Itens
 create_rows(ItemType, [
   {title: "Armadura",	permalink: "armor", long_description: "Armaduras aumentam a sobrevivência do seu personagem, reduzindo a possibilidade de receber dano de inimigos no combate. Elas também podem te deixar mais lento."},
@@ -79,6 +92,30 @@ create_rows(CharacterRole, [
   { title: "Conjurador", permalink: "caster", base_hp: 12, base_mp: 14, base_movement: 4, weapon_proficience: "Intelecto, Elo Mágico ou Espírito", hp_per_level: [2,4,4,6], mp_per_level: [4,4,8,8],  short_description: "Você prefere manter distância de seus inimigos, utilizando feitiços mágicos para causar muito dano." },
   { title: "Utilitário", permalink: "utility", base_hp: 14, base_mp: 14, base_movement: 4, weapon_proficience: "Qualquer uma", hp_per_level: [3,3,6,6], mp_per_level: [3,3,6,6],  short_description: "O seu estilo é misto, e prefere uma abordagem mais equilibrada que varie combate a distância e corpo a corpo." },
 ])
+
+create_rows(Proficiency, [
+  { proficiencer: CharacterRole.find_by_title('Carregador'), sheet_attribute_id: SheetAttribute.find_by_title('Força').id },
+  { proficiencer: CharacterRole.find_by_title('Carregador'), sheet_attribute_id: SheetAttribute.find_by_title('Agilidade').id },
+  { proficiencer: CharacterRole.find_by_title('Atirador'), sheet_attribute_id: SheetAttribute.find_by_title('Agilidade').id },
+  { proficiencer: CharacterRole.find_by_title('Atirador'), sheet_attribute_id: SheetAttribute.find_by_title('Sobrevivência').id },
+  { proficiencer: CharacterRole.find_by_title('Tanque'), sheet_attribute_id: SheetAttribute.find_by_title('Força').id },
+  { proficiencer: CharacterRole.find_by_title('Tanque'), sheet_attribute_id: SheetAttribute.find_by_title('Resiliência').id },
+  { proficiencer: CharacterRole.find_by_title('Suporte'), sheet_attribute_id: SheetAttribute.find_by_title('Intelecto').id },
+  { proficiencer: CharacterRole.find_by_title('Suporte'), sheet_attribute_id: SheetAttribute.find_by_title('Elo Mágico').id },
+  { proficiencer: CharacterRole.find_by_title('Suporte'), sheet_attribute_id: SheetAttribute.find_by_title('Espírito').id },
+  { proficiencer: CharacterRole.find_by_title('Conjurador'), sheet_attribute_id: SheetAttribute.find_by_title('Intelecto').id },
+  { proficiencer: CharacterRole.find_by_title('Conjurador'), sheet_attribute_id: SheetAttribute.find_by_title('Elo Mágico').id },
+  { proficiencer: CharacterRole.find_by_title('Conjurador'), sheet_attribute_id: SheetAttribute.find_by_title('Espírito').id },
+  { proficiencer: CharacterRole.find_by_title('Utilitário'), sheet_attribute_id: SheetAttribute.find_by_title('Força').id },
+  { proficiencer: CharacterRole.find_by_title('Utilitário'), sheet_attribute_id: SheetAttribute.find_by_title('Resiliência').id },
+  { proficiencer: CharacterRole.find_by_title('Utilitário'), sheet_attribute_id: SheetAttribute.find_by_title('Agilidade').id },
+  { proficiencer: CharacterRole.find_by_title('Utilitário'), sheet_attribute_id: SheetAttribute.find_by_title('Intelecto').id },
+  { proficiencer: CharacterRole.find_by_title('Utilitário'), sheet_attribute_id: SheetAttribute.find_by_title('Elo Mágico').id },
+  { proficiencer: CharacterRole.find_by_title('Utilitário'), sheet_attribute_id: SheetAttribute.find_by_title('Espírito').id },
+  { proficiencer: CharacterRole.find_by_title('Utilitário'), sheet_attribute_id: SheetAttribute.find_by_title('Influência').id },
+  { proficiencer: CharacterRole.find_by_title('Utilitário'), sheet_attribute_id: SheetAttribute.find_by_title('Sobrevivência').id },
+  { proficiencer: CharacterRole.find_by_title('Utilitário'), sheet_attribute_id: SheetAttribute.find_by_title('Destino').id },
+], :all)
 
 # Criando Espécies
 create_rows(Specie, [
@@ -127,19 +164,6 @@ create_rows(RangeType, [
   { title:"Area Poligonal", permalink: "polygon_area", short_description: "Essa magia tem uma área de efeito customizada, podendo variar bastante." },
   { title:"Misto", permalink: "mixed", short_description: "Essa magia tem múltiplas variações de tipo de alcance." },
   { title:"Global", permalink: "global", short_description: "Essa magia sempre afeta todos os alvos participando do combate." },
-])
-
-# Criando Atributos da Ficha
-create_rows(SheetAttribute, [
-  { icon: 'GiMuscleUp', title: "Força", permalink: "strength", long_description: "Representa a sua Força, e é usado para definir seus Pontos de Vida e sua capacidade de carregamento de itens."},
-  { icon: 'GiShield', title: "Resiliência", permalink: "resilience", long_description: "Define sua resistência a atributos negativos e Traumas."},
-  { icon: 'GiRunningNinja', title: "Agilidade", permalink: "agility", long_description: "Define sua agilidade e melhora sua movimentação. Também é usada para definir sua habilidade com armas de projéteis."},
-  { icon: 'GiCrystalBall', title: "Elo Mágico", permalink: "magic_elo", long_description: "Representa o \"quão mágico\" você é para o mundo. Usado para definir seus Pontos de Magia."},
-  { icon: 'GiAngelWings', title: "Espírito", permalink: "spirit", long_description: "Representa sua Mediunidade, Define sua Defesa Mágica geral, e é usado para definir sua habilidade com armas espirituais ."},
-  { icon: 'GiBrain', title: "Intelecto", permalink: "intelect", long_description: "Define seu Grau de Erudição e permite destravar vínculos adicionais com Grimos."},
-  { icon: 'GiDiceSixFacesFive', title: "Destino", permalink: "destiny", long_description: "Define o quão Destinado você é, usado em Ações de Perícia."},
-  { icon: 'GiCampfire', title: "Sobrevivência", permalink: "survival", long_description: "Define sua capacidade de sobreviver em situações difíceis. Define sua capacidade de se adaptar à condições climáticas, encontrar coisas e improvisar."},
-  { icon: 'GiConversation', title: "Influência", permalink: "influence", long_description: "Define sua eloquência e poder de influência sobre as pessoas. Melhora os preços em Mercadores, e também é usado para Diplomacia e Manipulação."},
 ])
 
 # Criando Grimos

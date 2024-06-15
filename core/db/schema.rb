@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_06_15_035549) do
+ActiveRecord::Schema[7.0].define(version: 2024_06_15_050805) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -489,6 +489,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_15_035549) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "proficiencies", force: :cascade do |t|
+    t.bigint "sheet_attribute_id", null: false
+    t.string "proficiencer_type", null: false
+    t.bigint "proficiencer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["proficiencer_type", "proficiencer_id"], name: "index_proficiencies_on_proficiencer"
+    t.index ["sheet_attribute_id", "proficiencer_id", "proficiencer_type"], name: "index_proficiencies_on_attribute_and_proficiencer", unique: true
+    t.index ["sheet_attribute_id"], name: "index_proficiencies_on_sheet_attribute_id"
+  end
+
   create_table "range_types", force: :cascade do |t|
     t.string "title"
     t.text "short_description"
@@ -637,6 +648,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_15_035549) do
   add_foreign_key "motor_note_tag_tags", "motor_note_tags", column: "tag_id"
   add_foreign_key "motor_note_tag_tags", "motor_notes", column: "note_id"
   add_foreign_key "motor_taggable_tags", "motor_tags", column: "tag_id"
+  add_foreign_key "proficiencies", "sheet_attributes"
   add_foreign_key "specie_spells", "species"
   add_foreign_key "specie_spells", "spells"
   add_foreign_key "spell_owners", "spells"

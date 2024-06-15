@@ -13,4 +13,6 @@
 #  updated_at        :datetime         not null
 #
 class SheetAttribute < ApplicationRecord
+  has_many :proficiencies
+  has_many :proficiencers, through: :proficiencies, source: :proficiencer
 end

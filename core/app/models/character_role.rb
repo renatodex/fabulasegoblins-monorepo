@@ -20,6 +20,8 @@
 class CharacterRole < ApplicationRecord
   has_many :spell_owners, as: :spell_owner
   has_many :spells, through: :spell_owners
+  has_many :proficiencies, as: :proficiencer
+  has_many :sheet_attributes, through: :proficiencies
 
   def owner_type
     'CharacterRole'
