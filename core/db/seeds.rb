@@ -16,9 +16,10 @@ def create_rows(klass, rows, unique_field = :permalink)
       end
 
     if row.key? :short_description
+      item.update!(row.merge({long_description: row[:short_description]}))
+    elsif row.key? :long_description
       item.update!(row.merge({short_description: row[:long_description]}))
     else
-      puts row
       item.update!(row)
     end
   end
