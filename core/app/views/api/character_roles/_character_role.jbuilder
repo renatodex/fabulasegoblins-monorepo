@@ -13,3 +13,6 @@ json.book_url resource.book_url
 json.proficiencies(resource.proficiencies) do |proficiency|
   json.partial! 'api/proficiencies/proficiency', proficiency: proficiency
 end
+json.spells(resource.spells) do |spell|
+  json.partial! 'api/spells/spell', resource: spell
+end
