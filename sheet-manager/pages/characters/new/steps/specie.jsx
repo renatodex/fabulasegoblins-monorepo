@@ -5,38 +5,16 @@ import { Title } from '@/pages/components/title'
 import Button from '@/pages/components/button'
 import { ScreenSlideContext } from '@/src/contexts/screen_slide_context'
 import SectionCard from '@/src/components/characters/section_card'
+import useSpecies from '@/src/apiHooks/useSpecies'
 
 export default function Specie ({ character, setCharacter }) {
   const { setParentViewVisibility, setSubViewVisibility } = useContext(ScreenSlideContext)
 
-  const [species, setSpecies] = useState([
-    {
-      name: 'Goblins',
-      permalink: 'goblins',
-    },
-    {
-      name: 'Armadons',
-      permalink: 'armadons',
-    },
-    {
-      name: 'Metalóides',
-      permalink: 'metaloides',
-    },
-    {
-      name: 'Valdaris',
-      permalink: 'valdaris',
-    },
-    {
-      name: 'Razalans',
-      permalink: 'razalans',
-    },
-    {
-      name: 'Luminins',
-      permalink: 'luminins',
-    },
-  ])
+  const { data: species } = useSpecies()
 
   const [selectedSpecie, setSelectedSpecie] = useState(null)
+
+  if (!species) return null
 
   return (
     <motion.div

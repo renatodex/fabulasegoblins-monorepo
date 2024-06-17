@@ -5,38 +5,16 @@ import { Title } from '@/pages/components/title'
 import Button from '@/pages/components/button'
 import { ScreenSlideContext } from '@/src/contexts/screen_slide_context'
 import SectionCard from '@/src/components/characters/section_card'
+import useCharacterRoles from '@/src/apiHooks/useCharacterRoles'
 
 export default function Role ({ character, setCharacter }) {
   const { setParentViewVisibility, setSubViewVisibility } = useContext(ScreenSlideContext)
 
-  const [roles, setRoles] = useState([
-    {
-      name: 'Carregador',
-      permalink: 'carrier',
-    },
-    {
-      name: 'Atirador',
-      permalink: 'shooter',
-    },
-    {
-      name: 'Conjurador',
-      permalink: 'caster',
-    },
-    {
-      name: 'Tanque',
-      permalink: 'tank',
-    },
-    {
-      name: 'Suporte',
-      permalink: 'support',
-    },
-    {
-      name: 'Utilitário',
-      permalink: 'utilitary',
-    },
-  ])
+  const { data: roles } = useCharacterRoles()
 
   const [selectedRole, setSelectedRole] = useState(null)
+
+  if (!roles) return null
 
   return (
     <motion.div

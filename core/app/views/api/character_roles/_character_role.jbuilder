@@ -10,3 +10,6 @@ json.weapon_proficience resource.weapon_proficience
 json.hp_per_level resource.hp_per_level
 json.mp_per_level resource.mp_per_level
 json.book_url resource.book_url
+json.proficiencies(resource.proficiencies) do |proficiency|
+  json.partial! 'api/proficiencies/proficiency', proficiency: proficiency
+end

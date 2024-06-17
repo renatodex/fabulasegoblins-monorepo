@@ -162,17 +162,17 @@ const AttributeBox = ({ attribute, selectedModifier, characterAttributes, setCha
 export default function Attributes({ character, setCharacter }) {
   const { setParentViewVisibility, setSubViewVisibility } = useContext(ScreenSlideContext);
   const [selectedModifier, setSelectedModifier] = useState(null);
-  const [appliedModifiers, setAppliedModifiers] = useState({});
+  const [appliedModifiers, setAppliedModifiers] = useState(character?.attributes?.appliedModifiers || {});
   const [characterAttributes, setCharacterAttributes] = useState({
-    'base_strength': 0,
-    'base_agility': 0,
-    'base_resilience': 0,
-    'base_intelect': 0,
-    'base_spirit': 0,
-    'base_magic_elo': 0,
-    'base_influence': 0,
-    'base_survival': 0,
-    'base_destiny': 0,
+    'base_strength': character?.attributes?.base_strength || 0,
+    'base_agility': character?.attributes?.base_agility || 0,
+    'base_resilience': character?.attributes?.base_resilience || 0,
+    'base_intelect': character?.attributes?.base_intelect || 0,
+    'base_spirit': character?.attributes?.base_spirit || 0,
+    'base_magic_elo': character?.attributes?.base_magic_elo || 0,
+    'base_influence': character?.attributes?.base_influence || 0,
+    'base_survival': character?.attributes?.base_survival || 0,
+    'base_destiny': character?.attributes?.base_destiny || 0,
   })
 
   const modifiers = [
@@ -248,6 +248,7 @@ export default function Attributes({ character, setCharacter }) {
                   attributes: {
                     ...characterAttributes,
                     permalink: 'attributes',
+                    appliedModifiers
                   },
                 })
               }}>

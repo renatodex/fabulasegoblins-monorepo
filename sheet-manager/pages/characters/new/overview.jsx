@@ -3,6 +3,11 @@ import { motion } from "framer-motion"
 import { ScreenSlideContext } from '@/src/contexts/screen_slide_context'
 import { useContext } from 'react'
 import Button from "@/pages/components/button"
+import useCharacterRoles from "@/src/apiHooks/useCharacterRoles"
+import useCultures from "@/src/apiHooks/useCultures"
+import useSpecies from "@/src/apiHooks/useSpecies"
+import useGrimos from "@/src/apiHooks/useGrimos"
+import * as Icons from 'react-icons/gi'
 
 export function CharacterSection ({
   label,
@@ -46,7 +51,37 @@ export default function Overview ({ character, setCharacter = function () {} }) 
     setSelectedSubView(subView)
   }
 
-  console.log(character)
+  // const { data: cultures } = useCultures()
+  // const { data: roles } = useCharacterRoles()
+  // const { data: species } = useSpecies()
+  // const { data: grimos } = useGrimos()
+
+  // if (cultures && roles && species && grimos) {
+  //   if (!character?.culture?.id && !character?.role?.id && !character?.specie?.id && !character?.grimo?.id) {
+  //     setCharacter({
+  //       ...character,
+  //       culture: cultures[0],
+  //       role: roles[0],
+  //       specie: species[0],
+  //       grimo: grimos[0],
+  //       attributes: {
+  //         'base_strength': 0,
+  //         'base_agility': 2,
+  //         'base_resilience': 1,
+  //         'base_intelect': 1,
+  //         'base_spirit': -1,
+  //         'base_magic_elo': 1,
+  //         'base_influence': 0,
+  //         'base_survival': 0,
+  //         'base_destiny': 0,
+  //       }
+  //     })
+  //   }
+  // }
+
+  if (character?.weapon?.icon) {
+    const WeaponIcon = Icons[character.weapon.icon]
+  }
 
   return (
     <motion.div
@@ -70,8 +105,8 @@ export default function Overview ({ character, setCharacter = function () {} }) 
           label={'a Espécie'}
           subView={'Species'}
           item={character?.specie}
-          filledCheck={item => item?.name}
-          filledValue={item => item?.name}
+          filledCheck={item => item?.title}
+          filledValue={item => item?.title}
           onSectionClick={onSectionClick}
         />
 
@@ -79,8 +114,8 @@ export default function Overview ({ character, setCharacter = function () {} }) 
           label={'o Papel de Jogo'}
           subView={'Roles'}
           item={character?.role}
-          filledCheck={item => item?.name}
-          filledValue={item => item?.name}
+          filledCheck={item => item?.title}
+          filledValue={item => item?.title}
           onSectionClick={onSectionClick}
         />
 
@@ -88,8 +123,8 @@ export default function Overview ({ character, setCharacter = function () {} }) 
           label={'a Cultura'}
           subView={'Cultures'}
           item={character?.culture}
-          filledCheck={item => item?.name}
-          filledValue={item => item?.name}
+          filledCheck={item => item?.title}
+          filledValue={item => item?.title}
           onSectionClick={onSectionClick}
         />
 
@@ -121,11 +156,6 @@ export default function Overview ({ character, setCharacter = function () {} }) 
               typeof attr === 'number' && (attr >= -1 && attr <= 2)
             )
           }
-          // filledValue={item => `
-          //   FOR: ${item.base_strength} | AGI: ${item.base_agility} | RES: ${item.base_resilience}
-          // | INT: ${item.base_intelect} | ELO: ${item.base_magic_elo} | ESP: ${item.base_spirit}
-          // | INF: ${item.base_influence} | SOB: ${item.base_survival} | DES: ${item.base_destiny}
-          // `}
           filledValue={attributes => `Clique para redefinir`}
           onSectionClick={onSectionClick}
         />
@@ -134,8 +164,13 @@ export default function Overview ({ character, setCharacter = function () {} }) 
           label={'a Arma Inicial'}
           subView={'StarterWeapon'}
           item={character}
-          filledCheck={item => item?.name}
-          filledValue={item => item?.name}
+          filledCheck={item => item?.weapon}
+          filledValue={item => (
+            <div className="inline-block">
+              <span className="inline-block align-middle text-xl text-black bg-green-600 rounded p-1"><WeaponIcon/></span>
+              <span className="ml-2">{item?.weapon.title}</span>
+            </div>
+          )}
           onSectionClick={onSectionClick}
         />
 

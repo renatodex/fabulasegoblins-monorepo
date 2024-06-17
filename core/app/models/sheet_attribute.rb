@@ -15,4 +15,8 @@
 class SheetAttribute < ApplicationRecord
   has_many :proficiencies
   has_many :proficiencers, through: :proficiencies, source: :proficiencer
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["id", "title", "created_at", "updated_at"] # Add other attributes as needed
+  end
 end

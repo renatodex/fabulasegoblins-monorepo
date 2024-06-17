@@ -5,54 +5,16 @@ import { Title } from '@/pages/components/title'
 import Button from '@/pages/components/button'
 import { ScreenSlideContext } from '@/src/contexts/screen_slide_context'
 import SectionCard from '@/src/components/characters/section_card'
+import useCultures from '@/src/apiHooks/useCultures'
 
 export default function Culture ({ character, setCharacter }) {
   const { setParentViewVisibility, setSubViewVisibility } = useContext(ScreenSlideContext)
 
-  const [cultures, setCultures] = useState([
-    {
-      name: 'Filhos do Orvalho',
-      permalink: 'orvalho',
-    },
-    {
-      name: 'Filhos das Areias',
-      permalink: 'areias',
-    },
-    {
-      name: 'Filhos de Caldera',
-      permalink: 'caldera',
-    },
-    {
-      name: 'Filhos de Arcádia',                                
-      permalink: 'arcadia',
-    },            
-    {
-      name: 'Filhos das Ilhas',
-      permalink: 'ilhas',
-    },
-    {
-      name: 'Filhos do Subterrâneo',
-      permalink: 'subterraneo',
-    },
-    {
-      name: 'Filhos da Tempestade',  
-      permalink: 'tempestade',
-    },
-    {
-      name: 'Filhos do Povo Livre',
-      permalink: 'povolivre',
-    },
-    {
-      name: 'Filhos de Eregor',
-      permalink: 'eregor',
-    },
-    {
-      name: 'Filhos de Timéria',
-      permalink: 'timeria',
-    },
-  ])
+  const { data: cultures } = useCultures()
 
   const [selectedCulture, setSelectedCulture] = useState(null)
+
+  if (!cultures) return null
 
   return (
     <motion.div

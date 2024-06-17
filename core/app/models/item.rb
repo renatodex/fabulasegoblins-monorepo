@@ -99,6 +99,13 @@ class Item < ApplicationRecord
       "magical_formula",
       "physical_formula",
       "icon",
+      "common_starter_weapon"
+    ]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    [
+      "sheet_attributes",
     ]
   end
 

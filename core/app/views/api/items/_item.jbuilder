@@ -28,3 +28,7 @@ if resource.grimo
     json.partial! 'api/items/item', resource: starter_item
   end
 end
+
+json.proficiencies(resource.proficiencies) do |proficiency|
+  json.partial! 'api/proficiencies/proficiency', proficiency: proficiency
+end

@@ -12,49 +12,6 @@ export default function Grimo ({ character, setCharacter }) {
 
   const { data: grimos } = useGrimos()
 
-  // const [grimos, setGrimos] = useState([
-  //   {
-  //     name: 'Aparato de Magni',
-  //     permalink: 'aparato_de_magni',
-  //   },
-  //   {
-  //     name: 'Arca da Ravna',
-  //     permalink: 'arca_da_ravna',
-  //   },
-  //   {
-  //     name: 'Brasão de Giurad',
-  //     permalink: 'brasao_de_giurad',
-  //   },
-  //   {
-  //     name: 'Frasco de Zanari',
-  //     permalink: 'frasco_de_zanari',
-  //   },
-  //   {
-  //     name: 'Ilusão de Qatun',
-  //     permalink: 'ilusao_de_qatun',
-  //   },
-  //   {
-  //     name: 'Joia de Lunn',
-  //     permalink: 'joia_de_lunn',
-  //   },
-  //   {
-  //     name: 'Olho de Kanus',
-  //     permalink: 'olho_de_kanus',
-  //   },
-  //   {
-  //     name: 'Orbe de Allura',
-  //     permalink: 'orbe_de_allura',
-  //   },
-  //   {
-  //     name: 'Selo de Ixin',
-  //     permalink: 'selo_de_ixin',
-  //   },
-  //   {
-  //     name: 'Totem de Darian',
-  //     permalink: 'totem_de_darian',
-  //   },
-  // ])
-
   const [selectedGrimo, setSelectedGrimo] = useState(null)
 
   if (!grimos) return "Loading..."

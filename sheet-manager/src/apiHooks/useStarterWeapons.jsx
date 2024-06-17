@@ -1,9 +1,14 @@
 import { useEffect } from "react"
 import useSWR from "swr";
 
-export default function useStarterWeapons() {
+export default function useStarterWeapons(attribute) {
   const fetcher = (url) => fetch(url).then((res) => res.json());
-  const { data, error, isLoading } = useSWR('/api/items/starter-weapons', fetcher)
+
+  const url = attribute
+  ? `/api/items/starter-weapons?attribute=${encodeURIComponent(attribute)}`
+  : '/api/items/starter-weapons';
+
+  const { data, error, isLoading } = useSWR(url, fetcher)
 
   return {
     data,
