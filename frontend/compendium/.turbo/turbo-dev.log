@@ -1,0 +1,45 @@
+
+> @fabulasegoblins-monorepo/compendium@0.1.0 dev /home/renatodex/Workspace/tendadogoblin/monorepo/frontend/compendium
+> next dev
+
+[32mready[39m - started server on 0.0.0.0:3000, url: http://localhost:3000
+[36minfo[39m  - Loaded env from /home/renatodex/Workspace/tendadogoblin/monorepo/frontend/compendium/.env.local
+[36mwait[39m  - compiling...
+[35mevent[39m - compiled client and server successfully in 918 ms (124 modules)
+[36mwait[39m  - compiling...
+[35mevent[39m - compiled successfully in 76 ms (97 modules)
+[36mwait[39m  - compiling / (client and server)...
+[36mwait[39m  - compiling...
+[35mevent[39m - compiled client and server successfully in 268 ms (135 modules)
+Warning: Invalid DOM property `stroke-width`. Did you mean `strokeWidth`?
+    at path
+    at svg
+    at div
+    at Waves
+    at footer
+    at div
+    at Layout (webpack-internal:///./src/layouts/layout.jsx:12:19)
+    at Index (webpack-internal:///./pages/index.jsx:19:98)
+    at MyApp (webpack-internal:///./pages/_app.js:14:18)
+    at StyleRegistry (/home/renatodex/Workspace/tendadogoblin/monorepo/node_modules/.pnpm/styled-jsx@5.0.1_react@18.0.0/node_modules/styled-jsx/dist/index/index.js:671:34)
+    at FlushEffectContainer (/home/renatodex/Workspace/tendadogoblin/monorepo/node_modules/.pnpm/next@12.1.5_react-dom@18.0.0_react@18.0.0__react@18.0.0/node_modules/next/dist/server/render.js:424:37)
+    at AppContainer (/home/renatodex/Workspace/tendadogoblin/monorepo/node_modules/.pnpm/next@12.1.5_react-dom@18.0.0_react@18.0.0__react@18.0.0/node_modules/next/dist/server/render.js:439:29)
+    at AppContainerWithIsomorphicFiberStructure (/home/renatodex/Workspace/tendadogoblin/monorepo/node_modules/.pnpm/next@12.1.5_react-dom@18.0.0_react@18.0.0__react@18.0.0/node_modules/next/dist/server/render.js:470:57)
+    at div
+    at Body (/home/renatodex/Workspace/tendadogoblin/monorepo/node_modules/.pnpm/next@12.1.5_react-dom@18.0.0_react@18.0.0__react@18.0.0/node_modules/next/dist/server/render.js:736:21)
+Warning: Invalid DOM property `stroke-width`. Did you mean `strokeWidth`?
+    at path
+    at svg
+    at div
+    at Waves
+    at footer
+    at div
+    at Layout (webpack-internal:///./src/layouts/layout.jsx:12:19)
+    at Index (webpack-internal:///./pages/index.jsx:19:98)
+    at MyApp (webpack-internal:///./pages/_app.js:14:18)
+    at StyleRegistry (/home/renatodex/Workspace/tendadogoblin/monorepo/node_modules/.pnpm/styled-jsx@5.0.1_react@18.0.0/node_modules/styled-jsx/dist/index/index.js:671:34)
+    at FlushEffectContainer (/home/renatodex/Workspace/tendadogoblin/monorepo/node_modules/.pnpm/next@12.1.5_react-dom@18.0.0_react@18.0.0__react@18.0.0/node_modules/next/dist/server/render.js:424:37)
+    at AppContainer (/home/renatodex/Workspace/tendadogoblin/monorepo/node_modules/.pnpm/next@12.1.5_react-dom@18.0.0_react@18.0.0__react@18.0.0/node_modules/next/dist/server/render.js:439:29)
+    at AppContainerWithIsomorphicFiberStructure (/home/renatodex/Workspace/tendadogoblin/monorepo/node_modules/.pnpm/next@12.1.5_react-dom@18.0.0_react@18.0.0__react@18.0.0/node_modules/next/dist/server/render.js:470:57)
+    at div
+    at Body (/home/renatodex/Workspace/tendadogoblin/monorepo/node_modules/.pnpm/next@12.1.5_react-dom@18.0.0_react@18.0.0__react@18.0.0/node_modules/next/dist/server/render.js:736:21)

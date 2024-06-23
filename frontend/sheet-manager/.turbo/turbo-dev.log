@@ -1,0 +1,13 @@
+
+> @fabulasegoblins-monorepo/sheet-manager@1.0.0 dev /home/renatodex/Workspace/tendadogoblin/monorepo/frontend/sheet-manager
+> next dev
+
+[33mwarn[39m  - Port 3000 is in use, trying 3001 instead.
+[32mready[39m - started server on 0.0.0.0:3001, url: http://localhost:3001
+[36mwait[39m  - compiling...
+[35mevent[39m - compiled client and server successfully in 968 ms (139 modules)
+[36mwait[39m  - compiling...
+[35mevent[39m - compiled successfully in 78 ms (105 modules)
+[36mwait[39m  - compiling / (client and server)...
+[36mwait[39m  - compiling...
+[35mevent[39m - compiled client and server successfully in 151 ms (146 modules)
