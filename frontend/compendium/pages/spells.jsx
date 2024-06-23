@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import classNames from 'classnames'
 import * as Icons from 'react-icons/gi'
-import Spell from '@fabulasegoblins-monorepo/ui/spell'
+import Spell from '@fabulasegoblins/ui/spell'
 import { TbCards } from "react-icons/tb";
 import { useRouter } from 'next/router'
 import Layout from 'src/layouts/layout'

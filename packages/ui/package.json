@@ -1,5 +1,5 @@
 {
-  "name": "@fabulasegoblins-monorepo/ui",
+  "name": "@fabulasegoblins/ui",
   "version": "0.0.0",
   "private": true,
   "exports": {

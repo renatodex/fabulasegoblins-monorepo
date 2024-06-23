@@ -1,5 +1,5 @@
 {
-  "name": "fabulasegoblins-monorepo",
+  "name": "fabulasegoblins",
   "private": true,
   "devDependencies": {
     "turbo": "^2.0.4"

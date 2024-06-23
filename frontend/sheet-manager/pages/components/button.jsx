@@ -1,4 +1,5 @@
 import { Fragment } from "react"
+import Link from 'next/link'
 
 export default function Button({ children, buttonColors = 'bg-aero-blue text-dark-charcoal disabled:bg-gray-200 disabled:text-gray-600', href, disabled = false, onClick=function(){} }) {
     const buttonMarkup = (
@@ -17,9 +18,9 @@ export default function Button({ children, buttonColors = 'bg-aero-blue text-dar
     if (href) {
         return (
             <Fragment>
-                <a href={href}>
+                <Link href={href}>
                     {buttonMarkup}
-                </a>
+                </Link>
             </Fragment>
 
         )

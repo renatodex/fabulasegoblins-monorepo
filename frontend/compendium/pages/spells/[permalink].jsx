@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
-import Spell from '@fabulasegoblins-monorepo/ui/spell'
+import Spell from '@fabulasegoblins/ui/spell'
 import { useRouter } from 'next/router'
 import Layout from 'src/layouts/layout'
 

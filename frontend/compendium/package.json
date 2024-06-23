@@ -1,5 +1,5 @@
 {
-  "name": "@fabulasegoblins-monorepo/compendium",
+  "name": "@fabulasegoblins/compendium",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -20,6 +20,6 @@
     "react-dom": "18.0.0",
     "react-icons": "^5.2.1",
     "tailwindcss": "^3.0.24",
-    "@fabulasegoblins-monorepo/ui": "workspace:*"
+    "@fabulasegoblins/ui": "workspace:*"
   }
 }

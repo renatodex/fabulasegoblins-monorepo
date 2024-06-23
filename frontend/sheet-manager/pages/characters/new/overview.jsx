@@ -79,8 +79,10 @@ export default function Overview ({ character, setCharacter = function () {} }) 
   //   }
   // }
 
+  let WeaponIcon
+
   if (character?.weapon?.icon) {
-    const WeaponIcon = Icons[character.weapon.icon]
+    WeaponIcon = Icons[character.weapon.icon]
   }
 
   console.log(character)

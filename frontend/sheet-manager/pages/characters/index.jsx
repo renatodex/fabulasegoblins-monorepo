@@ -70,10 +70,8 @@ export default function () {
       </div>
 
       <div className='mt-7'>
-        <Link href="/characters/new" passHref>
-          <a className="border w-full rounded-lg border-dashed inline-block bg-dark-charcoal p-4">
-            ➕ Novo Personagem
-          </a>
+        <Link href="/characters/new" className="border w-full rounded-lg border-dashed inline-block bg-dark-charcoal p-4">
+          ➕ Novo Personagem
         </Link>
       </div>
 

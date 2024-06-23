@@ -1,7 +1,7 @@
 import Button from '../components/button'
 import Input from '../components/input'
 import Logo from '../components/logo'
-import Link from '../components/link'
+import AppLink from '../components/app_link'
 import { useEffect, useState } from 'react'
 import Router from 'next/router'
 import useLogin from '../../hooks/use_login'
@@ -47,7 +47,7 @@ function Login() {
             />
           </div>
         </div>
-        <p className="pt-5 pl-3 text-sm ">Esqueceu sua senha? {' '}<Link href=''>Clique aqui</Link> para recuperar!</p>
+        <p className="pt-5 pl-3 text-sm ">Esqueceu sua senha? {' '}<AppLink href=''>Clique aqui</AppLink> para recuperar!</p>
 
         <div className="mt-14">
           <div className='m-auto text-center pt-3'>

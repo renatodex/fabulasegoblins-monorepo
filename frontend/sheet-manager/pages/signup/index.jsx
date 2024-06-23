@@ -4,7 +4,7 @@ import Input from '../components/input'
 import Container from '../components/container'
 import { BsArrowLeftCircle } from 'react-icons/bs'
 import Checkbox from '../components/checkbox'
-import Link from '../components/link'
+import AppLink from '../components/app_link'
 import Title from '../components/title'
 import { toast } from 'react-toastify'
 import { useState } from 'react'
@@ -40,12 +40,12 @@ function Signup() {
     <div>
       <Container>
         <p>
-          <a href="/">
-              <span className='text-4xl float-left'><BsArrowLeftCircle></BsArrowLeftCircle></span>
-              <span className='align-middle text-xl ml-3 mt-1 inline-block'>
-                  Voltar
-              </span>
-          </a>
+          <AppLink href="/">
+            <span className='text-4xl float-left'><BsArrowLeftCircle></BsArrowLeftCircle></span>
+            <span className='align-middle text-xl ml-3 mt-1 inline-block'>
+              Voltar
+            </span>
+          </AppLink>
         </p>
       </Container>
       <div className="pt-14">

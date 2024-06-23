@@ -18,7 +18,7 @@ importers:
 
   frontend/compendium:
     dependencies:
-      '@fabulasegoblins-monorepo/ui':
+      '@fabulasegoblins/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       '@react-pdf/renderer':
