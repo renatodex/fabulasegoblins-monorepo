@@ -1,10 +1,18 @@
 {
-  "name": "fabulasegoblins-sheetgen-2",
+  "name": "@fabulasegoblins-monorepo/sheet-manager",
   "version": "1.0.0",
+  "private": true,
   "description": ".",
   "main": ".",
   "repository": "https://github.com/renatodex/fabulasegoblins-sheetgen-2.git",
-  "author": "thetheu <matheus_rp25@hotmail.com>",
+  "author": {
+    "name": "Renato Alves",
+    "email": "renatodex@gmail.com",
+    "url": "https://github.com/renatodex"
+  },
+  "contributors": [
+    {"name":"Matheus","url":"https://github.com/thetheu"}
+  ],
   "license": "MIT",
   "dependencies": {
     "@emotion/react": "11",
@@ -29,6 +37,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "check-types": "tsc --noEmit"
   }
 }

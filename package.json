@@ -1,0 +1,12 @@
+{
+  "name": "fabulasegoblins-monorepo",
+	"devDependencies": {
+		"turbo": "^2.0.4"
+	},
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "test": "turbo run test"
+  },
+  "packageManager": "pnpm@9.4.0"
+}
