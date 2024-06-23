@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      tailwindcss:
+        specifier: ^3.4.4
+        version: 3.4.4
     devDependencies:
       turbo:
         specifier: ^2.0.4
@@ -129,6 +133,9 @@ importers:
       '@storybook/addon-onboarding':
         specifier: ^8.1.10
         version: 8.1.10(react@18.0.0)
+      '@storybook/addon-styling-webpack':
+        specifier: ^1.0.0
+        version: 1.0.0(webpack@5.92.1(esbuild@0.20.2))
       '@storybook/blocks':
         specifier: ^8.1.10
         version: 8.1.10(@types/react@18.3.3)(prettier@3.3.2)(react-dom@18.0.0(react@18.0.0))(react@18.0.0)
@@ -141,6 +148,9 @@ importers:
       '@storybook/test':
         specifier: ^8.1.10
         version: 8.1.10
+      autoprefixer:
+        specifier: ^10.4.19
+        version: 10.4.19(postcss@8.4.38)
       eslint:
         specifier: ^8
         version: 8.57.0
@@ -151,13 +161,16 @@ importers:
         specifier: ^0.8.0
         version: 0.8.0(eslint@8.57.0)(typescript@5.5.2)
       postcss:
-        specifier: ^8
+        specifier: ^8.4.38
         version: 8.4.38
+      postcss-loader:
+        specifier: ^8.1.1
+        version: 8.1.1(postcss@8.4.38)(typescript@5.5.2)(webpack@5.92.1(esbuild@0.20.2))
       storybook:
         specifier: ^8.1.10
         version: 8.1.10(@babel/preset-env@7.24.7(@babel/core@7.24.7))(react-dom@18.0.0(react@18.0.0))(react@18.0.0)
       tailwindcss:
-        specifier: ^3.4.1
+        specifier: ^3.4.4
         version: 3.4.4
 
 packages:
@@ -1696,6 +1709,11 @@ packages:
 
   '@storybook/addon-outline@8.1.10':
     resolution: {integrity: sha512-Edn5TWpV1DcumOjx0qG9bBKja6vz210ip7O47JbRDu7IDR8lguaM2X9xbmhXhBQq4fmqvobZmfRnrSeCtSYeyQ==}
+
+  '@storybook/addon-styling-webpack@1.0.0':
+    resolution: {integrity: sha512-jo1kzn7pi+NA+LZxrWoRvW6w7dXIKY/BjTG80XX2uU92lIKT+X1k/9vYk/0KPVK3Bsf4tO6ToAuqIRyOk7MHtg==}
+    peerDependencies:
+      webpack: ^5.0.0
 
   '@storybook/addon-toolbars@8.1.10':
     resolution: {integrity: sha512-5bRcCWrhaTX5Y91EWmHilPZ7kZaneaY414Gn5a6gsaNgaVPkSx9KD9j8M9DyXJ4yQNs265TiPWQqWrPB3Q2VgA==}
@@ -7714,6 +7732,11 @@ snapshots:
     dependencies:
       '@storybook/global': 5.0.0
       ts-dedent: 2.2.0
+
+  '@storybook/addon-styling-webpack@1.0.0(webpack@5.92.1(esbuild@0.20.2))':
+    dependencies:
+      '@storybook/node-logger': 8.1.10
+      webpack: 5.92.1(esbuild@0.20.2)
 
   '@storybook/addon-toolbars@8.1.10': {}
 
