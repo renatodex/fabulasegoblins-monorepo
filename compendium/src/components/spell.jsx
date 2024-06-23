@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import classNames from 'classnames'
-import * as Icons from 'react-icons/gi'
+import * as Icons from 'react-icons/gi/index.js'
 
 export default function Spell({ spell }) {
   const title = 'Poderes'

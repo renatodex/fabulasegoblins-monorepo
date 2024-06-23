@@ -85,22 +85,19 @@ export function WeaponDrawer ({ opened = false, title, description, selectedWeap
   )
 }
 
-export default function StarterWeapon ({ character, setCharacter }) {
+export default function Spells ({ character, setCharacter }) {
   const { setParentViewVisibility, setSubViewVisibility } = useContext(ScreenSlideContext)
   const [selectedWeapon, setSelectedWeapon] = useState(null)
 
-  const { data: weapons } = useStarterWeapons()
+  let spells = []
+  // const { data: spells } = useSpells()
 
   const filteredWeaponsArray = (character?.role?.proficiencies || []).map(proficiency => {
     const {data: filteredWeapons} = useStarterWeapons(proficiency.attribute_title)
     return filteredWeapons
   }).filter(value => value !== undefined && value !== null)
 
-  if (!weapons) return (<>Loading all weapons...</>)
-  if (!filteredWeaponsArray) return (<>Loading filtered weapons...</>)
-
-  const idsToExclude = new Set(filteredWeaponsArray.flat().map(obj => obj.id));
-  const nonProficientWeapons = weapons.filter(obj => !idsToExclude.has(obj.id));
+  if (!spells) return (<>Loading all spells...</>)
 
   return (
     <motion.div
@@ -116,62 +113,30 @@ export default function StarterWeapon ({ character, setCharacter }) {
     >
       <Container>
         <Title>
-          Escolha sua Arma Inicial
+          Escolha seus poderes
         </Title>
 
         <div className='gap-4 mt-10'>
           <div className='mt-4'>
-            {character?.grimo?.starter_weapons ? (
+            {character?.grimo?.title ? (
               <WeaponDrawer
                 opened
-                title="Armas Recomendadas ⭐"
-                weapons={character.grimo.starter_weapons}
+                title="Poderes do Grimo ⭐"
+                weapons={character.grimo.spells}
                 selectedWeapon={selectedWeapon}
-                description={'Exclusivas da academia do seu Grimo e usá-las não gera penalidades.'}
+                description={'Exclusivas da academia do seu Grimo.'}
                 setSelectedWeapon={setSelectedWeapon}
-                weaponIcon={'⭐'}
+                weaponIcon={'🌟'}
               />
             ) : (
               <div className='border border-amber-300 p-4 bg-red-800 rounded'>
                 <h3 className='text-xl font-serif'>
-                  Armas Recomendadas ⭐
+                  Poderes do Grimo 🌟
                 </h3>
-                <i className='text-yellow-100'>Você ainda não tem armas recomendadas pois não selecionou um Grimo.</i>
+                <i className='text-yellow-100'>Você ainda não tem magias de Grimo pois não selecionou um Grimo.</i>
               </div>
             )}
           </div>
-          <div className='mt-4'>
-            {filteredWeaponsArray.flat().length > 0 ? (
-              <WeaponDrawer
-                title="Armas com Aptidão 👍"
-                weapons={filteredWeaponsArray.flat()}
-                selectedWeapon={selectedWeapon}
-                description={'Você sabe usá-las sem grandes problemas e sem ter penalidades.'}
-                setSelectedWeapon={setSelectedWeapon}
-                weaponIcon={'👍'}
-              />
-            ) : (
-              <div className='border border-amber-300 p-4 bg-amber-800 rounded'>
-                <h3 className='text-xl font-serif'>
-                  Armas com Aptidão 👍
-                </h3>
-                <i className='text-yellow-100'>Você ainda não tem armas com aptidão pois não selecionou um Papel de Jogo.</i>
-              </div>
-            )}
-          </div>
-
-          <div className='mt-4'>
-            <WeaponDrawer
-              opened={!character?.grimo?.starter_weapons && filteredWeaponsArray.flat().length == 0}
-              title="Armas sem Aptidão 😢"
-              weapons={nonProficientWeapons}
-              description={'Você é meio desengonçado com essas armas e terá desvantagem nos primeiros combates.'}
-              selectedWeapon={selectedWeapon}
-              setSelectedWeapon={setSelectedWeapon}
-              weaponIcon={'😢'}
-            />
-          </div>
-
         </div>
 
         <div className="mt-7">
@@ -180,8 +145,6 @@ export default function StarterWeapon ({ character, setCharacter }) {
             setParentViewVisibility(true)
             setCharacter({
               ...character,
-              weapon: selectedWeapon,
-              permalink: 'starter_weapon',
             })
           }}>
             Próximo

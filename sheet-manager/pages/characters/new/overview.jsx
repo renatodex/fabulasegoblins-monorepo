@@ -7,7 +7,7 @@ import useCharacterRoles from "@/src/apiHooks/useCharacterRoles"
 import useCultures from "@/src/apiHooks/useCultures"
 import useSpecies from "@/src/apiHooks/useSpecies"
 import useGrimos from "@/src/apiHooks/useGrimos"
-import * as Icons from 'react-icons/gi'
+import * as Icons from 'react-icons/gi/index.js'
 
 export function CharacterSection ({
   label,
@@ -79,8 +79,10 @@ export default function Overview ({ character, setCharacter = function () {} }) 
   //   }
   // }
 
+  let WeaponIcon
+
   if (character?.weapon?.icon) {
-    const WeaponIcon = Icons[character.weapon.icon]
+    WeaponIcon = Icons[character.weapon.icon]
   }
 
   console.log(character)

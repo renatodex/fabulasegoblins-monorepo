@@ -1,0 +1,40 @@
+{
+  "name": "monorepo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:renatodex/fabulasegoblins-monorepo.git",
+  "author": "renatodex@gmail.com <renatodex@gmail.com>",
+  "license": "MIT",
+  "workspaces": [
+    "compendium/",
+    "sheet-manager/",
+    "storybook/"
+  ],
+  "packageManager": "yarn@4.3.1",
+  "devDependencies": {
+    "@storybook/addon-actions": "^8.1.10",
+    "@storybook/addon-links": "^8.1.10",
+    "@storybook/react": "^8.1.10",
+    "@types/babel__core": "^7.20.5",
+    "@types/eslint": "^8.56.10",
+    "@types/prettier": "^3.0.0",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@types/supports-color": "^8.1.3",
+    "css-loader": "^7.1.2",
+    "style-loader": "^4.0.0"
+  },
+  "resolutions": {
+    "webpack": "5.92.1",
+    "typescript": "^4.5.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "supports-color": "^9.4.0",
+    "typescript": "^5.5.2",
+    "webpack": "^5.92.1"
+  }
+}

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { GiNewspaper, GiBattleGear, GiSpellBook, GiBackpack, GiScrollQuill } from 'react-icons/gi'
+import { GiNewspaper, GiBattleGear, GiSpellBook, GiBackpack, GiScrollQuill } from 'react-icons/gi/index.js'
 
 export default function CharacterNavigation ({ code, tab }) {
   return (

@@ -4,12 +4,12 @@ import { motion } from 'framer-motion';
 import { Title } from '@/pages/components/title';
 import Button from '@/pages/components/button';
 import { ScreenSlideContext } from '@/src/contexts/screen_slide_context';
-import { FaTimes } from 'react-icons/fa';
+import { FaTimes } from 'react-icons/fa/index.js';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { TouchBackend } from 'react-dnd-touch-backend';
 import { isTouchDevice } from 'react-device-detect';
-import { GiStrong, GiRunningNinja, GiShield, GiBrain, GiInnerSelf, GiMagicSwirl, GiConversation, GiSprint, GiCrystalBall } from 'react-icons/gi';
+import { GiStrong, GiRunningNinja, GiShield, GiBrain, GiInnerSelf, GiMagicSwirl, GiConversation, GiSprint, GiCrystalBall } from 'react-icons/gi/index.js';
 
 const ItemTypes = {
   MODIFIER: 'modifier',

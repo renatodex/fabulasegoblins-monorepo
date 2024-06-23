@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import classNames from 'classnames'
-import * as Icons from 'react-icons/gi'
+import * as Icons from 'react-icons/gi/index.js'
 import Spell from 'src/components/spell'
 import { TbCards } from "react-icons/tb";
 import { useRouter } from 'next/router'
