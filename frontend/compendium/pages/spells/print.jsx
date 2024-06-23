@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
-import Spell from 'src/components/spell'
+import Spell from '@fabulasegoblins-monorepo/ui/spell'
 import { useRouter } from 'next/router'
 import PdfButton from 'src/components/download_pdf';
 import PdfSpells from 'src/components/pdf_spells';

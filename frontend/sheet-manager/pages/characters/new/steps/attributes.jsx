@@ -8,7 +8,7 @@ import { FaTimes } from 'react-icons/fa';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { TouchBackend } from 'react-dnd-touch-backend';
-import { isTouchDevice } from 'react-device-detect';
+import { isMobile } from 'react-device-detect';
 import { GiStrong, GiRunningNinja, GiShield, GiBrain, GiInnerSelf, GiMagicSwirl, GiConversation, GiSprint, GiCrystalBall } from 'react-icons/gi';
 
 const ItemTypes = {
@@ -58,9 +58,9 @@ const Modifier = ({ id, value, isSelected, isUsed, onClick }) => {
 
   return (
     <div
-      ref={isTouchDevice ? null : drag}
+      ref={isMobile ? null : drag}
       className={`border-green-300 font-bold border text-center rounded-full w-12 h-12 leading-[3rem] cursor-pointer ${isSelected ? 'bg-green-300' : ''} ${isUsed ? 'opacity-20 cursor-not-allowed' : ''}`}
-      onClick={isTouchDevice ? () => !isUsed && onClick() : null}
+      onClick={isMobile ? () => !isUsed && onClick() : null}
       onTouchStart={handleTouchStart}
     >
       {value}
@@ -197,7 +197,7 @@ export default function Attributes({ character, setCharacter }) {
   }
 
   return (
-    <DndProvider backend={isTouchDevice ? TouchBackend : HTML5Backend}>
+    <DndProvider backend={isMobile ? TouchBackend : HTML5Backend}>
       <motion.div
         initial={{ x: '100%' }}
         animate={{ x: 0 }}

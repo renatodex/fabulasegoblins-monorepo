@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import classNames from 'classnames'
 import * as Icons from 'react-icons/gi'
 
@@ -7,7 +7,7 @@ export default function Spell({ spell }) {
   const Icon = Icons[spell.icon]
 
   return (
-    <div className="break-inside-avoid pb-8 pt-2 text-black">
+    <div className="break-inside-avoid pb-8 pt-2">
       <h5
         className="block text-white text-2xl font-bold font-serif pt-3 px-4 py-2 bg-[#0e1818] screen:text-black rounded-t-lg"
       >

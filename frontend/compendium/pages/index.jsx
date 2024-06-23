@@ -2,6 +2,7 @@ import React from 'react'
 import Head from 'next/head'
 import { useState } from 'react'
 import Layout from 'src/layouts/layout'
+import Link from 'next/link'
 
 export default function Index() {
   const title = 'Compêndio do Aventureiro'
@@ -25,9 +26,9 @@ export default function Index() {
         </p>
 
         <div className='grid grid-cols-2 md:grid-cols-3 mt-5 text-sm px-4 gap-3 md:gap-5'>
-          <a href="/spells" className='p-4 border border-slate-200 rounded-xl bg-slate-500'>
+          <Link href="/spells" className='p-4 border border-slate-200 rounded-xl bg-slate-500'>
             🧙‍♂️ Poderes
-          </a>
+          </Link>
 
           <div className='p-4 border border-slate-900 rounded-xl bg-gray-500 cursor-not-allowed'>
             🔒 Inimigos

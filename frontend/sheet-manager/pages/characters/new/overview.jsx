@@ -142,7 +142,7 @@ export default function Overview ({ character, setCharacter = function () {} }) 
         <CharacterSection
           label={'os Atributos'}
           subView={'Attributes'}
-          item={character.attributes}
+          item={character?.attributes}
           filledCheck={attributes =>
             [
               attributes?.base_strength,

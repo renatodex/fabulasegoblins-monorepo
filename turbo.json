@@ -2,11 +2,16 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**"]
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**",
+        "dist/**"
+      ]
     },
     "dev": {
-      "dependsOn": ["^dev"],
-      "outputs": ["dist-dev/**"]
+      "cache": false,
+      "persistent": true
     },
     "lint": {},
     "test": {}
