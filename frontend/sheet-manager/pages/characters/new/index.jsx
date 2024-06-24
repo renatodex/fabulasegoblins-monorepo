@@ -6,6 +6,7 @@ import Culture from './steps/culture'
 import Grimo from './steps/grimo'
 import Attributes from './steps/attributes'
 import StarterWeapon from './steps/starter_weapon'
+import Spells from './steps/spells'
 import Overview from './overview'
 import { AnimatePresence } from 'framer-motion'
 
@@ -44,6 +45,8 @@ export function Views () {
       return <Attributes character={character} setCharacter={setCharacter} />
     } else if (selectedSubView == 'StarterWeapon') {
       return <StarterWeapon character={character} setCharacter={setCharacter} />
+    } else if (selectedSubView == 'Spells') {
+      return <Spells character={character} setCharacter={setCharacter} />
     }
   }
 

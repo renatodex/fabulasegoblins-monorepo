@@ -51,33 +51,33 @@ export default function Overview ({ character, setCharacter = function () {} }) 
     setSelectedSubView(subView)
   }
 
-  // const { data: cultures } = useCultures()
-  // const { data: roles } = useCharacterRoles()
-  // const { data: species } = useSpecies()
-  // const { data: grimos } = useGrimos()
+  const { data: cultures } = useCultures()
+  const { data: roles } = useCharacterRoles()
+  const { data: species } = useSpecies()
+  const { data: grimos } = useGrimos()
 
-  // if (cultures && roles && species && grimos) {
-  //   if (!character?.culture?.id && !character?.role?.id && !character?.specie?.id && !character?.grimo?.id) {
-  //     setCharacter({
-  //       ...character,
-  //       culture: cultures[0],
-  //       role: roles[0],
-  //       specie: species[0],
-  //       grimo: grimos[0],
-  //       attributes: {
-  //         'base_strength': 0,
-  //         'base_agility': 2,
-  //         'base_resilience': 1,
-  //         'base_intelect': 1,
-  //         'base_spirit': -1,
-  //         'base_magic_elo': 1,
-  //         'base_influence': 0,
-  //         'base_survival': 0,
-  //         'base_destiny': 0,
-  //       }
-  //     })
-  //   }
-  // }
+  if (cultures && roles && species && grimos) {
+    if (!character?.culture?.id && !character?.role?.id && !character?.specie?.id && !character?.grimo?.id) {
+      setCharacter({
+        ...character,
+        culture: cultures[0],
+        role: roles[0],
+        specie: species[0],
+        grimo: grimos[0],
+        attributes: {
+          'base_strength': 0,
+          'base_agility': 2,
+          'base_resilience': 1,
+          'base_intelect': 1,
+          'base_spirit': -1,
+          'base_magic_elo': 1,
+          'base_influence': 0,
+          'base_survival': 0,
+          'base_destiny': 0,
+        }
+      })
+    }
+  }
 
   let WeaponIcon
 

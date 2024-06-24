@@ -11,12 +11,16 @@
     "url": "https://github.com/renatodex"
   },
   "contributors": [
-    {"name":"Matheus","url":"https://github.com/thetheu"}
+    {
+      "name": "Matheus",
+      "url": "https://github.com/thetheu"
+    }
   ],
   "license": "MIT",
   "dependencies": {
     "@emotion/react": "11",
     "@emotion/styled": "11",
+    "@fabulasegoblins/ui": "workspace:*",
     "autoprefixer": "^10.4.4",
     "classnames": "^2.5.1",
     "framer-motion": "^10.12.7",
@@ -29,6 +33,7 @@
     "react-dnd-touch-backend": "^16.0.1",
     "react-dom": "^18.0.0",
     "react-icons": "^4.4.0",
+    "react-modal": "^3.16.1",
     "react-toastify": "^9.1.1",
     "swr": "^2.2.5",
     "tailwindcss": "^3.4.4"
