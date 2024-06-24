@@ -1,0 +1,42 @@
+{
+  "name": "@fabulasegoblins/sheet-manager",
+  "version": "1.0.0",
+  "private": true,
+  "description": ".",
+  "main": ".",
+  "repository": "https://github.com/renatodex/fabulasegoblins-sheetgen-2.git",
+  "author": {
+    "name": "Renato Alves",
+    "email": "renatodex@gmail.com",
+    "url": "https://github.com/renatodex"
+  },
+  "contributors": [
+    {"name":"Matheus","url":"https://github.com/thetheu"}
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@emotion/react": "11",
+    "@emotion/styled": "11",
+    "autoprefixer": "^10.4.4",
+    "classnames": "^2.5.1",
+    "framer-motion": "^10.12.7",
+    "next": "14.2.4",
+    "postcss": "^8.4.12",
+    "react": "^18.0.0",
+    "react-device-detect": "^2.2.3",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
+    "react-dnd-touch-backend": "^16.0.1",
+    "react-dom": "^18.0.0",
+    "react-icons": "^4.4.0",
+    "react-toastify": "^9.1.1",
+    "swr": "^2.2.5",
+    "tailwindcss": "^3.4.4"
+  },
+  "scripts": {
+    "dev": "next dev --turbo",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  }
+}
