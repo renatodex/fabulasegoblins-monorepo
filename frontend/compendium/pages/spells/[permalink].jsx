@@ -42,8 +42,8 @@ export async function getStaticProps(context) {
   let apiHostUrl;
 
   // Example of setting apiHostUrl, replace with your actual logic
-  if (process.env.CORE_HOST_URL) {
-    apiHostUrl = process.env.CORE_HOST_URL;
+  if (process.env.NEXT_PUBLIC_CORE_API_URL) {
+    apiHostUrl = process.env.NEXT_PUBLIC_CORE_API_URL;
   }
 
   // Ensure apiHostUrl is not undefined
@@ -77,7 +77,7 @@ export async function getStaticPaths() {
     }
   }
 
-  // const apiHostUrl = process.env.CORE_HOST_URL
+  // const apiHostUrl = process.env.NEXT_PUBLIC_CORE_API_URL
   // const spellSet = await loadSpells(apiHostUrl)
 
   // const paths = Array.from(spellSet).map(spell => ({
@@ -94,7 +94,7 @@ export async function getStaticPaths() {
 }
 
 async function loadSpells(page, spellSet = null) {
-  const apiHostUrl = process.env.CORE_HOST_URL
+  const apiHostUrl = process.env.NEXT_PUBLIC_CORE_API_URL
 
   // Build Params to get multiple Spells
   if (!spellSet) {

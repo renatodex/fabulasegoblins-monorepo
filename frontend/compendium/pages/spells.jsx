@@ -424,8 +424,8 @@ export async function getStaticProps() {
   let apiHostUrl;
 
   // Example of setting apiHostUrl, replace with your actual logic
-  if (process.env.CORE_HOST_URL) {
-    apiHostUrl = process.env.CORE_HOST_URL;
+  if (process.env.NEXT_PUBLIC_CORE_API_URL) {
+    apiHostUrl = process.env.NEXT_PUBLIC_CORE_API_URL;
   }
 
   // Ensure apiHostUrl is not undefined
