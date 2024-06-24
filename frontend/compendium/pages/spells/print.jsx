@@ -76,9 +76,21 @@ export default function Print({ apiHostUrl }) {
 }
 
 export async function getStaticProps() {
+  let apiHostUrl;
+
+  // Example of setting apiHostUrl, replace with your actual logic
+  if (process.env.CORE_HOST_URL) {
+    apiHostUrl = process.env.CORE_HOST_URL;
+  }
+
+  // Ensure apiHostUrl is not undefined
+  if (apiHostUrl === undefined) {
+    apiHostUrl = null;
+  }
+
   return {
     props: {
-      apiHostUrl: process.env.CORE_HOST_URL
+      apiHostUrl: apiHostUrl
     }
   }
 }
