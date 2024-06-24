@@ -2,7 +2,6 @@
 // email: renatodex@gmail.com
 export default async function handler(req, res) {
   if (req.method === 'GET') {
-    console.log("PINGANDO")
     const { token } = req.query;
 
     const request = await fetch('http://localhost:5000/api/users/login', {

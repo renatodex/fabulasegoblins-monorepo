@@ -41,7 +41,7 @@ function Signup() {
       <Container>
         <p>
           <AppLink href="/">
-            <span className='text-4xl float-left'><BsArrowLeftCircle></BsArrowLeftCircle></span>
+            <span className='text-4xl float-left'><BsArrowLeftCircle /></span>
             <span className='align-middle text-xl ml-3 mt-1 inline-block'>
               Voltar
             </span>
@@ -49,7 +49,7 @@ function Signup() {
         </p>
       </Container>
       <div className="pt-14">
-        <Logo></Logo>
+        <Logo />
       </div>
       <Container>
         <div className='mt-12'>
@@ -70,7 +70,7 @@ function Signup() {
                   onChange={e => setEmail(e.target.value)}
                   label={'E-mail'}
                   placeholder='Ex: fulano29@gmail.com'
-                  type={'e-mail'}
+                  type={'email'}
               />
           </div>
           <div className='mt-7'>
@@ -91,7 +91,7 @@ function Signup() {
           </div>
           <div className='mt-10'>
               <Checkbox onChange={e => setTerms(e.target.checked)}>
-                  Estou de acordo com a <Link>Politica de Privacidade.</Link>
+                  Estou de acordo com a <AppLink href="/privacy-policy">Politica de Privacidade.</AppLink>
               </Checkbox>
           </div>
           <div className='mt-5'>
