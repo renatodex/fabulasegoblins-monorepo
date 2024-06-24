@@ -39,7 +39,18 @@ export default function Index({ fallbackSpell, apiHostUrl }) {
 }
 
 export async function getStaticProps(context) {
-  const apiHostUrl = process.env.CORE_HOST_URL
+  let apiHostUrl;
+
+  // Example of setting apiHostUrl, replace with your actual logic
+  if (process.env.CORE_HOST_URL) {
+    apiHostUrl = process.env.CORE_HOST_URL;
+  }
+
+  // Ensure apiHostUrl is not undefined
+  if (apiHostUrl === undefined) {
+    apiHostUrl = null;
+  }
+
   const permalink = context.params.permalink
 
   // Initial fetch to provide a fallback spell for build time rendering
