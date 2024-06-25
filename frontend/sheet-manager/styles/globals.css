@@ -13,10 +13,12 @@ body{
 
 .Modal {
   position: absolute;
-  top: 20px;
+  /* top: 20px;
   left: 20px;
   right: 20px;
-  bottom: 20px;
+  bottom: 20px; */
+  top: 0px;
+  bottom: 0px;
   outline: none;
   transform: translate(0, 0);
   border-radius: 10px;

@@ -19,14 +19,14 @@ export function CharacterSection ({
 }) {
   return (
     <div
-      className="mt-5 rounded bg-gray-600 border border-solid border-green-300 text-white px-4 h-20 leading-[5em] bg-cover bg-center"
+      className="mt-5 rounded bg-gray-600 border border-solid border-green-300 text-white px-4 h-auto leading-[5em] bg-cover bg-center"
       style={{ backgroundImage: `url('/${subView.toLowerCase()}/${item?.permalink}.jpg')` }}
       onClick={e => {
         onSectionClick(subView)
       }}
     >
       {filledCheck(item) ? (
-        <span className="bg-[rgba(128,241,113,0.9)] text-black border border-green-900 p-2 rounded-xl shadow-xl inline-block w-full  leading-[22px] mt-[18px] text-nowrap overflow-x-scroll overflow-y-hidden">
+        <span className="bg-[rgba(128,241,113,0.9)] text-black border border-green-900 p-2 rounded-xl shadow-xl block w-full leading-[22px] mt-[18px] mb-[18px] text-nowrap overflow-x-scroll overflow-y-hidden">
           ✅ {label.split(' ')[1]}: {filledValue(item)}
         </span>
       ) : (
@@ -182,8 +182,17 @@ export default function Overview ({ character, setCharacter = function () {} }) 
           label={'os Poderes'}
           subView={'Spells'}
           item={character}
-          filledCheck={item => item?.name}
-          filledValue={item => item?.name}
+          filledCheck={item => item?.spells?.length > 0 && item?.ultimate?.length > 0}
+          filledValue={item => (
+            <div className="block">
+              {item?.spells.map(spell => (
+                <div>✔ {spell.title}</div>
+              ))}
+              {item?.ultimate.map(spell => (
+                <div>✔ {spell.title}</div>
+              ))}
+            </div>
+          )}
           onSectionClick={onSectionClick}
         />
 

@@ -14,6 +14,7 @@ export function Views () {
   const { parentViewVisibility, subViewVisibility, selectedSubView } = useContext(ScreenSlideContext)
 
   const [character, setCharacter] = useState({
+    level: 1,
     role: {
       name: null,
       permalink: 'default'
