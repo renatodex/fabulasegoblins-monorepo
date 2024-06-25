@@ -433,8 +433,6 @@ export async function getStaticProps() {
     apiHostUrl = null;
   }
 
-  console.log(process.env)
-
   return {
     props: {
       apiHostUrl: apiHostUrl

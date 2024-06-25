@@ -10,7 +10,7 @@ importers:
     dependencies:
       tailwindcss:
         specifier: ^3.4.4
-        version: 3.4.4(ts-node@10.9.2(@types/node@20.14.8))
+        version: 3.4.4(ts-node@10.9.2)
     devDependencies:
       turbo:
         specifier: ^2.0.4
@@ -53,7 +53,7 @@ importers:
         version: 5.2.1(react@18.0.0)
       tailwindcss:
         specifier: ^3.0.24
-        version: 3.4.4(ts-node@10.9.2(@types/node@20.14.8))
+        version: 3.4.4(ts-node@10.9.2)
 
   frontend/sheet-manager:
     dependencies:
@@ -63,6 +63,9 @@ importers:
       '@emotion/styled':
         specifier: '11'
         version: 11.11.5(@emotion/react@11.11.4(@types/react@18.3.3)(react@18.0.0))(@types/react@18.3.3)(react@18.0.0)
+      '@fabulasegoblins/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
       autoprefixer:
         specifier: ^10.4.4
         version: 10.4.19(postcss@8.4.38)
@@ -99,6 +102,9 @@ importers:
       react-icons:
         specifier: ^4.4.0
         version: 4.12.0(react@18.0.0)
+      react-modal:
+        specifier: ^3.16.1
+        version: 3.16.1(react-dom@18.0.0(react@18.0.0))(react@18.0.0)
       react-toastify:
         specifier: ^9.1.1
         version: 9.1.3(react-dom@18.0.0(react@18.0.0))(react@18.0.0)
@@ -107,7 +113,7 @@ importers:
         version: 2.2.5(react@18.0.0)
       tailwindcss:
         specifier: ^3.4.4
-        version: 3.4.4(ts-node@10.9.2(@types/node@20.14.8))
+        version: 3.4.4(ts-node@10.9.2)
 
   packages/ui:
     dependencies:
@@ -934,6 +940,9 @@ packages:
     resolution: {integrity: sha512-8uSpZZocAZRBAPIEINJj3Lo9HyGitllczc27Eh5YYojjMFMn8yHMDMaUHE2Jqfq05D/wucwI4JGURyXt1vchyg==}
     engines: {node: '>=10'}
 
+  exenv@1.2.2:
+    resolution: {integrity: sha512-Z+ktTxTwv9ILfgKCk32OX3n/doe+OcLTRtqK9pcL+JsP3J1/VW8Uvl4ZjLlKqeW4rzK4oesDOGMEMRIZqtP4Iw==}
+
   external-editor@3.1.0:
     resolution: {integrity: sha512-hMQ4CX1p1izmuLYyZqLMO/qGNw10wSv9QDCPfzXfyFrOaCSSoRfqE1Kf1s5an66J5JZC62NewG+mK49jOCtQew==}
     engines: {node: '>=4'}
@@ -1679,6 +1688,16 @@ packages:
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
+  react-lifecycles-compat@3.0.4:
+    resolution: {integrity: sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==}
+
+  react-modal@3.16.1:
+    resolution: {integrity: sha512-VStHgI3BVcGo7OXczvnJN7yT2TWHJPDXZWyI/a0ssFNhGZWsPmB8cF0z33ewDXq4VfYMO1vXgiv/g8Nj9NDyWg==}
+    engines: {node: '>=8'}
+    peerDependencies:
+      react: ^0.14.0 || ^15.0.0 || ^16 || ^17 || ^18
+      react-dom: ^0.14.0 || ^15.0.0 || ^16 || ^17 || ^18
+
   react-toastify@9.1.3:
     resolution: {integrity: sha512-fPfb8ghtn/XMxw3LkxQBk3IyagNpF/LIKjOBflbexr2AWxAH1MJgvnESwEwBn9liLFXgTKWgBSdZpw9m4OTHTg==}
     peerDependencies:
@@ -2082,6 +2101,9 @@ packages:
   vite-compatible-readable-stream@3.6.1:
     resolution: {integrity: sha512-t20zYkrSf868+j/p31cRIGN28Phrjm3nRSLR2fyc2tiWi4cZGVdv68yNlwnIINTkMTmPoMiSlc0OadaO7DXZaQ==}
     engines: {node: '>= 6'}
+
+  warning@4.0.3:
+    resolution: {integrity: sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w==}
 
   wcwidth@1.0.1:
     resolution: {integrity: sha512-XHPEwS0q6TaxcvG85+8EYkbiCux2XtWG2mkc47Ng2A77BQu9+DqIOJldST4HgPkuea7dvKSj5VgX3P1d4rW8Tg==}
@@ -3121,6 +3143,8 @@ snapshots:
       signal-exit: 3.0.7
       strip-final-newline: 2.0.0
 
+  exenv@1.2.2: {}
+
   external-editor@3.1.0:
     dependencies:
       chardet: 0.7.0
@@ -3790,7 +3814,7 @@ snapshots:
       camelcase-css: 2.0.1
       postcss: 8.4.38
 
-  postcss-load-config@4.0.2(postcss@8.4.38)(ts-node@10.9.2(@types/node@20.14.8)):
+  postcss-load-config@4.0.2(postcss@8.4.38)(ts-node@10.9.2):
     dependencies:
       lilconfig: 3.1.2
       yaml: 2.4.5
@@ -3906,6 +3930,17 @@ snapshots:
       react: 18.3.1
 
   react-is@16.13.1: {}
+
+  react-lifecycles-compat@3.0.4: {}
+
+  react-modal@3.16.1(react-dom@18.0.0(react@18.0.0))(react@18.0.0):
+    dependencies:
+      exenv: 1.2.2
+      prop-types: 15.8.1
+      react: 18.0.0
+      react-dom: 18.0.0(react@18.0.0)
+      react-lifecycles-compat: 3.0.4
+      warning: 4.0.3
 
   react-toastify@9.1.3(react-dom@18.0.0(react@18.0.0))(react@18.0.0):
     dependencies:
@@ -4122,7 +4157,7 @@ snapshots:
       react: 18.0.0
       use-sync-external-store: 1.2.2(react@18.0.0)
 
-  tailwindcss@3.4.4(ts-node@10.9.2(@types/node@20.14.8)):
+  tailwindcss@3.4.4(ts-node@10.9.2):
     dependencies:
       '@alloc/quick-lru': 5.2.0
       arg: 5.0.2
@@ -4141,7 +4176,7 @@ snapshots:
       postcss: 8.4.38
       postcss-import: 15.1.0(postcss@8.4.38)
       postcss-js: 4.0.1(postcss@8.4.38)
-      postcss-load-config: 4.0.2(postcss@8.4.38)(ts-node@10.9.2(@types/node@20.14.8))
+      postcss-load-config: 4.0.2(postcss@8.4.38)(ts-node@10.9.2)
       postcss-nested: 6.0.1(postcss@8.4.38)
       postcss-selector-parser: 6.1.0
       resolve: 1.22.8
@@ -4301,6 +4336,10 @@ snapshots:
       inherits: 2.0.4
       string_decoder: 1.3.0
       util-deprecate: 1.0.2
+
+  warning@4.0.3:
+    dependencies:
+      loose-envify: 1.4.0
 
   wcwidth@1.0.1:
     dependencies:

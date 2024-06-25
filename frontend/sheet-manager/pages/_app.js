@@ -14,6 +14,8 @@ function MyApp({ Component, pageProps }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
 
+      <div id="modal" />
+
       <header>
         <div className="h-8 bg-aero-blue"></div>
       </header>
