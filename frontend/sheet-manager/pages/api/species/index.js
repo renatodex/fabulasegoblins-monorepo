@@ -1,6 +1,6 @@
 export default async function handler(req, res) {
   if (req.method === 'GET') {
-    const request = await fetch('http://localhost:5000/api/species?page=1', {
+    const request = await fetch(`${process.env.NEXT_PUBLIC_CORE_URL}/api/species?page=1`, {
       method: 'GET',
     })
 

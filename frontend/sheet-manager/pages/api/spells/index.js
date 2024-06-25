@@ -3,7 +3,7 @@ export default async function handler(req, res) {
     // Extract the query string from the request URL
     const queryString = req.url.split('?')[1] || '';
 
-    const apiUrl = `http://localhost:5000/api/spells?${queryString}`;
+    const apiUrl = `${process.env.NEXT_PUBLIC_CORE_URL}/api/spells?${queryString}`;
 
     try {
       const request = await fetch(apiUrl, {
