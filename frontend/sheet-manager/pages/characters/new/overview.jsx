@@ -42,7 +42,29 @@ export default function Overview ({ character, setCharacter = function () {} }) 
   const { setSubViewVisibility, setParentViewVisibility, setSelectedSubView } = useContext(ScreenSlideContext)
 
   const validateChoices = function () {
-    return (character?.role?.name && character?.specie?.name && character?.culture?.name && character?.grimo?.name)
+    const validAttributes = [
+      character?.attributes?.base_strength,
+      character?.attributes?.base_agility,
+      character?.attributes?.base_resilience,
+      character?.attributes?.base_intelect,
+      character?.attributes?.base_spirit,
+      character?.attributes?.base_magic_elo,
+      character?.attributes?.base_influence,
+      character?.attributes?.base_survival,
+      character?.attributes?.base_destiny,
+    ].every(attr =>
+      typeof attr === 'number' && (attr >= -1 && attr <= 2)
+    )
+
+    return (
+      character?.role?.title &&
+      character?.specie?.title &&
+      character?.culture?.title &&
+      character?.grimo?.title &&
+      validAttributes &&
+      character?.weapon?.title &&
+      character?.spells?.length > 0 && character?.ultimate?.length > 0
+    )
   }
 
   const onSectionClick = function (subView) {
@@ -51,33 +73,33 @@ export default function Overview ({ character, setCharacter = function () {} }) 
     setSelectedSubView(subView)
   }
 
-  const { data: cultures } = useCultures()
-  const { data: roles } = useCharacterRoles()
-  const { data: species } = useSpecies()
-  const { data: grimos } = useGrimos()
+  // const { data: cultures } = useCultures()
+  // const { data: roles } = useCharacterRoles()
+  // const { data: species } = useSpecies()
+  // const { data: grimos } = useGrimos()
 
-  if (cultures && roles && species && grimos) {
-    if (!character?.culture?.id && !character?.role?.id && !character?.specie?.id && !character?.grimo?.id) {
-      setCharacter({
-        ...character,
-        culture: cultures[0],
-        role: roles[0],
-        specie: species[0],
-        grimo: grimos[0],
-        attributes: {
-          'base_strength': 0,
-          'base_agility': 2,
-          'base_resilience': 1,
-          'base_intelect': 1,
-          'base_spirit': -1,
-          'base_magic_elo': 1,
-          'base_influence': 0,
-          'base_survival': 0,
-          'base_destiny': 0,
-        }
-      })
-    }
-  }
+  // if (cultures && roles && species && grimos) {
+  //   if (!character?.culture?.id && !character?.role?.id && !character?.specie?.id && !character?.grimo?.id) {
+  //     setCharacter({
+  //       ...character,
+  //       culture: cultures[0],
+  //       role: roles[0],
+  //       specie: species[0],
+  //       grimo: grimos[0],
+  //       attributes: {
+  //         'base_strength': 0,
+  //         'base_agility': 2,
+  //         'base_resilience': 1,
+  //         'base_intelect': 1,
+  //         'base_spirit': -1,
+  //         'base_magic_elo': 1,
+  //         'base_influence': 0,
+  //         'base_survival': 0,
+  //         'base_destiny': 0,
+  //       }
+  //     })
+  //   }
+  // }
 
   let WeaponIcon
 
@@ -198,9 +220,9 @@ export default function Overview ({ character, setCharacter = function () {} }) 
 
         <div className="mt-7">
           {validateChoices() ? (
-            <Button onClick={e => onSectionClick('Attributes')}>Avançar ⏩ Escolha de Atributos</Button>
+            <Button onClick={e => {}}>Criar personagem</Button>
           ) : (
-            <Button onClick={e => onSectionClick('Attributes')}> Avançar ⏩ Escolha de Atributos</Button>
+            <Button disabled>Criar personagem</Button>
           )}
         </div>
       </Container>

@@ -119,8 +119,8 @@ export default function Spells ({ character, setCharacter }) {
   const [ownedSpells, setOwnedSpells] = useState([])
   const [ownedUltimates, setOwnedUltimates] = useState([])
 
-  const { data: spells } = useSpells(`q[filter_tags_eq_any]=${character.grimo.permalink}&q[tier_eq]=1`)
-  const { data: ultimateSpells } = useSpells(`q[filter_tags_eq_any]=${character.grimo.permalink}&q[ultimate_eq]=true`)
+  const { data: spells } = useSpells(`q[filter_tags_eq_any]=${character?.grimo?.permalink}&q[tier_eq]=1`)
+  const { data: ultimateSpells } = useSpells(`q[filter_tags_eq_any]=${character?.grimo?.permalink}&q[ultimate_eq]=true`)
 
 
   function addUltimate (spell) {
