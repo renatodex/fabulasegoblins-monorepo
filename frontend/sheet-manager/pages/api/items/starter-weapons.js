@@ -4,7 +4,7 @@ export default async function handler(req, res) {
     const { attribute } = req.query
 
     // Construct the URL with optional attributes parameter
-    let url = 'http://localhost:5000/api/items?page=1&q[item_type_id_eq]=2&q[common_starter_weapon_eq]=true'
+    let url = `${process.env.CORE_API_URL}/api/items?page=1&q[item_type_id_eq]=2&q[common_starter_weapon_eq]=true`
     if (attribute) {
       url += `&q[sheet_attributes_title_cont]=${encodeURIComponent(attribute)}`
     }

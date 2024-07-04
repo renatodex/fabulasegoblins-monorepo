@@ -3,7 +3,7 @@ export default async function handler(req, res) {
   if (req.method === 'POST') {
     const { email, password } = req.body;
 
-    const request = await fetch('http://localhost:5000/api/users/login', {
+    const request = await fetch(`${process.env.CORE_API_URL}/api/users/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

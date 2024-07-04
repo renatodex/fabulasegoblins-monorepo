@@ -4,7 +4,7 @@ export default async function handler(req, res) {
   if (req.method === 'GET') {
     const { token } = req.query;
 
-    const request = await fetch('http://localhost:5000/api/users/login', {
+    const request = await fetch(`${process.env.CORE_API_URL}/api/users/login`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
