@@ -5,15 +5,8 @@ import { Title } from '@/pages/components/title';
 import Button from '@/pages/components/button';
 import { ScreenSlideContext } from '@/src/contexts/screen_slide_context';
 import { FaTimes } from 'react-icons/fa';
-import { DndProvider, useDrag, useDrop } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import { TouchBackend } from 'react-dnd-touch-backend';
 import { isMobile } from 'react-device-detect';
 import { GiStrong, GiRunningNinja, GiShield, GiBrain, GiInnerSelf, GiMagicSwirl, GiConversation, GiSprint, GiCrystalBall } from 'react-icons/gi';
-
-const ItemTypes = {
-  MODIFIER: 'modifier',
-};
 
 const icons = {
   'Força': <GiStrong />,
@@ -40,15 +33,6 @@ const attributeMap = {
 };
 
 const Modifier = ({ id, value, isSelected, isUsed, onClick }) => {
-  const [{ isDragging }, drag] = useDrag(() => ({
-    type: ItemTypes.MODIFIER,
-    item: { id, value },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-    canDrag: !isUsed, // Disable dragging if the modifier is used
-  }), [id, value, isUsed]);
-
   const handleTouchStart = (e) => {
     e.preventDefault(); // Prevent default touch behavior
     if (!isUsed) {
@@ -58,7 +42,7 @@ const Modifier = ({ id, value, isSelected, isUsed, onClick }) => {
 
   return (
     <div
-      ref={isMobile ? null : drag}
+      ref={null}
       className={`border-green-300 font-bold border text-center rounded-full w-12 h-12 leading-[3rem] cursor-pointer ${isSelected ? 'bg-green-300' : ''} ${isUsed ? 'opacity-20 cursor-not-allowed' : ''}`}
       onClick={isMobile ? () => !isUsed && onClick() : null}
       onTouchStart={handleTouchStart}
@@ -69,34 +53,6 @@ const Modifier = ({ id, value, isSelected, isUsed, onClick }) => {
 };
 
 const AttributeBox = ({ attribute, selectedModifier, characterAttributes, setCharacterAttributes, setSelectedModifier, appliedModifiers, setAppliedModifiers }) => {
-  const [{ isOver }, drop] = useDrop(() => ({
-    accept: ItemTypes.MODIFIER,
-    drop: (item) => {
-      // Reset previous modifier if it exists
-      const previousModifierId = Object.keys(appliedModifiers).find(id => appliedModifiers[id] === attribute);
-      if (previousModifierId) {
-        setAppliedModifiers((prev) => {
-          const newAppliedModifiers = { ...prev };
-          delete newAppliedModifiers[previousModifierId];
-          return newAppliedModifiers;
-        });
-      }
-
-      setCharacterAttributes((prev) => ({
-        ...prev,
-        [attributeMap[attribute]]: item.value,
-      }));
-      setAppliedModifiers((prev) => ({
-        ...prev,
-        [item.id]: attribute,
-      }));
-      setSelectedModifier(null); // Unselect the modifier after applying it
-    },
-    collect: (monitor) => ({
-      isOver: monitor.isOver(),
-    }),
-  }), [attribute, appliedModifiers, setCharacterAttributes, setAppliedModifiers, setSelectedModifier]);
-
   const handleAttributeClick = () => {
     if (selectedModifier !== null) {
       // Reset previous modifier if it exists
@@ -141,9 +97,9 @@ const AttributeBox = ({ attribute, selectedModifier, characterAttributes, setCha
   return (
     <div className='relative'>
       <div
-        ref={drop}
+        ref={null}
         onClick={handleAttributeClick}
-        className={`w-34 h-20 rounded border border-green-300 mt-2 leading-[4.8rem] text-center text-5xl cursor-pointer ${isOver ? 'bg-green-100' : ''}`}
+        className={`w-34 h-20 rounded border border-green-300 mt-2 leading-[4.8rem] text-center text-5xl cursor-pointer`}
       >
         {characterAttributes[attributeMap[attribute]] || 0}
       </div>
@@ -197,71 +153,69 @@ export default function Attributes({ character, setCharacter }) {
   }
 
   return (
-    <DndProvider backend={isMobile ? TouchBackend : HTML5Backend}>
-      <motion.div
-        initial={{ x: '100%' }}
-        animate={{ x: 0 }}
-        exit={{ x: '100%' }}
-      >
-        <Container>
-          <Title>Distribua seus Atributos</Title>
+    <motion.div
+      initial={{ x: '100%' }}
+      animate={{ x: 0 }}
+      exit={{ x: '100%' }}
+    >
+      <Container>
+        <Title>Distribua seus Atributos</Title>
 
-          <div className='flex gap-3 mt-7'>
-            {modifiers.map((modifier) => (
-              <Modifier
-                key={modifier.id}
-                id={modifier.id}
-                value={modifier.value}
-                isSelected={selectedModifier && selectedModifier.id === modifier.id}
-                isUsed={appliedModifiers[modifier.id] !== undefined}
-                onClick={() => handleModifierClick(modifier)}
-              />
-            ))}
-          </div>
+        <div className='flex gap-3 mt-7'>
+          {modifiers.map((modifier) => (
+            <Modifier
+              key={modifier.id}
+              id={modifier.id}
+              value={modifier.value}
+              isSelected={selectedModifier && selectedModifier.id === modifier.id}
+              isUsed={appliedModifiers[modifier.id] !== undefined}
+              onClick={() => handleModifierClick(modifier)}
+            />
+          ))}
+        </div>
 
-          <div className='grid grid-cols-2 gap-4 mt-10'>
-            {attributes.map((attribute) => (
-              <div key={attribute}>
-                <div className='text-2xl'>
-                  <span className='inline-block'>{icons[attribute]}</span> {attribute}
-                </div>
-                <AttributeBox
-                  attribute={attribute}
-                  characterAttributes={characterAttributes}
-                  setCharacterAttributes={setCharacterAttributes}
-                  selectedModifier={selectedModifier}
-                  setSelectedModifier={setSelectedModifier}
-                  appliedModifiers={appliedModifiers}
-                  setAppliedModifiers={setAppliedModifiers}
-                />
+        <div className='grid grid-cols-2 gap-4 mt-10'>
+          {attributes.map((attribute) => (
+            <div key={attribute}>
+              <div className='text-2xl'>
+                <span className='inline-block'>{icons[attribute]}</span> {attribute}
               </div>
-            ))}
-          </div>
+              <AttributeBox
+                attribute={attribute}
+                characterAttributes={characterAttributes}
+                setCharacterAttributes={setCharacterAttributes}
+                selectedModifier={selectedModifier}
+                setSelectedModifier={setSelectedModifier}
+                appliedModifiers={appliedModifiers}
+                setAppliedModifiers={setAppliedModifiers}
+              />
+            </div>
+          ))}
+        </div>
 
-          <div className='mt-7'>
-            {validateAttributes() ? (
-              <Button onClick={() => {
-                setSubViewVisibility(false);
-                setParentViewVisibility(true);
-                setCharacter({
-                  ...character,
-                  attributes: {
-                    ...characterAttributes,
-                    permalink: 'attributes',
-                    appliedModifiers
-                  },
-                })
-              }}>
-                Próximo
-              </Button>
-            ) : (
-              <Button disabled>
-                ❕ Faltam ({modifiers.length - Object.values(appliedModifiers).length}) modificadores ❕
-              </Button>
-            )}
-          </div>
-        </Container>
-      </motion.div>
-    </DndProvider>
+        <div className='mt-7'>
+          {validateAttributes() ? (
+            <Button onClick={() => {
+              setSubViewVisibility(false);
+              setParentViewVisibility(true);
+              setCharacter({
+                ...character,
+                attributes: {
+                  ...characterAttributes,
+                  permalink: 'attributes',
+                  appliedModifiers
+                },
+              })
+            }}>
+              Próximo
+            </Button>
+          ) : (
+            <Button disabled>
+              ❕ Faltam ({modifiers.length - Object.values(appliedModifiers).length}) modificadores ❕
+            </Button>
+          )}
+        </div>
+      </Container>
+    </motion.div>
   );
 }

@@ -9,7 +9,7 @@ import Head from 'next/head'
 
 function MyApp({ Component, pageProps }) {
   return (
-    <div id="app" className="bg-gunmetal h-screen">
+    <div id="app" className="bg-gunmetal min-h-screen max-w-[600px] m-auto shadow-2xl">
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>

@@ -26,7 +26,7 @@ export function CharacterSection ({
       }}
     >
       {filledCheck(item) ? (
-        <span className="bg-[rgba(128,241,113,0.9)] text-black border border-green-900 p-2 rounded-xl shadow-xl block w-full leading-[22px] mt-[18px] mb-[18px] text-nowrap overflow-x-scroll overflow-y-hidden">
+        <span className="bg-[rgba(128,241,113,0.9)] text-black border border-green-900 p-2 rounded-xl shadow-xl block w-full leading-[22px] mt-[18px] mb-[18px] text-nowrap overflow-x-auto overflow-y-hidden">
           ✅ {label.split(' ')[1]}: {filledValue(item)}
         </span>
       ) : (
