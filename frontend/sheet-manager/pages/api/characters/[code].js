@@ -3,7 +3,7 @@ export default async function handler(req, res) {
   const { code } = req.query
 
   if (req.method === 'GET') {
-    const request = await fetch(`${process.env.NEXT_PUBLIC_CORE_URL}/api/characters/${code}`, {
+    const request = await fetch(`${process.env.CORE_API_URL}/api/characters/${code}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

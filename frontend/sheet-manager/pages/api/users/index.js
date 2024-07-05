@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   if (req.method === 'POST') {
     const { email, password } = req.body;
 
-    const request = await fetch(`${process.env.NEXT_PUBLIC_CORE_URL}/api/users`, {
+    const request = await fetch(`${process.env.CORE_API_URL}/api/users`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

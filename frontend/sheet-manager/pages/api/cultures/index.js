@@ -1,6 +1,6 @@
 export default async function handler(req, res) {
   if (req.method === 'GET') {
-    const request = await fetch(`${process.env.NEXT_PUBLIC_CORE_URL}/api/cultures?page=1`, {
+    const request = await fetch(`${process.env.CORE_API_URL}/api/cultures?page=1`, {
       method: 'GET',
     })
 
