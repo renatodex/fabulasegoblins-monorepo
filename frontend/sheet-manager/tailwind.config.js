@@ -6,6 +6,9 @@ module.exports = {
     "../../packages/ui/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
+    fontFamily: {
+      'dolly-bold': ['Dolly Bold', 'Helvetica Bold', 'Arial']
+    },
     extend: {
       colors: {
         'gunmetal': '#243338',

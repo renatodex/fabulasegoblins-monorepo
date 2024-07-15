@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  @font-face {
+    font-family: 'Dolly Bold';
+    font-style: normal;
+    font-weight: 800;
+    font-display: swap;
+    src: url(/Dolly-Bold.ttf) format('truetype');
+  }
+}
+
 html {
   overflow-x: hidden;
 }

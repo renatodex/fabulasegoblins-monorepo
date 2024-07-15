@@ -33,8 +33,8 @@ function MyApp({ Component, pageProps }) {
           </div>
 
           <div>
-            <div className="w-14 m-auto pb-1">
-              <TendaDoGoblin />
+            <div className="w-20 m-auto pb-1">
+              <img src="/tenda-logo.png"></img>
             </div>
           </div>
 

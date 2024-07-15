@@ -17,10 +17,16 @@ export function CharacterSection ({
   filledCheck = function () { return false },
   onSectionClick
 }) {
+  let bg = null;
+
+  if (item?.permalink && item?.permalink != 'default') {
+    bg = { backgroundImage: `url('/${subView.toLowerCase()}/${item?.permalink}.jpg')` }
+  }
+
   return (
     <div
-      className="mt-5 rounded bg-gray-600 border border-solid border-green-300 text-white px-4 h-auto leading-[5em] bg-cover bg-center"
-      style={{ backgroundImage: `url('/${subView.toLowerCase()}/${item?.permalink}.jpg')` }}
+      className="mt-5 rounded-3xl bg-white hover:bg-green-200 cursor-pointer text-black p-1 h-auto bg-cover bg-center"
+      style={bg}
       onClick={e => {
         onSectionClick(subView)
       }}
@@ -30,9 +36,20 @@ export function CharacterSection ({
           ✅ {label.split(' ')[1]}: {filledValue(item)}
         </span>
       ) : (
-        <span className="px-2">
-          🔽 Escolha {label}
-        </span>
+        <div className="border border-dashed border-black rounded-3xl p-3">
+          <div className="px-2 flex">
+            <div className="flex items-center justify-center font-dolly-bold w-20 h-20 text-center rounded-full bg-slate-900 text-white p-3 text-5xl align-middle text-bold">
+              ?
+            </div>
+            <div className="flex-1 ml-4">
+              <p className="m-0 p-0 font-dolly-bold text-2xl">{label.split(' ')[1]}</p>
+              <p className="m-0 p-0">Não definido</p>
+              <div className="m-0 p-0">
+                <button className="bg-black rounded-2xl text-white px-3 py-0.5 text-sm border-0">escolher</button>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   )
