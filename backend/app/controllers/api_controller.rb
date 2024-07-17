@@ -52,7 +52,7 @@ class ApiController < ApplicationController
   def render_or_fallback(data, action)
     template_path = Rails.root.join("app", "views", "api", resource.to_s.underscore.downcase.pluralize, "#{action}.jbuilder")
 
-    puts template_path
+    puts "VAI -> #{template_path}"
     if File.exists?(template_path)
       @resources = data
       render "api/#{resource.to_s.underscore.downcase.pluralize}/#{action}"

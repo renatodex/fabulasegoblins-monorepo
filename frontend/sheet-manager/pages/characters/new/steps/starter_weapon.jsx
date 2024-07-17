@@ -180,8 +180,11 @@ export default function StarterWeapon ({ character, setCharacter }) {
             setParentViewVisibility(true)
             setCharacter({
               ...character,
-              weapon: selectedWeapon,
-              permalink: 'starter_weapon',
+              weapon: {
+                ...selectedWeapon,
+                color: '#9FCAD3',
+                permalink: 'starter_weapon',
+              },
             })
           }}>
             Próximo

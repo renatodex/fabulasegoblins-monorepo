@@ -15,26 +15,60 @@ export function CharacterSection ({
   item,
   filledValue = function () { return '' },
   filledCheck = function () { return false },
+  iconValue = null,
   onSectionClick
 }) {
   let bg = null;
 
+  const imgPath = `/${subView.toLowerCase()}/full/${item?.permalink}.jpg`
   if (item?.permalink && item?.permalink != 'default') {
-    bg = { backgroundImage: `url('/${subView.toLowerCase()}/${item?.permalink}.jpg')` }
+    bg = { backgroundImage: `url('${imgPath}')` }
   }
 
   return (
     <div
-      className="mt-5 rounded-3xl bg-white hover:bg-green-200 cursor-pointer text-black p-1 h-auto bg-cover bg-center"
-      style={bg}
+      className="mt-5 rounded-3xl hover:bg-green-200 cursor-pointer text-black p-1 h-auto bg-cover bg-center"
+      style={{
+        boxShadow: '0px 6px 0px rgba(0,0,0,99)',
+        backgroundColor: `${item?.color || '#ffffff'}`
+      }}
       onClick={e => {
         onSectionClick(subView)
       }}
     >
       {filledCheck(item) ? (
-        <span className="bg-[rgba(128,241,113,0.9)] text-black border border-green-900 p-2 rounded-xl shadow-xl block w-full leading-[22px] mt-[18px] mb-[18px] text-nowrap overflow-x-auto overflow-y-hidden">
-          ✅ {label.split(' ')[1]}: {filledValue(item)}
-        </span>
+        <div className="border border-dashed border-black rounded-3xl p-3">
+          <div className="px-2 flex">
+            {iconValue ? (
+              <div
+                className="relative w-20 h-20 flex justify-center items-center text-center text-5xl bg-cover border border-gray-500 rounded-full bg-gray-200"
+                style={{
+                  backgroundImage: `url('${imgPath}')`,
+                }}
+              >
+                {iconValue()}
+              </div>
+            ) : (
+              <div
+                className="relative w-20 h-20 bg-cover border border-gray-500 rounded-full bg-gray-200"
+                style={{
+                  backgroundImage: `url('${imgPath}')`,
+                }}
+              >
+                {/* <img src={imgPath} className="border border-black rounded-full w-20 h-20" /> */}
+              </div>
+            )}
+            <div className="flex-1 ml-4">
+              <p className="m-0 p-0 font-dolly-bold text-2xl">{label.split(' ')[1]}</p>
+              <p className="m-0 p-0">
+                {filledValue(item)}
+              </p>
+              <div className="m-0 p-0">
+                <button className="bg-black rounded-2xl text-white px-3 py-0.5 text-sm border-0">alterar</button>
+              </div>
+            </div>
+          </div>
+        </div>
       ) : (
         <div className="border border-dashed border-black rounded-3xl p-3">
           <div className="px-2 flex">
@@ -104,6 +138,8 @@ export default function Overview ({ character, setCharacter = function () {} }) 
   //       specie: species[0],
   //       grimo: grimos[0],
   //       attributes: {
+  //         permalink: 'attributes',
+  //         color: '#d9ffd9',
   //         'base_strength': 0,
   //         'base_agility': 2,
   //         'base_resilience': 1,
@@ -206,13 +242,11 @@ export default function Overview ({ character, setCharacter = function () {} }) 
         <CharacterSection
           label={'a Arma Inicial'}
           subView={'StarterWeapon'}
-          item={character}
-          filledCheck={item => item?.weapon}
-          filledValue={item => (
-            <div className="inline-block">
-              <span className="inline-block align-middle text-xl text-black bg-green-600 rounded p-1"><WeaponIcon/></span>
-              <span className="ml-2">{item?.weapon.title}</span>
-            </div>
+          item={character?.weapon}
+          filledCheck={item => item}
+          filledValue={item => item?.title}
+          iconValue={item => (
+            <WeaponIcon/>
           )}
           onSectionClick={onSectionClick}
         />

@@ -3,6 +3,8 @@ json.title resource.title
 json.permalink resource.permalink
 json.short_description resource.short_description
 json.long_description resource.long_description
+json.micro_description resource.micro_description
+json.color resource.color
 json.base_hp resource.base_hp
 json.base_mp resource.base_mp
 json.base_movement resource.base_movement

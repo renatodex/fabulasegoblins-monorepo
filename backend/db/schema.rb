@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_06_15_050805) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_17_002255) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -76,6 +76,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_15_050805) do
     t.text "book_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "micro_description"
+    t.string "color"
   end
 
   create_table "characters", force: :cascade do |t|
@@ -162,6 +164,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_15_050805) do
     t.text "bonuses"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "micro_description"
+    t.string "color"
   end
 
   create_table "damage_types", force: :cascade do |t|
@@ -281,6 +285,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_15_050805) do
     t.boolean "common_starter_weapon"
     t.text "targets"
     t.string "ranged"
+    t.string "micro_description"
+    t.string "color"
     t.index ["damage_type_id"], name: "index_items_on_damage_type_id"
     t.index ["item_type_id"], name: "index_items_on_item_type_id"
     t.index ["range_type_id"], name: "index_items_on_range_type_id"
@@ -540,6 +546,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_15_050805) do
     t.integer "extra_attribute_points", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "micro_description"
+    t.string "color"
   end
 
   create_table "spell_owners", force: :cascade do |t|
@@ -580,6 +588,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_15_050805) do
     t.datetime "updated_at", null: false
     t.bigint "attack_logic_id"
     t.string "filter_tags"
+    t.string "micro_description"
+    t.string "color"
     t.index ["action_type_id"], name: "index_spells_on_action_type_id"
     t.index ["attack_logic_id"], name: "index_spells_on_attack_logic_id"
     t.index ["element_id"], name: "index_spells_on_element_id"

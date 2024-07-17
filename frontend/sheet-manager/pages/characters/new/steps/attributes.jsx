@@ -203,6 +203,7 @@ export default function Attributes({ character, setCharacter }) {
                 attributes: {
                   ...characterAttributes,
                   permalink: 'attributes',
+                  color: '#d9ffd9',
                   appliedModifiers
                 },
               })

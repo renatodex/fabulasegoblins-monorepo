@@ -9,6 +9,7 @@
 #  bonus_physical_defense       :string
 #  book_url                     :text
 #  buy_price                    :integer
+#  color                        :string
 #  common_starter_weapon        :boolean
 #  durability                   :integer
 #  formula                      :text
@@ -17,6 +18,7 @@
 #  itemset_part                 :boolean          default(FALSE)
 #  long_description             :text
 #  magical_formula              :text
+#  micro_description            :string
 #  movement_penalty             :integer
 #  permalink                    :string
 #  physical_formula             :text
