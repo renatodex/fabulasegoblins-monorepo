@@ -8,6 +8,7 @@ import useCultures from "@/src/apiHooks/useCultures"
 import useSpecies from "@/src/apiHooks/useSpecies"
 import useGrimos from "@/src/apiHooks/useGrimos"
 import * as Icons from 'react-icons/gi'
+import useScrollTop from "@/src/utilitaryHooks/use_scroll_top"
 
 export function CharacterSection ({
   label,
@@ -91,6 +92,8 @@ export function CharacterSection ({
 
 export default function Overview ({ character, setCharacter = function () {} }) {
   const { setSubViewVisibility, setParentViewVisibility, setSelectedSubView } = useContext(ScreenSlideContext)
+
+  useScrollTop()
 
   const validateChoices = function () {
     const validAttributes = [

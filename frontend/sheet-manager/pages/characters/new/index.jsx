@@ -7,13 +7,15 @@ import Grimo from './steps/grimo'
 import Attributes from './steps/attributes'
 import StarterWeapon from './steps/starter_weapon'
 import Spells from './steps/spells'
+import Details from './steps/details'
 import Overview from './overview'
 import { AnimatePresence } from 'framer-motion'
+import useLocalStorageState from '@/src/utilitaryHooks/use_local_storage_state'
 
 export function Views () {
   const { parentViewVisibility, subViewVisibility, selectedSubView } = useContext(ScreenSlideContext)
 
-  const [character, setCharacter] = useState({
+  const [character, setCharacter] = useLocalStorageState('new_character_v1', {
     level: 1,
     role: {
       name: null,
@@ -33,6 +35,8 @@ export function Views () {
     },
   })
 
+  console.log('Default value', character)
+
   const renderSubView = function () {
     if (selectedSubView == 'Roles') {
       return <Role character={character} setCharacter={setCharacter} />
@@ -48,6 +52,8 @@ export function Views () {
       return <StarterWeapon character={character} setCharacter={setCharacter} />
     } else if (selectedSubView == 'Spells') {
       return <Spells character={character} setCharacter={setCharacter} />
+    } else if (selectedSubView == 'Details') {
+      return <Details character={character} setCharacter={setCharacter} />
     }
   }
 

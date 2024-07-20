@@ -350,7 +350,7 @@ export default function Index({ apiHostUrl }) {
               <Spell spell={selectedSpell} />
 
               <button
-                className='text-lg text-black bg-emerald-200 px-2 py-1 rounded-xl'
+                className='text-lg mt-4 text-black bg-emerald-200 px-2 py-1 rounded-xl'
                 onClick={e => {
                   setCartSpells([...(cartSpells || []), selectedSpell])
                   setCartOpen(true)

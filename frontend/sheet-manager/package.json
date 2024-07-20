@@ -39,7 +39,7 @@
     "tailwindcss": "^3.4.4"
   },
   "scripts": {
-    "dev": "next dev --turbo",
+    "dev": "next dev --port=3010 --turbo",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

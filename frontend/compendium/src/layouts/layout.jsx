@@ -22,7 +22,7 @@ export default function Layout ({ children }) {
 
           <div>
             <div className="w-20 m-auto pb-1">
-              <img src="tenda-logo.png" />
+              <img src="/tenda-logo.png" />
             </div>
           </div>
 

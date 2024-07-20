@@ -6,9 +6,10 @@ import Button from '@/pages/components/button'
 import { ScreenSlideContext } from '@/src/contexts/screen_slide_context'
 import SectionCard from '@/src/components/characters/section_card'
 import useCultures from '@/src/apiHooks/useCultures'
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 export default function Culture ({ character, setCharacter }) {
-  const { setParentViewVisibility, setSubViewVisibility } = useContext(ScreenSlideContext)
+  const { setParentViewVisibility, setSubViewVisibility, setSelectedSubView } = useContext(ScreenSlideContext)
 
   const { data: cultures } = useCultures()
 
@@ -41,22 +42,33 @@ export default function Culture ({ character, setCharacter }) {
               folder={'cultures'}
               selectedItem={selectedCulture?.permalink}
               setSelectedItem={setSelectedCulture}
+              onSelect={item => {
+                setSelectedSubView('Details')
+                setCharacter({
+                  ...character,
+                  details: {
+                    type: 'culture',
+                    data: item,
+                  }
+                })
+              }}
             />
           ))}
         </div>
 
-        <div className="mt-7">
-          <Button onClick={e => {
-            setSubViewVisibility(false)
-            setParentViewVisibility(true)
+        <Button
+          onClick={e => {
+            console.log(character.details)
             setCharacter({
               ...character,
-              culture: selectedCulture,
             })
-          }}>
-            Próximo
-          </Button>
-        </div>
+            setParentViewVisibility(true)
+            setSubViewVisibility(false)
+          }}
+          className='flex items-center justify-center'
+        >
+          <FaArrowLeftLong className='inline-block'/> <span>Voltar</span>
+        </Button>
       </Container>
     </motion.div>
   )

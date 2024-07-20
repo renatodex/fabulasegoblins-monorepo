@@ -7,7 +7,8 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      'dolly-bold': ['Dolly Bold', 'Helvetica Bold', 'Arial']
+      'dolly-bold': ['Dolly Bold', 'Helvetica Bold', 'Arial'],
+      'adobe-kis': ['adobe-kis', 'sans-serif']
     },
     extend: {
       colors: {

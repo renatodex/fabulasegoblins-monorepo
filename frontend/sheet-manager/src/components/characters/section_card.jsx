@@ -1,13 +1,14 @@
 import { Subtitle } from '../../../pages/components/title'
 import { BsPatchQuestion } from 'react-icons/bs'
 
-export default function SectionCard ({ item, folder, selectedItem, setSelectedItem }) {
+export default function SectionCard ({ item, folder, selectedItem, setSelectedItem, onSelect }) {
   // const selectedStyle = selectedItem == item.permalink ? "saturate-200" : "saturate-50"
 
   return (
     <div className={`mx-auto mb-4 w-full cursor-pointer`} onClick={e => {
-      setSelectedItem(item)}
-    }>
+      onSelect(item)
+      // setSelectedItem(item)
+    }}>
       <div className="text-center">
         {/* h-48 rounded-3xl bg-gray-200 */}
         <div className={`relative rounded-3xl h-[127px] p-1.5 flex box-border`} style={{ backgroundColor: `${item.color || '#e5e7eb'}` }}>

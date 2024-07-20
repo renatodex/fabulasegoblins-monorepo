@@ -6,9 +6,10 @@ import Button from '@/pages/components/button'
 import { ScreenSlideContext } from '@/src/contexts/screen_slide_context'
 import SectionCard from '@/src/components/characters/section_card'
 import useGrimos from '@/src/apiHooks/useGrimos'
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 export default function Grimo ({ character, setCharacter }) {
-  const { setParentViewVisibility, setSubViewVisibility } = useContext(ScreenSlideContext)
+  const { setParentViewVisibility, setSubViewVisibility, setSelectedSubView } = useContext(ScreenSlideContext)
 
   const { data: grimos } = useGrimos()
 
@@ -41,22 +42,33 @@ export default function Grimo ({ character, setCharacter }) {
               folder={'grimos'}
               selectedItem={selectedGrimo?.permalink}
               setSelectedItem={setSelectedGrimo}
+              onSelect={item => {
+                setSelectedSubView('Details')
+                setCharacter({
+                  ...character,
+                  details: {
+                    type: 'grimo',
+                    data: item,
+                  }
+                })
+              }}
             />
           ))}
         </div>
 
-        <div className="mt-7">
-          <Button onClick={e => {
-            setSubViewVisibility(false)
-            setParentViewVisibility(true)
-            setCharacter({
-              ...character,
-              grimo: selectedGrimo,
-            })
-          }}>
-            Próximo
+        <Button
+            onClick={e => {
+              console.log(character.details)
+              setCharacter({
+                ...character,
+              })
+              setParentViewVisibility(true)
+              setSubViewVisibility(false)
+            }}
+            className='flex items-center justify-center'
+          >
+            <FaArrowLeftLong className='inline-block'/> <span>Voltar</span>
           </Button>
-        </div>
       </Container>
     </motion.div>
   )
