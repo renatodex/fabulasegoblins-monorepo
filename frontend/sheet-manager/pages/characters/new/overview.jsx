@@ -431,7 +431,7 @@ export default function Overview ({ character, setCharacter = function () {} }) 
                     </Button>
                   </div>
                   <div className="flex-1">
-                    <Button disabled={!character?.character_name? || !character?.avatar?} onClick={handleSubmit}>
+                    <Button disabled={!character?.character_name || !character?.avatar} onClick={handleSubmit}>
                       Criar personagem
                     </Button>
                   </div>
