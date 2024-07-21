@@ -61,7 +61,6 @@ export default function Specie ({ character, setCharacter }) {
 
         <Button
             onClick={e => {
-              console.log(character.details)
               setCharacter({
                 ...character,
               })
