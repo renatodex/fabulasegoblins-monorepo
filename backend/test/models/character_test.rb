@@ -3,6 +3,7 @@
 # Table name: characters
 #
 #  id                     :bigint           not null, primary key
+#  avatar                 :string
 #  background             :text             default("0")
 #  base_agility           :integer          default(0)
 #  base_destiny           :integer          default(0)

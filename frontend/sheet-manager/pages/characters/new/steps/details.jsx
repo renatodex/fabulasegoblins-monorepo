@@ -92,12 +92,16 @@ export default function Details ({ character, setCharacter }) {
           </div>
 
           {character.details.data.spells && (
-            <SpellGroup
-              label={`Características:`}
-              spells={character.details.data.spells}
-              collapseSpells={true}
-              collapseBlock={false}
-            />
+            <>
+              <h2 className='text-xl font-dolly-bold mt-4 border-b border-b-white'>Características:</h2>
+              <div className='grid grid-cols-1 gap-3 mt-3'>
+                {(character.details.data.spells || []).map(spell => (
+                  <div>
+                    <Spell defaultCollapse={true} spell={spell} />
+                  </div>
+                ))}
+              </div>
+            </>
           )}
 
           {spellGroups && (

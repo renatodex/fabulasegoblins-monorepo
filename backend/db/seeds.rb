@@ -412,6 +412,7 @@ create_rows(Character, [
     mp_points: 20,
     max_hp_points: 28,
     hp_points: 17,
+    avatar: '1'
   },
 ], :code)
 

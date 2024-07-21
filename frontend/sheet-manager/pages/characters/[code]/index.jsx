@@ -42,7 +42,7 @@ export default function () {
     <Container>
       <div className='mt-7'>
         <div style={{
-            backgroundImage: "url('/avatar2.png')"
+            backgroundImage: `url('/avatars/${character.specie.permalink}/${character.avatar}.png')`
           }}
           className="h-72 w-72 bg-cover bg-no-repeat bg-center rounded-full border border-aero-blue m-auto"
         />

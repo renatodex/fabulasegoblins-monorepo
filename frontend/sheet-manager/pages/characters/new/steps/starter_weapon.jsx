@@ -6,7 +6,8 @@ import Button from '@/pages/components/button'
 import { ScreenSlideContext } from '@/src/contexts/screen_slide_context'
 import SectionCard from '@/src/components/characters/section_card'
 import useStarterWeapons from '@/src/apiHooks/useStarterWeapons'
-import { FaRegPlusSquare } from "react-icons/fa";
+import { FaRegPlusSquare, FaRegMinusSquare } from "react-icons/fa";
+import { FaArrowLeftLong } from "react-icons/fa6";
 import * as Icons from 'react-icons/gi'
 import classNames from 'classnames'
 
@@ -69,10 +70,13 @@ export function WeaponDrawer ({ opened = false, title, description, selectedWeap
       <h3 className='text-xl font-serif'>
         {title} ({weapons.length})
         <button
-          className='bg-green-700 p-1 rounded align-middle ml-2 inline-block'
+          className={classNames('p-1 rounded align-middle ml-2 inline-block', {
+            'bg-green-700': !isOpen,
+            'bg-red-700': isOpen
+          })}
           onClick={e => setIsOpen(!isOpen)}
         >
-          <FaRegPlusSquare />
+          {isOpen ? <FaRegMinusSquare /> : <FaRegPlusSquare />}
         </button>
       </h3>
       <i className='text-green-200'>{description}</i>
@@ -174,21 +178,41 @@ export default function StarterWeapon ({ character, setCharacter }) {
 
         </div>
 
-        <div className="mt-7">
-          <Button onClick={e => {
-            setSubViewVisibility(false)
-            setParentViewVisibility(true)
-            setCharacter({
-              ...character,
-              weapon: {
-                ...selectedWeapon,
-                color: '#9FCAD3',
-                permalink: 'starter_weapon',
-              },
-            })
-          }}>
-            Próximo
-          </Button>
+        <div className="mt-7 flex gap-4">
+          <div>
+            <Button
+              onClick={e => {
+                console.log(character.details)
+                setCharacter({
+                  ...character,
+                })
+                setParentViewVisibility(true)
+                setSubViewVisibility(false)
+              }}
+              className='flex items-center justify-center'
+            >
+              <FaArrowLeftLong className='inline-block'/> <span>Voltar</span>
+            </Button>
+          </div>
+          <div className='flex-1'>
+            <Button
+              disabled={!selectedWeapon}
+              onClick={e => {
+                setSubViewVisibility(false)
+                setParentViewVisibility(true)
+                setCharacter({
+                  ...character,
+                  weapon: {
+                    ...selectedWeapon,
+                    color: '#9FCAD3',
+                    permalink: 'starter_weapon',
+                  },
+                })
+              }}
+            >
+              {selectedWeapon ? `Selecionar ${selectedWeapon?.title}` : 'Selecione a arma'}
+            </Button>
+          </div>
         </div>
       </Container>
     </motion.div>

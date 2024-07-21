@@ -3,6 +3,7 @@ import Container from '../components/container';
 import { Title, Subtitle } from '../components/title'
 import useLogin from '../../hooks/use_login'
 import Button from '../components/button'
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import Link from 'next/link';
 
 function NoCharactersDisplay () {
@@ -27,11 +28,14 @@ function CharacterList ({ characters }) {
       {characters.map(character => (
         <div onClick={e => window.location = `/characters/${character.code}`} key={character.id} className='mt-7 flex space-x-4'>
           <div className='flex-none w-16'>
-            <img src="./small_avatar.png" className='flex-none' />
+            <img src={`/avatars/${character.specie.permalink}/${character.avatar}.png`} className='flex-none' />
           </div>
           <div className='flex-auto'>
             <p className='text-2xl text-aero-blue'>{character.title} - Lv {character.level}</p>
-            <p>Grimo de Lunn - Level {character.level}</p>
+            <p className='flex'>
+              <img src={`/grimos/full/${character.initial_grimo.permalink}.jpg`} width={30} />
+              {character.initial_grimo.title} - Level {character.level}
+            </p>
           </div>
         </div>
       ))}
@@ -41,7 +45,7 @@ function CharacterList ({ characters }) {
 
 export default function () {
   const { token, ping } = useLogin()
-  const [characters, setCharacters] = useState([])
+  const [characters, setCharacters] = useState(null)
 
   useEffect(() => {
     const loadCharacters = async () => {
@@ -63,6 +67,17 @@ export default function () {
     ping()
   }, [])
 
+  if (!characters) return (
+    <div className='m-auto w-3/4 border border-purple-300 p-4 rounded mt-20'>
+      <div className="flex justify-center items-center text-purple-400">
+        <AiOutlineLoading3Quarters className="animate-spin text-3xl" />
+      </div>
+      <p className='text-center text-green-400 mt-2 text-2xl font-dolly-bold'>
+        Carregando personagens....
+      </p>
+    </div>
+  )
+
   return (
     <Container>
       <div className='pt-10'>
@@ -70,7 +85,14 @@ export default function () {
       </div>
 
       <div className='mt-7'>
-        <Link href="/characters/new" className="border w-full rounded-lg border-dashed inline-block bg-dark-charcoal p-4">
+        <Link
+          onClick={e => {
+            window.localStorage.removeItem('new_character_v1')
+            window.location.href = '/characters/new'
+          }}
+          href='#'
+          className="border w-full rounded-lg border-dashed inline-block bg-dark-charcoal p-4"
+        >
           ➕ Novo Personagem
         </Link>
       </div>

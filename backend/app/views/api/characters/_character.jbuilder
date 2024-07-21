@@ -42,6 +42,7 @@ json.short_description character.short_description
 json.temirs character.temirs
 json.title character.title
 json.traumas character.traumas
+json.avatar character.avatar
 json.created_at character.created_at
 json.updated_at character.updated_at
 
