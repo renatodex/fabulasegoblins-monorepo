@@ -140,28 +140,28 @@ export default function Overview ({ character, setCharacter = function () {} }) 
   const handleSubmit = function () {
     const characterData = {
       attributes: {
-        base_agility: character.attributes.base_agility,
-        base_destiny: character.attributes.base_destiny,
-        base_influence: character.attributes.base_influence,
-        base_intelect: character.attributes.base_intelect,
-        base_magic_elo: character.attributes.base_magic_elo,
-        base_resilience: character.attributes.base_resilience,
-        base_spirit: character.attributes.base_spirit,
-        base_strength: character.attributes.base_strength,
-        base_survival: character.attributes.base_survival,
+        base_agility: character?.attributes?.base_agility,
+        base_destiny: character?.attributes?.base_destiny,
+        base_influence: character?.attributes?.base_influence,
+        base_intelect: character?.attributes?.base_intelect,
+        base_magic_elo: character?.attributes?.base_magic_elo,
+        base_resilience: character?.attributes?.base_resilience,
+        base_spirit: character?.attributes?.base_spirit,
+        base_strength: character?.attributes?.base_strength,
+        base_survival: character?.attributes?.base_survival,
       },
-      culture_id: character.culture.id,
-      role_id: character.role.id,
-      specie_id: character.specie.id,
-      level: character.level,
-      grimo_id: character.grimo.id,
+      culture_id: character?.culture?.id,
+      role_id: character?.role?.id,
+      specie_id: character?.specie?.id,
+      level: character?.level,
+      grimo_id: character?.grimo?.id,
       spell_ids: [
-        character.spells.map(s => s.id),
-        character.ultimate.map(s => s.id)
+        character?.spells?.map(s => s.id),
+        character?.ultimate?.map(s => s.id)
       ].flat(),
-      weapon_id: character.weapon.id,
-      avatar: character.avatar,
-      character_name: character.character_name,
+      weapon_id: character?.weapon?.id,
+      avatar: character?.avatar,
+      character_name: character?.character_name,
     }
 
     return createCharacter(characterData)
@@ -260,7 +260,7 @@ export default function Overview ({ character, setCharacter = function () {} }) 
   let WeaponIcon
 
   if (character?.weapon?.icon) {
-    WeaponIcon = Icons[character.weapon.icon]
+    WeaponIcon = Icons[character?.weapon?.icon]
   }
 
   console.log(character)
@@ -415,7 +415,7 @@ export default function Overview ({ character, setCharacter = function () {} }) 
                 <label className="mt-2 block font-adobe-kis text-lg">
                   Avatar:
                   <AvatarSelection
-                    specie={character.specie.permalink}
+                    specie={character?.specie?.permalink}
                     onSelect={n => {
                       setCharacter({
                         ...character,
@@ -431,7 +431,7 @@ export default function Overview ({ character, setCharacter = function () {} }) 
                     </Button>
                   </div>
                   <div className="flex-1">
-                    <Button disabled={!character.character_name || !character.avatar} onClick={handleSubmit}>
+                    <Button disabled={!character?.character_name? || !character?.avatar?} onClick={handleSubmit}>
                       Criar personagem
                     </Button>
                   </div>
