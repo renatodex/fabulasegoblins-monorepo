@@ -7,6 +7,7 @@ export default function Spell({ spell, defaultCollapse = false }) {
   const title = 'Poderes'
   const Icon = Icons[spell.icon]
 
+  console.log("spell", spell, defaultCollapse, useState)
   const [isCollapsed, setIsCollapsed] = useState(defaultCollapse)
 
   return (

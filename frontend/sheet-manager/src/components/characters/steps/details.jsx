@@ -103,8 +103,7 @@ export default function Details ({ character, setCharacter }) {
               <div className='grid grid-cols-1 gap-3 mt-3'>
                 {(character?.details?.data?.spells || []).map(spell => (
                   <div>
-                    <div>{JSON.stringify(spell)}</div>
-                    {/* <Spell defaultCollapse={true} spell={spell} /> */}
+                    <Spell defaultCollapse={true} spell={spell} />
                   </div>
                 ))}
               </div>
