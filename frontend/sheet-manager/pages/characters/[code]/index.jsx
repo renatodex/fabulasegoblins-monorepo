@@ -24,7 +24,6 @@ export default function () {
         }
       })
       const data = await response.json()
-      console.log(data)
       setCharacter(data)
     }
 

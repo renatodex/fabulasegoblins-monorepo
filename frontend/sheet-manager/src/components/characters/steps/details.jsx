@@ -45,8 +45,6 @@ export function SpellGroup ({ label, spells, collapseSpells, collapseBlock }) {
 }
 
 export default function Details ({ character, setCharacter }) {
-  console.log("Aqui chegou")
-
   const { setParentViewVisibility, setSubViewVisibility, setSelectedSubView } = useContext(ScreenSlideContext)
 
   let spellGroups = null
@@ -54,8 +52,6 @@ export default function Details ({ character, setCharacter }) {
     const { spellGroups:spellGroupsData } = useGrimoSpells(character?.details?.data?.permalink)
     spellGroups = spellGroupsData
   }
-
-  console.log("chegou aqui também", character.details)
 
   if (!character.details) return null
 
@@ -127,7 +123,6 @@ export default function Details ({ character, setCharacter }) {
         <div className="mt-7 flex gap-3">
           <Button
             onClick={e => {
-              console.log(character?.details)
               setCharacter({
                 ...character,
               })

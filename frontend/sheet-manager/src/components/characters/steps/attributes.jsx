@@ -204,7 +204,6 @@ export default function Attributes({ character, setCharacter }) {
         <div className='mt-7 flex gap-4'>
           <Button
             onClick={e => {
-              console.log(character.details)
               setCharacter({
                 ...character,
               })

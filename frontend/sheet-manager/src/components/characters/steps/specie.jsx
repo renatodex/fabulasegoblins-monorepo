@@ -54,7 +54,6 @@ export default function Specie ({ character, setCharacter }) {
                     data: item,
                   }
                 })
-                console.log("Salvou até")
               }}
             />
           ))}

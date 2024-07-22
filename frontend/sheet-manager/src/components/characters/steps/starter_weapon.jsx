@@ -182,7 +182,6 @@ export default function StarterWeapon ({ character, setCharacter }) {
           <div>
             <Button
               onClick={e => {
-                console.log(character.details)
                 setCharacter({
                   ...character,
                 })

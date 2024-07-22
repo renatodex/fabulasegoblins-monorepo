@@ -124,7 +124,6 @@ export default function Spells ({ character, setCharacter }) {
 
 
   function addUltimate (spell) {
-    console.log("Ultimate added")
     setOwnedUltimates(
       [...new Set([...ownedSpells, spell.permalink])].slice(-1)
     )
@@ -138,7 +137,6 @@ export default function Spells ({ character, setCharacter }) {
   }
 
   function addSpell (spell) {
-    console.log("Spell added")
     setOwnedSpells(
       [...new Set([...ownedSpells, spell.permalink])].slice(-2)
     )

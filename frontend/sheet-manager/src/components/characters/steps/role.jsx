@@ -58,7 +58,6 @@ export default function Role ({ character, setCharacter }) {
 
         <Button
             onClick={e => {
-              console.log(character.details)
               setCharacter({
                 ...character,
               })

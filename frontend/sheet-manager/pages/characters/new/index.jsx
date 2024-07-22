@@ -35,8 +35,6 @@ export function Views () {
     },
   })
 
-  console.log('Default value', character)
-
   const renderSubView = function () {
     if (selectedSubView == 'Roles') {
       return <Role character={character} setCharacter={setCharacter} />

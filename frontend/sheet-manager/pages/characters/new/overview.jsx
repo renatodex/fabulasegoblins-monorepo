@@ -263,8 +263,6 @@ export default function Overview ({ character, setCharacter = function () {} }) 
     WeaponIcon = Icons[character?.weapon?.icon]
   }
 
-  console.log(character)
-
   return (
     <motion.div
       className="w-full"

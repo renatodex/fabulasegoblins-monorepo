@@ -1,8 +1,7 @@
 // POST api/login?email=renatodex@gmail.com&password=123456
 export default async function handler(req, res) {
   if (req.method === 'POST') {
-    // try {
-    console.log(req?.headers?.authorization)
+    try {
       const body = req.body; // Parse the incoming request body
 
       const request = await fetch(`${process.env.CORE_API_URL}/api/characters`, {
@@ -16,9 +15,9 @@ export default async function handler(req, res) {
 
       const response = await request.json();
       res.status(request.status).json(response);
-    // } catch (error) {
-    //   res.status(500).json({ error: 'Failed to process the request' });
-    // }
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to process the request' });
+    }
   } else {
     res.status(400).json({ error: 'This request must be POST' });
   }

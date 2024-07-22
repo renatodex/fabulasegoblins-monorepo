@@ -9,7 +9,6 @@ export default function Spell({ spell, defaultCollapse = false }) {
 
   if (!spell) return null
 
-  console.log("spell", spell, defaultCollapse, useState)
   const [isCollapsed, setIsCollapsed] = useState(defaultCollapse)
 
   return (
