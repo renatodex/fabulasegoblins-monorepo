@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import Container from '../../components/container';
-import { Title, Subtitle } from '../../components/title'
+import Container from '@/src/components/container';
+import { Title, Subtitle } from '@/src/components/title'
 import useLogin from '../../../hooks/use_login'
-import Button from '../../components/button'
+import Button from '@/src/components/button'
 import { useRouter } from 'next/router'
-import CharacterNavigation from '../_navigation'
+import CharacterNavigation from '@/src/components/characters/_navigation'
 
 export default function () {
   const [character, setCharacter] = useState(null)
@@ -24,7 +24,6 @@ export default function () {
         }
       })
       const data = await response.json()
-      console.log(data)
       setCharacter(data)
     }
 
@@ -42,7 +41,7 @@ export default function () {
     <Container>
       <div className='mt-7'>
         <div style={{
-            backgroundImage: "url('/avatar2.png')"
+            backgroundImage: `url('/avatars/${character.specie.permalink}/${character.avatar}.png')`
           }}
           className="h-72 w-72 bg-cover bg-no-repeat bg-center rounded-full border border-aero-blue m-auto"
         />

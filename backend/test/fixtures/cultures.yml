@@ -6,9 +6,11 @@
 #  bonuses             :text
 #  book_url            :text
 #  clothes_description :text
+#  color               :string
 #  common_divinities   :text
 #  key_values          :text
 #  long_description    :text
+#  micro_description   :string
 #  permalink           :string
 #  short_description   :text
 #  title               :string

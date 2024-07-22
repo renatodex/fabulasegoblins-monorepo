@@ -1,12 +1,12 @@
-import Container from '@/pages/components/container'
+import Container from '@/src/components/container'
 import { motion } from "framer-motion"
 import { useState, useEffect, useContext } from 'react'
-import { Title } from '@/pages/components/title'
-import Button from '@/pages/components/button'
+import { Title } from '@/src/components/title'
+import Button from '@/src/components/button'
 import { ScreenSlideContext } from '@/src/contexts/screen_slide_context'
 import useSpells from '@/src/apiHooks/useSpells'
-import { FaRegPlusSquare } from "react-icons/fa/index.js";
-import * as Icons from 'react-icons/gi/index.js'
+import { FaRegPlusSquare } from "react-icons/fa";
+import * as Icons from 'react-icons/gi'
 import { CiSquareRemove } from "react-icons/ci";
 import classNames from 'classnames'
 import Spell from '@fabulasegoblins/ui/spell'
@@ -124,7 +124,6 @@ export default function Spells ({ character, setCharacter }) {
 
 
   function addUltimate (spell) {
-    console.log("Ultimate added")
     setOwnedUltimates(
       [...new Set([...ownedSpells, spell.permalink])].slice(-1)
     )
@@ -138,7 +137,6 @@ export default function Spells ({ character, setCharacter }) {
   }
 
   function addSpell (spell) {
-    console.log("Spell added")
     setOwnedSpells(
       [...new Set([...ownedSpells, spell.permalink])].slice(-2)
     )

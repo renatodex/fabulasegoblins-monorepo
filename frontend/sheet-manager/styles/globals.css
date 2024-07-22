@@ -2,7 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
+@layer base {
+  @font-face {
+    font-family: 'Dolly Bold';
+    font-style: normal;
+    font-weight: 800;
+    font-display: swap;
+    src: url(/Dolly-Bold.ttf) format('truetype');
+  }
+}
+
+body, html {
   overflow-x: hidden;
 }
 
@@ -22,6 +32,8 @@ body{
   outline: none;
   transform: translate(0, 0);
   border-radius: 10px;
+  width: 100%;
+  height: 100%;
 }
 
 .Overlay {

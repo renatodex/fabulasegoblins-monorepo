@@ -1,11 +1,15 @@
 module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}",
+    "@/src/components/**/*.{js,ts,jsx,tsx}",
     "./src/**/*.{js,ts,jsx,tsx}",
     "../../packages/ui/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
+    fontFamily: {
+      'dolly-bold': ['Dolly Bold', 'Helvetica Bold', 'Arial'],
+      'adobe-kis': ['adobe-kis', 'sans-serif']
+    },
     extend: {
       colors: {
         'gunmetal': '#243338',

@@ -30,6 +30,10 @@ export default function Index() {
             🧙‍♂️ Poderes
           </Link>
 
+          <Link href="http://ficha.fabulasegoblins.com.br" className='p-4 border border-slate-200 rounded-xl bg-slate-500'>
+            🦹‍♂️ Personagens
+          </Link>
+
           <div className='p-4 border border-slate-900 rounded-xl bg-gray-500 cursor-not-allowed'>
             🔒 Inimigos
           </div>

@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     resources :specie_spells, only: [:index, :show]
     resources :species, only: [:index, :show]
     resources :spells, only: [:index, :show]
-    resources :characters, only: [:index, :show]
+    resources :characters, only: [:index, :show, :create]
   end
   scope :api, defaults: { format: :json } do
     devise_for :users, controllers: { sessions: :sessions },

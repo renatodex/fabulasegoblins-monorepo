@@ -1,17 +1,20 @@
 import '../styles/globals.css'
-import './components/waves'
-import Waves from './components/waves'
-import TendaDoGoblin from './components/tendadogoblin'
-import FlagBr from './components/flagbr'
+import '@/src/components/waves'
+import Waves from '@/src/components/waves'
+import TendaDoGoblin from '@/src/components/tendadogoblin'
+import FlagBr from '@/src/components/flagbr'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Head from 'next/head'
+
 
 function MyApp({ Component, pageProps }) {
   return (
     <div id="app" className="bg-gunmetal min-h-screen max-w-[600px] m-auto shadow-2xl">
       <Head>
+        <meta content='width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;' name='viewport' />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="https://use.typekit.net/pkz8ulf.css"></link>
       </Head>
 
       <div id="modal" />
@@ -33,8 +36,8 @@ function MyApp({ Component, pageProps }) {
           </div>
 
           <div>
-            <div className="w-14 m-auto pb-1">
-              <TendaDoGoblin />
+            <div className="w-20 m-auto pb-1">
+              <img src="/tenda-logo.png"></img>
             </div>
           </div>
 

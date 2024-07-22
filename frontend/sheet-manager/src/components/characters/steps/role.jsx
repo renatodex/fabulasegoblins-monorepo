@@ -1,14 +1,15 @@
-import Container from '@/pages/components/container'
+import Container from '@/src/components/container'
 import { motion } from "framer-motion"
 import { useState, useContext } from 'react'
-import { Title } from '@/pages/components/title'
-import Button from '@/pages/components/button'
+import { Title } from '@/src/components/title'
+import Button from '@/src/components/button'
 import { ScreenSlideContext } from '@/src/contexts/screen_slide_context'
 import SectionCard from '@/src/components/characters/section_card'
 import useCharacterRoles from '@/src/apiHooks/useCharacterRoles'
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 export default function Role ({ character, setCharacter }) {
-  const { setParentViewVisibility, setSubViewVisibility } = useContext(ScreenSlideContext)
+  const { setParentViewVisibility, setSubViewVisibility, setSelectedSubView } = useContext(ScreenSlideContext)
 
   const { data: roles } = useCharacterRoles()
 
@@ -41,22 +42,32 @@ export default function Role ({ character, setCharacter }) {
               folder={'roles'}
               selectedItem={selectedRole?.permalink}
               setSelectedItem={setSelectedRole}
+              onSelect={item => {
+                setSelectedSubView('Details')
+                setCharacter({
+                  ...character,
+                  details: {
+                    type: 'role',
+                    data: item,
+                  }
+                })
+              }}
             />
           ))}
         </div>
 
-        <div className="mt-7">
-          <Button onClick={e => {
-            setSubViewVisibility(false)
-            setParentViewVisibility(true)
-            setCharacter({
-              ...character,
-              role: selectedRole,
-            })
-          }}>
-            Próximo
+        <Button
+            onClick={e => {
+              setCharacter({
+                ...character,
+              })
+              setParentViewVisibility(true)
+              setSubViewVisibility(false)
+            }}
+            className='flex items-center justify-center'
+          >
+            <FaArrowLeftLong className='inline-block'/> <span>Voltar</span>
           </Button>
-        </div>
       </Container>
     </motion.div>
   )

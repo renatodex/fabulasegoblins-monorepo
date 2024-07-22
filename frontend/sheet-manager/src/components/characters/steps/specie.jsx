@@ -1,18 +1,22 @@
-import Container from '@/pages/components/container'
+import Container from '@/src/components/container'
 import { motion } from "framer-motion"
 import { useState, useContext } from 'react'
-import { Title } from '@/pages/components/title'
-import Button from '@/pages/components/button'
+import { Title } from '@/src/components/title'
+import Button from '@/src/components/button'
 import { ScreenSlideContext } from '@/src/contexts/screen_slide_context'
 import SectionCard from '@/src/components/characters/section_card'
 import useSpecies from '@/src/apiHooks/useSpecies'
+import useScrollTop from '@/src/utilitaryHooks/use_scroll_top'
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 export default function Specie ({ character, setCharacter }) {
-  const { setParentViewVisibility, setSubViewVisibility } = useContext(ScreenSlideContext)
+  const { setParentViewVisibility, setSubViewVisibility, setSelectedSubView } = useContext(ScreenSlideContext)
 
   const { data: species } = useSpecies()
 
   const [selectedSpecie, setSelectedSpecie] = useState(null)
+
+  useScrollTop()
 
   if (!species) return null
 
@@ -41,22 +45,32 @@ export default function Specie ({ character, setCharacter }) {
               folder={'species'}
               selectedItem={selectedSpecie?.permalink}
               setSelectedItem={setSelectedSpecie}
+              onSelect={item => {
+                setSelectedSubView('Details')
+                setCharacter({
+                  ...character,
+                  details: {
+                    type: 'specie',
+                    data: item,
+                  }
+                })
+              }}
             />
           ))}
         </div>
 
-        <div className="mt-7">
-          <Button onClick={e => {
-            setSubViewVisibility(false)
-            setParentViewVisibility(true)
-            setCharacter({
-              ...character,
-              specie: selectedSpecie,
-            })
-          }}>
-            Próximo
+        <Button
+            onClick={e => {
+              setCharacter({
+                ...character,
+              })
+              setParentViewVisibility(true)
+              setSubViewVisibility(false)
+            }}
+            className='flex items-center justify-center'
+          >
+            <FaArrowLeftLong className='inline-block'/> <span>Voltar</span>
           </Button>
-        </div>
       </Container>
     </motion.div>
   )

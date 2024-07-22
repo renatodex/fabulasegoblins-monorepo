@@ -4,8 +4,10 @@
 #
 #  id                     :bigint           not null, primary key
 #  book_url               :text
+#  color                  :string
 #  extra_attribute_points :integer          default(0)
 #  long_description       :text
+#  micro_description      :string
 #  permalink              :string
 #  playable               :boolean
 #  short_description      :text

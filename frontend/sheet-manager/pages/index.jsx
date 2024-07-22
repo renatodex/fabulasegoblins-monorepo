@@ -1,5 +1,5 @@
-import Button from './components/button'
-import Title from './components/title'
+import Button from '@/src/components/button'
+import Title from '@/src/components/title'
 
 function HomePage() {
   return (

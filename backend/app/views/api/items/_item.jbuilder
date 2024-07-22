@@ -15,6 +15,8 @@ json.long_description resource.long_description
 json.icon resource.icon
 json.permalink resource.permalink
 json.short_description resource.short_description
+json.micro_description resource.micro_description
+json.color resource.color
 json.title resource.title
 json.damage_type resource.damage_type&.title
 json.item_type resource.item_type&.title

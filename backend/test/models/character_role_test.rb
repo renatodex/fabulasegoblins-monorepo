@@ -7,8 +7,10 @@
 #  base_movement      :integer
 #  base_mp            :integer
 #  book_url           :text
+#  color              :string
 #  hp_per_level       :integer          default([]), is an Array
 #  long_description   :text
+#  micro_description  :string
 #  mp_per_level       :integer          default([]), is an Array
 #  permalink          :string
 #  short_description  :text

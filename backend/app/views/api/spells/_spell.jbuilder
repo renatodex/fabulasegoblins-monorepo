@@ -12,6 +12,7 @@ json.permalink resource.permalink
 json.range_amount resource.range_amount
 json.sacrifice resource.sacrifice
 json.short_description resource.short_description
+json.micro_description resource.micro_description
 json.tags resource.tags
 json.filter_tags resource.filter_tags
 json.tier resource.tier

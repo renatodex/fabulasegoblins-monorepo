@@ -6,6 +6,7 @@
 #  book_url             :text
 #  cast_distance        :string
 #  cast_distance_number :integer
+#  color                :string
 #  duration_time        :string
 #  duration_time_number :integer
 #  filter_tags          :string
@@ -13,6 +14,7 @@
 #  long_description     :text
 #  magic_cost           :string
 #  magic_cost_number    :integer
+#  micro_description    :string
 #  permalink            :string
 #  range_amount         :string
 #  sacrifice            :boolean

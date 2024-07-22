@@ -1,12 +1,14 @@
 import React, { useState, useContext, useEffect } from 'react';
-import Container from '@/pages/components/container';
+import Container from '@/src/components/container';
 import { motion } from 'framer-motion';
-import { Title } from '@/pages/components/title';
-import Button from '@/pages/components/button';
+import { Title } from '@/src/components/title';
+import Button from '@/src/components/button';
+import { FaArrowLeftLong } from "react-icons/fa6";
 import { ScreenSlideContext } from '@/src/contexts/screen_slide_context';
 import { FaTimes } from 'react-icons/fa';
 import { isMobile } from 'react-device-detect';
 import { GiStrong, GiRunningNinja, GiShield, GiBrain, GiInnerSelf, GiMagicSwirl, GiConversation, GiSprint, GiCrystalBall } from 'react-icons/gi';
+import classNames from 'classnames';
 
 const icons = {
   'Força': <GiStrong />,
@@ -33,19 +35,11 @@ const attributeMap = {
 };
 
 const Modifier = ({ id, value, isSelected, isUsed, onClick }) => {
-  const handleTouchStart = (e) => {
-    e.preventDefault(); // Prevent default touch behavior
-    if (!isUsed) {
-      onClick();
-    }
-  };
-
   return (
     <div
       ref={null}
       className={`border-green-300 font-bold border text-center rounded-full w-12 h-12 leading-[3rem] cursor-pointer ${isSelected ? 'bg-green-300' : ''} ${isUsed ? 'opacity-20 cursor-not-allowed' : ''}`}
-      onClick={isMobile ? () => !isUsed && onClick() : null}
-      onTouchStart={handleTouchStart}
+      onPointerUp={() => !isUsed && onClick()}
     >
       {value}
     </div>
@@ -98,15 +92,19 @@ const AttributeBox = ({ attribute, selectedModifier, characterAttributes, setCha
     <div className='relative'>
       <div
         ref={null}
-        onClick={handleAttributeClick}
-        className={`w-34 h-20 rounded border border-green-300 mt-2 leading-[4.8rem] text-center text-5xl cursor-pointer`}
+        onPointerUp={handleAttributeClick}
+        className={
+          classNames(`w-34 h-20 rounded border border-green-300 mt-2 leading-[4.8rem] text-center text-5xl cursor-pointer`, {
+            'bg-green-700': selectedModifier
+          })
+        }
       >
         {characterAttributes[attributeMap[attribute]] || 0}
       </div>
       {isModifierApplied && (
         <div className=''>
           <FaTimes
-            onClick={handleResetClick}
+            onPointerUp={handleResetClick}
             className='absolute top-2 right-2 cursor-pointer text-3xl text-green-300'
           />
         </div>
@@ -135,9 +133,9 @@ export default function Attributes({ character, setCharacter }) {
     { id: 1, value: +2 },
     { id: 2, value: +1 },
     { id: 3, value: +1 },
-    { id: 4, value: +1 },
+    { id: 4, value: -1 },
     { id: 5, value: -1 },
-    { id: 6, value: -1 },
+    { id: 6, value: -2 },
   ];
 
   const attributes = [
@@ -160,6 +158,16 @@ export default function Attributes({ character, setCharacter }) {
     >
       <Container>
         <Title>Distribua seus Atributos</Title>
+
+        <div>
+          Os modificadores abaixo representam seu nível de habilidade num determinado atributo, onde:
+          <ul>
+            <li>+2 = Algo que você é muito bom</li>
+            <li>+1 = Algo que você é mediano</li>
+            <li>-1 = Algo que você é ruim em fazer</li>
+            <li>-2 = Algo que você é muito ruim em fazer</li>
+          </ul>
+        </div>
 
         <div className='flex gap-3 mt-7'>
           {modifiers.map((modifier) => (
@@ -193,7 +201,20 @@ export default function Attributes({ character, setCharacter }) {
           ))}
         </div>
 
-        <div className='mt-7'>
+        <div className='mt-7 flex gap-4'>
+          <Button
+            onClick={e => {
+              setCharacter({
+                ...character,
+              })
+              setParentViewVisibility(true)
+              setSubViewVisibility(false)
+            }}
+            className='flex items-center justify-center'
+          >
+            <FaArrowLeftLong className='inline-block'/> <span>Voltar</span>
+          </Button>
+
           {validateAttributes() ? (
             <Button onClick={() => {
               setSubViewVisibility(false);
@@ -203,6 +224,7 @@ export default function Attributes({ character, setCharacter }) {
                 attributes: {
                   ...characterAttributes,
                   permalink: 'attributes',
+                  color: '#d9ffd9',
                   appliedModifiers
                 },
               })
@@ -211,7 +233,7 @@ export default function Attributes({ character, setCharacter }) {
             </Button>
           ) : (
             <Button disabled>
-              ❕ Faltam ({modifiers.length - Object.values(appliedModifiers).length}) modificadores ❕
+              Faltam ({modifiers.length - Object.values(appliedModifiers).length}) modificadores
             </Button>
           )}
         </div>

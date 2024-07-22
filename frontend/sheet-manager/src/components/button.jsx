@@ -12,7 +12,7 @@ export default function Button({
         <button
             className={`
                 ${buttonColors}
-                w-full py-2.5 rounded-lg font-bold
+                w-full px-2.5 py-2.5 rounded-lg font-bold
             `}
             onClick={onClick}
             disabled={disabled}
