@@ -55,7 +55,7 @@ export default function Details ({ character, setCharacter }) {
     spellGroups = spellGroupsData
   }
 
-  console.log("chegou aqui também")
+  console.log("chegou aqui também", character.details)
 
   if (!character.details) return null
 
@@ -103,7 +103,8 @@ export default function Details ({ character, setCharacter }) {
               <div className='grid grid-cols-1 gap-3 mt-3'>
                 {(character?.details?.data?.spells || []).map(spell => (
                   <div>
-                    <Spell defaultCollapse={true} spell={spell} />
+                    <div>{JSON.stringify(spell)}</div>
+                    {/* <Spell defaultCollapse={true} spell={spell} /> */}
                   </div>
                 ))}
               </div>
