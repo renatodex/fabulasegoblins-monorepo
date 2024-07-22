@@ -5,8 +5,8 @@ import { Title } from '@/src/components/title'
 import Button from '@/src/components/button'
 import { ScreenSlideContext } from '@/src/contexts/screen_slide_context'
 import useSpells from '@/src/apiHooks/useSpells'
-import { FaRegPlusSquare } from "react-icons/fa/index.js";
-import * as Icons from 'react-icons/gi/index.js'
+import { FaRegPlusSquare } from "react-icons/fa";
+import * as Icons from 'react-icons/gi'
 import { CiSquareRemove } from "react-icons/ci";
 import classNames from 'classnames'
 import Spell from '@fabulasegoblins/ui/spell'
