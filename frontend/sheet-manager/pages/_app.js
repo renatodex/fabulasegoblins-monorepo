@@ -1,8 +1,8 @@
 import '../styles/globals.css'
-import './components/waves'
-import Waves from './components/waves'
-import TendaDoGoblin from './components/tendadogoblin'
-import FlagBr from './components/flagbr'
+import '@/src/components/waves'
+import Waves from '@/src/components/waves'
+import TendaDoGoblin from '@/src/components/tendadogoblin'
+import FlagBr from '@/src/components/flagbr'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Head from 'next/head'

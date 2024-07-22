@@ -1,4 +1,4 @@
-import { Subtitle } from '../../../pages/components/title'
+import { Subtitle } from '@/src/components/title'
 import { BsPatchQuestion } from 'react-icons/bs'
 
 export default function SectionCard ({ item, folder, selectedItem, setSelectedItem, onSelect }) {

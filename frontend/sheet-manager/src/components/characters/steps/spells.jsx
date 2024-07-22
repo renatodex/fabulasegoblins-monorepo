@@ -1,8 +1,8 @@
-import Container from '@/pages/components/container'
+import Container from '@/src/components/container'
 import { motion } from "framer-motion"
 import { useState, useEffect, useContext } from 'react'
-import { Title } from '@/pages/components/title'
-import Button from '@/pages/components/button'
+import { Title } from '@/src/components/title'
+import Button from '@/src/components/button'
 import { ScreenSlideContext } from '@/src/contexts/screen_slide_context'
 import useSpells from '@/src/apiHooks/useSpells'
 import { FaRegPlusSquare } from "react-icons/fa/index.js";

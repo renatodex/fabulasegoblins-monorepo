@@ -1,21 +1,21 @@
-import Container from '@/pages/components/container'
+import Container from '@/src/components/container'
 import { motion } from "framer-motion"
 import { useState, useContext } from 'react'
-import { Title } from '@/pages/components/title'
-import Button from '@/pages/components/button'
+import { Title } from '@/src/components/title'
+import Button from '@/src/components/button'
 import { ScreenSlideContext } from '@/src/contexts/screen_slide_context'
 import SectionCard from '@/src/components/characters/section_card'
-import useCharacterRoles from '@/src/apiHooks/useCharacterRoles'
+import useGrimos from '@/src/apiHooks/useGrimos'
 import { FaArrowLeftLong } from "react-icons/fa6";
 
-export default function Role ({ character, setCharacter }) {
+export default function Grimo ({ character, setCharacter }) {
   const { setParentViewVisibility, setSubViewVisibility, setSelectedSubView } = useContext(ScreenSlideContext)
 
-  const { data: roles } = useCharacterRoles()
+  const { data: grimos } = useGrimos()
 
-  const [selectedRole, setSelectedRole] = useState(null)
+  const [selectedGrimo, setSelectedGrimo] = useState(null)
 
-  if (!roles) return null
+  if (!grimos) return "Loading..."
 
   return (
     <motion.div
@@ -31,23 +31,23 @@ export default function Role ({ character, setCharacter }) {
     >
       <Container>
         <Title>
-          Escolha seu Papel de Jogo
+          Escolha seu Grimo
         </Title>
 
         <div className='grid grid-cols-2 gap-4 mt-10'>
-          {roles.map(role => (
+          {grimos.map(grimo => (
             <SectionCard
-              key={role.permalink}
-              item={role}
-              folder={'roles'}
-              selectedItem={selectedRole?.permalink}
-              setSelectedItem={setSelectedRole}
+              key={grimo.permalink}
+              item={grimo}
+              folder={'grimos'}
+              selectedItem={selectedGrimo?.permalink}
+              setSelectedItem={setSelectedGrimo}
               onSelect={item => {
                 setSelectedSubView('Details')
                 setCharacter({
                   ...character,
                   details: {
-                    type: 'role',
+                    type: 'grimo',
                     data: item,
                   }
                 })

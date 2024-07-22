@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import Container from '../components/container';
-import { Title, Subtitle } from '../components/title'
+import Container from '@/src/components/container';
+import { Title, Subtitle } from '@/src/components/title'
 import useLogin from '../../hooks/use_login'
-import Button from '../components/button'
+import Button from '@/src/components/button'
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import Link from 'next/link';
 

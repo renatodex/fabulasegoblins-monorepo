@@ -1,8 +1,8 @@
-import Container from "@/pages/components/container"
+import Container from "@/src/components/container"
 import { motion } from "framer-motion"
 import { ScreenSlideContext } from '@/src/contexts/screen_slide_context'
 import { useContext, useState } from 'react'
-import Button from "@/pages/components/button"
+import Button from "@/src/components/button"
 import useCharacterRoles from "@/src/apiHooks/useCharacterRoles"
 import useCultures from "@/src/apiHooks/useCultures"
 import useSpecies from "@/src/apiHooks/useSpecies"
@@ -394,7 +394,7 @@ export default function Overview ({ character, setCharacter = function () {} }) 
           overlayClassName="Overlay"
         >
           <div className="flex h-full">
-            <div className="bg-[#a5b9b9] border-black border-4 w-5/6 p-7 rounded-2xl m-auto self-center">
+            <div className="bg-[#a5b9b9] border-black border-4 w-5/6 p-7 max-w-[400px] rounded-2xl m-auto self-center">
               <p className="font-dolly-bold text-2xl">
                 Seu personagem está quase pronto, que tal dar um nome pra ele?
               </p>

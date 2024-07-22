@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react';
-import Container from '@/pages/components/container';
+import Container from '@/src/components/container';
 import { motion } from 'framer-motion';
-import { Title } from '@/pages/components/title';
-import Button from '@/pages/components/button';
+import { Title } from '@/src/components/title';
+import Button from '@/src/components/button';
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { ScreenSlideContext } from '@/src/contexts/screen_slide_context';
 import { FaTimes } from 'react-icons/fa';

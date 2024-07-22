@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import Container from '../../components/container';
-import { Title, Subtitle } from '../../components/title'
+import Container from '@/src/components/container';
+import { Title, Subtitle } from '@/src/components/title'
 import useLogin from '../../../hooks/use_login'
-import Button from '../../components/button'
+import Button from '@/src/components/button'
 import { useRouter } from 'next/router'
-import CharacterNavigation from '../_navigation'
+import CharacterNavigation from '@/src/components/characters/_navigation'
 
 export default function () {
   const [character, setCharacter] = useState(null)

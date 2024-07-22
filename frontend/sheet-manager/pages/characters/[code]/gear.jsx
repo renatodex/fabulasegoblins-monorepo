@@ -1,5 +1,5 @@
-import CharacterNavigation from "../_navigation"
-import Container from "../../components/container"
+import CharacterNavigation from "@/src/components/characters/_navigation"
+import Container from "@/src/components/container"
 import { useRouter } from "next/router"
 
 export default function Gear() {

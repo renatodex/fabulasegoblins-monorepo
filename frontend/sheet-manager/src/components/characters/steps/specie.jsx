@@ -1,21 +1,24 @@
-import Container from '@/pages/components/container'
+import Container from '@/src/components/container'
 import { motion } from "framer-motion"
 import { useState, useContext } from 'react'
-import { Title } from '@/pages/components/title'
-import Button from '@/pages/components/button'
+import { Title } from '@/src/components/title'
+import Button from '@/src/components/button'
 import { ScreenSlideContext } from '@/src/contexts/screen_slide_context'
 import SectionCard from '@/src/components/characters/section_card'
-import useGrimos from '@/src/apiHooks/useGrimos'
+import useSpecies from '@/src/apiHooks/useSpecies'
+import useScrollTop from '@/src/utilitaryHooks/use_scroll_top'
 import { FaArrowLeftLong } from "react-icons/fa6";
 
-export default function Grimo ({ character, setCharacter }) {
+export default function Specie ({ character, setCharacter }) {
   const { setParentViewVisibility, setSubViewVisibility, setSelectedSubView } = useContext(ScreenSlideContext)
 
-  const { data: grimos } = useGrimos()
+  const { data: species } = useSpecies()
 
-  const [selectedGrimo, setSelectedGrimo] = useState(null)
+  const [selectedSpecie, setSelectedSpecie] = useState(null)
 
-  if (!grimos) return "Loading..."
+  useScrollTop()
+
+  if (!species) return null
 
   return (
     <motion.div
@@ -31,23 +34,23 @@ export default function Grimo ({ character, setCharacter }) {
     >
       <Container>
         <Title>
-          Escolha seu Grimo
+          Escolha sua Espécie
         </Title>
 
         <div className='grid grid-cols-2 gap-4 mt-10'>
-          {grimos.map(grimo => (
+          {species.map(specie => (
             <SectionCard
-              key={grimo.permalink}
-              item={grimo}
-              folder={'grimos'}
-              selectedItem={selectedGrimo?.permalink}
-              setSelectedItem={setSelectedGrimo}
+              key={specie.permalink}
+              item={specie}
+              folder={'species'}
+              selectedItem={selectedSpecie?.permalink}
+              setSelectedItem={setSelectedSpecie}
               onSelect={item => {
                 setSelectedSubView('Details')
                 setCharacter({
                   ...character,
                   details: {
-                    type: 'grimo',
+                    type: 'specie',
                     data: item,
                   }
                 })
@@ -58,7 +61,6 @@ export default function Grimo ({ character, setCharacter }) {
 
         <Button
             onClick={e => {
-              console.log(character.details)
               setCharacter({
                 ...character,
               })

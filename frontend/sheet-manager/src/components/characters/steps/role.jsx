@@ -1,24 +1,21 @@
-import Container from '@/pages/components/container'
+import Container from '@/src/components/container'
 import { motion } from "framer-motion"
 import { useState, useContext } from 'react'
-import { Title } from '@/pages/components/title'
-import Button from '@/pages/components/button'
+import { Title } from '@/src/components/title'
+import Button from '@/src/components/button'
 import { ScreenSlideContext } from '@/src/contexts/screen_slide_context'
 import SectionCard from '@/src/components/characters/section_card'
-import useSpecies from '@/src/apiHooks/useSpecies'
-import useScrollTop from '@/src/utilitaryHooks/use_scroll_top'
+import useCharacterRoles from '@/src/apiHooks/useCharacterRoles'
 import { FaArrowLeftLong } from "react-icons/fa6";
 
-export default function Specie ({ character, setCharacter }) {
+export default function Role ({ character, setCharacter }) {
   const { setParentViewVisibility, setSubViewVisibility, setSelectedSubView } = useContext(ScreenSlideContext)
 
-  const { data: species } = useSpecies()
+  const { data: roles } = useCharacterRoles()
 
-  const [selectedSpecie, setSelectedSpecie] = useState(null)
+  const [selectedRole, setSelectedRole] = useState(null)
 
-  useScrollTop()
-
-  if (!species) return null
+  if (!roles) return null
 
   return (
     <motion.div
@@ -34,23 +31,23 @@ export default function Specie ({ character, setCharacter }) {
     >
       <Container>
         <Title>
-          Escolha sua Espécie
+          Escolha seu Papel de Jogo
         </Title>
 
         <div className='grid grid-cols-2 gap-4 mt-10'>
-          {species.map(specie => (
+          {roles.map(role => (
             <SectionCard
-              key={specie.permalink}
-              item={specie}
-              folder={'species'}
-              selectedItem={selectedSpecie?.permalink}
-              setSelectedItem={setSelectedSpecie}
+              key={role.permalink}
+              item={role}
+              folder={'roles'}
+              selectedItem={selectedRole?.permalink}
+              setSelectedItem={setSelectedRole}
               onSelect={item => {
                 setSelectedSubView('Details')
                 setCharacter({
                   ...character,
                   details: {
-                    type: 'specie',
+                    type: 'role',
                     data: item,
                   }
                 })
@@ -61,6 +58,7 @@ export default function Specie ({ character, setCharacter }) {
 
         <Button
             onClick={e => {
+              console.log(character.details)
               setCharacter({
                 ...character,
               })

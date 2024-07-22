@@ -1,8 +1,8 @@
-import Container from '@/pages/components/container'
+import Container from '@/src/components/container'
 import { motion } from "framer-motion"
 import { useState, useContext } from 'react'
-import { Title } from '@/pages/components/title'
-import Button from '@/pages/components/button'
+import { Title } from '@/src/components/title'
+import Button from '@/src/components/button'
 import { LiaExternalLinkSquareAltSolid } from "react-icons/lia";
 import { LuChevronUpCircle, LuChevronDownCircle } from "react-icons/lu";
 import { FaArrowLeftLong } from "react-icons/fa6";
@@ -49,7 +49,7 @@ export default function Details ({ character, setCharacter }) {
 
   let spellGroups = null
   if (!character?.details?.data?.spells) {
-    const { spellGroups:spellGroupsData } = useGrimoSpells('brasao-de-giurad')
+    const { spellGroups:spellGroupsData } = useGrimoSpells(character?.details?.data?.permalink)
     spellGroups = spellGroupsData
   }
 
