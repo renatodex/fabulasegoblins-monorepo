@@ -72,14 +72,85 @@ class Character < ApplicationRecord
   belongs_to :character_role
   belongs_to :culture
 
-  has_many :character_items
+  has_many :character_items, dependent: :destroy
   has_many :items, through: :character_items
+  has_many :effects
 
   has_secure_token :code
+
+  before_destroy :nullify_effects
+
+  before_save :process_calculations
+  before_create :recover_hp_fully
+
+  def recover_hp_fully
+    self.hp_points = self.max_hp_points
+    self.mp_points = self.max_mp_points
+  end
+
+  def process_calculations
+    puts "Process Calculations"
+    recalculate_resources
+  end
+
+  def active_effects
+    self.effects.where(active: true)
+  end
+
+  def equipped_character_items
+    self.character_items.where(item_equipped: true, consumed_at: nil)
+  end
 
   def initial_grimo
     items.joins(:item_type).where(item_type: {
       permalink: 'grimo',
     }).first
+  end
+
+  def bonus_attribute(attribute)
+    modifier = "bonus_#{attribute}".to_sym
+
+    modifiers_from_culture = self.culture[modifier]
+    modifiers_from_items = self.equipped_character_items.map {|character_item| character_item.item[modifier] }.compact.sum
+    modifiers_from_effects = self.active_effects.map{|item| item[modifier] }.compact.sum
+
+    [
+      modifiers_from_culture || 0,
+      modifiers_from_items || 0,
+      modifiers_from_effects || 0
+    ]
+  end
+
+  def calculate_max_hp_points
+    role_base_hp = self.character_role.base_hp
+    strength = base_strength + bonus_attribute(:strength).sum
+    resilience = base_resilience + bonus_attribute(:resilience).sum
+
+    role_base_hp + 2*(strength) + 2*(resilience)
+  end
+
+  def calculate_max_mp_points
+    role_base_mp = self.character_role.base_mp
+    intelect = base_intelect + bonus_attribute(:intelect).sum
+    magic_elo = base_magic_elo + bonus_attribute(:magic_elo).sum
+
+    role_base_mp + 2*(intelect) + 2*(magic_elo)
+  end
+
+  def recalculate_resources
+    self.max_hp_points = calculate_max_hp_points
+    self.max_mp_points = calculate_max_mp_points
+
+    self.hp_points = self.max_hp_points if hp_points > max_hp_points
+    self.mp_points = self.max_mp_points if mp_points > max_mp_points
+
+    puts "MAX HP= #{self.max_hp_points}"
+    puts "MAX MP= #{self.max_mp_points}"
+  end
+
+  private
+
+  def nullify_effects
+    effects.update_all(character_id: nil)
   end
 end

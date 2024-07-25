@@ -22,6 +22,7 @@ module.exports = {
         'bright-lilac': '#D589F0',
         'yellow-sun': '#F9E21B',
         'blue-magenta-violet': '#5C3292',
+        'celadon-green': '#388476'
       }
     },
   },

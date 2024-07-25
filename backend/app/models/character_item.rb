@@ -33,4 +33,17 @@ class CharacterItem < ApplicationRecord
   belongs_to :character
   belongs_to :item
   belongs_to :traded_with, class_name: 'Item', optional: true
+
+  after_commit :recalculate_character_resources
+
+  private
+
+  def recalculate_character_resources
+    puts "Recalculating character resources"
+    if character
+      character.reload
+      character.process_calculations
+      character.save
+    end
+  end
 end

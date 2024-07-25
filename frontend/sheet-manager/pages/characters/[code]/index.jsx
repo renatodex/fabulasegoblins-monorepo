@@ -39,7 +39,7 @@ export default function () {
 
   return (
     <Container>
-      <div className='mt-7'>
+      <div>
         <Button onClick={e => window.location.href = '/characters'}>Ver todos personagens</Button>
         <div style={{
             backgroundImage: `url('/avatars/${character.specie.permalink}/${character.avatar}.png')`

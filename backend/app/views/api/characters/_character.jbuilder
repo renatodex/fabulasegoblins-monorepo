@@ -55,7 +55,11 @@ end
 json.specie do
   json.partial! 'api/species/specie', resource: character.specie
 end
-json.initial_grimo do
-  json.partial! 'api/items/item', resource: character.initial_grimo
+
+if (character.initial_grimo)
+  json.initial_grimo do
+    json.partial! 'api/items/item', resource: character.initial_grimo
+  end
 end
+
 json.user_id character.user_id

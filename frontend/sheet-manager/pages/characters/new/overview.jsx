@@ -3,14 +3,11 @@ import { motion } from "framer-motion"
 import { ScreenSlideContext } from '@/src/contexts/screen_slide_context'
 import { useContext, useState } from 'react'
 import Button from "@/src/components/button"
-import useCharacterRoles from "@/src/apiHooks/useCharacterRoles"
-import useCultures from "@/src/apiHooks/useCultures"
-import useSpecies from "@/src/apiHooks/useSpecies"
-import useGrimos from "@/src/apiHooks/useGrimos"
 import useLogin from "hooks/use_login"
 import * as Icons from 'react-icons/gi'
 import useScrollTop from "@/src/utilitaryHooks/use_scroll_top"
 import Modal from 'react-modal';
+import Title from "@/src/components/title"
 import classNames from "classnames"
 
 Modal.setAppElement("#modal")
@@ -227,36 +224,6 @@ export default function Overview ({ character, setCharacter = function () {} }) 
     setSelectedSubView(subView)
   }
 
-  // const { data: cultures } = useCultures()
-  // const { data: roles } = useCharacterRoles()
-  // const { data: species } = useSpecies()
-  // const { data: grimos } = useGrimos()
-
-  // if (cultures && roles && species && grimos) {
-  //   if (!character?.culture?.id && !character?.role?.id && !character?.specie?.id && !character?.grimo?.id) {
-  //     setCharacter({
-  //       ...character,
-  //       culture: cultures[0],
-  //       role: roles[0],
-  //       specie: species[0],
-  //       grimo: grimos[0],
-  //       attributes: {
-  //         permalink: 'attributes',
-  //         color: '#d9ffd9',
-  //         'base_strength': 0,
-  //         'base_agility': 2,
-  //         'base_resilience': 1,
-  //         'base_intelect': 1,
-  //         'base_spirit': -1,
-  //         'base_magic_elo': 1,
-  //         'base_influence': 0,
-  //         'base_survival': 0,
-  //         'base_destiny': 0,
-  //       }
-  //     })
-  //   }
-  // }
-
   let WeaponIcon
 
   if (character?.weapon?.icon) {
@@ -277,9 +244,9 @@ export default function Overview ({ character, setCharacter = function () {} }) 
       }}
     >
       <Container>
-        <div className="text-center mt-3 font-bold text-2xl">
+        <Title>
           Criando seu Personagem
-        </div>
+        </Title>
 
         <CharacterSection
           label={'a Espécie'}
