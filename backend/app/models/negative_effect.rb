@@ -12,6 +12,10 @@
 #  updated_at        :datetime         not null
 #
 class NegativeEffect < ApplicationRecord
+  has_many :effects
+
+  before_destroy :nullify_effects
+
   class << self
     def poison
       find_by_permalink("poison")
@@ -88,5 +92,11 @@ class NegativeEffect < ApplicationRecord
     def knock
       find_by_permalink("knock")
     end
+  end
+
+  private
+
+  def nullify_effects
+    effects.update_all(negative_effect_id: nil)
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_07_21_080708) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_24_062728) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -167,6 +167,25 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_21_080708) do
     t.datetime "updated_at", null: false
     t.string "micro_description"
     t.string "color"
+    t.integer "bonus_strength"
+    t.integer "bonus_agility"
+    t.integer "bonus_resilience"
+    t.integer "bonus_intelect"
+    t.integer "bonus_magic_elo"
+    t.integer "bonus_spirit"
+    t.integer "bonus_survival"
+    t.integer "bonus_influence"
+    t.integer "bonus_destiny"
+    t.integer "bonus_hp"
+    t.integer "bonus_mp"
+    t.integer "bonus_attack_physical"
+    t.integer "bonus_attack_magical"
+    t.integer "bonus_defense_physical"
+    t.integer "bonus_defense_magical"
+    t.integer "bonus_initiative"
+    t.integer "bonus_movement"
+    t.integer "bonus_damage"
+    t.integer "bonus_temirs"
   end
 
   create_table "damage_types", force: :cascade do |t|
@@ -177,6 +196,41 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_21_080708) do
     t.text "book_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "effects", force: :cascade do |t|
+    t.string "title"
+    t.string "color"
+    t.string "icon"
+    t.text "description"
+    t.integer "duration"
+    t.boolean "active"
+    t.integer "bonus_strength"
+    t.integer "bonus_agility"
+    t.integer "bonus_resilience"
+    t.integer "bonus_intelect"
+    t.integer "bonus_magic_elo"
+    t.integer "bonus_spirit"
+    t.integer "bonus_survival"
+    t.integer "bonus_influence"
+    t.integer "bonus_destiny"
+    t.integer "bonus_hp"
+    t.integer "bonus_mp"
+    t.integer "bonus_attack_physical"
+    t.integer "bonus_attack_magical"
+    t.integer "bonus_defense_physical"
+    t.integer "bonus_defense_magical"
+    t.integer "bonus_initiative"
+    t.integer "bonus_movement"
+    t.string "bonus_damage"
+    t.bigint "character_id"
+    t.bigint "item_id"
+    t.bigint "negative_effect_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id"], name: "index_effects_on_character_id"
+    t.index ["item_id"], name: "index_effects_on_item_id"
+    t.index ["negative_effect_id"], name: "index_effects_on_negative_effect_id"
   end
 
   create_table "elements", force: :cascade do |t|
@@ -288,6 +342,25 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_21_080708) do
     t.string "ranged"
     t.string "micro_description"
     t.string "color"
+    t.integer "bonus_strength"
+    t.integer "bonus_agility"
+    t.integer "bonus_resilience"
+    t.integer "bonus_intelect"
+    t.integer "bonus_magic_elo"
+    t.integer "bonus_spirit"
+    t.integer "bonus_survival"
+    t.integer "bonus_influence"
+    t.integer "bonus_destiny"
+    t.integer "bonus_hp"
+    t.integer "bonus_mp"
+    t.integer "bonus_attack_physical"
+    t.integer "bonus_attack_magical"
+    t.integer "bonus_defense_physical"
+    t.integer "bonus_defense_magical"
+    t.integer "bonus_initiative"
+    t.integer "bonus_movement"
+    t.integer "bonus_damage"
+    t.integer "bonus_temirs"
     t.index ["damage_type_id"], name: "index_items_on_damage_type_id"
     t.index ["item_type_id"], name: "index_items_on_item_type_id"
     t.index ["range_type_id"], name: "index_items_on_range_type_id"
@@ -639,6 +712,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_21_080708) do
   add_foreign_key "culture_initial_items", "items", column: "offered_item_id"
   add_foreign_key "culture_spells", "cultures"
   add_foreign_key "culture_spells", "spells"
+  add_foreign_key "effects", "characters"
+  add_foreign_key "effects", "items"
+  add_foreign_key "effects", "negative_effects"
   add_foreign_key "elements", "elements", column: "resistant_to_id"
   add_foreign_key "elements", "elements", column: "weak_to_id"
   add_foreign_key "elements", "negative_effects"

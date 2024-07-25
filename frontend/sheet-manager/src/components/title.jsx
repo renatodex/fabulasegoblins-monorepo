@@ -1,6 +1,6 @@
 export function Title ({ children }) {
   return (
-    <h1 className='text-4xl font-bold font-serif'>
+    <h1 className='text-4xl font-bold font-serif font-dolly-bold'>
       {children}
     </h1>
   )

@@ -15,7 +15,7 @@ export default function SectionCard ({ item, folder, selectedItem, setSelectedIt
           <div className='self-center relative h-full w-full border box-border border-dashed border-black rounded-3xl'>
           </div>
           <div
-            className="absolute bottom-0 bg-cover rounded-3xl box-border top-[-32px] left-0"
+            className="absolute bottom-0 bg-cover rounded-3xl box-border top-[-32px] left-[-10px]"
             style={{ backgroundImage: `url('/${folder}/${item.permalink}.jpg')`, height: '166px', width: '165px' }}
           />
         </div>

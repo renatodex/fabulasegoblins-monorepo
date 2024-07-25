@@ -1,9 +1,10 @@
 import Button from '@/src/components/button'
 import Title from '@/src/components/title'
+import MainLayout from '@/src/layouts/main_layout'
 
 function HomePage() {
   return (
-    <div>
+    <MainLayout>
       <img src="/header_logo.png" className="m-auto" width={420}></img>
       <div className="mx-8 mt-4">
         <div className='pt-10'>
@@ -27,7 +28,7 @@ function HomePage() {
           </div>
         </div>
       </div>
-    </div>
+    </MainLayout>
   )
 }
 

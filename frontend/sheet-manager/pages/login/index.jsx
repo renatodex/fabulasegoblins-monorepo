@@ -5,6 +5,7 @@ import AppLink from '@/src/components/app_link'
 import { useEffect, useState } from 'react'
 import Router from 'next/router'
 import useLogin from '../../hooks/use_login'
+import MainLayout from '@/src/layouts/main_layout'
 
 function Login() {
   const [email, setEmail] = useState('')
@@ -24,7 +25,7 @@ function Login() {
   }, [])
 
   return (
-    <div>
+    <MainLayout>
       <div className="pt-14">
         <Logo></Logo>
       </div>
@@ -52,7 +53,7 @@ function Login() {
         <div className="mt-14">
           <div className='m-auto text-center pt-3'>
             <div className="pb-3">
-              <Button>Entrar</Button>
+              <Button type='submit'>Entrar</Button>
             </div>
             ou
             <div className="mt-3">
@@ -61,7 +62,7 @@ function Login() {
           </div>
         </div>
       </form>
-    </div>
+    </MainLayout>
   )
 }
 

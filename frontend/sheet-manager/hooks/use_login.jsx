@@ -64,5 +64,6 @@ export default function useLogin () {
     setToken,
     ping,
     login,
+    removeToken
   }
 }

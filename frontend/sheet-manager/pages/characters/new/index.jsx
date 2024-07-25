@@ -8,12 +8,25 @@ import Attributes from '@/src/components/characters/steps/attributes'
 import StarterWeapon from '@/src/components/characters/steps/starter_weapon'
 import Spells from '@/src/components/characters/steps/spells'
 import Details from '@/src/components/characters/steps/details'
+import { capitalizeFirstLetter } from '@/src/utils'
 import Overview from './overview'
 import { AnimatePresence } from 'framer-motion'
 import useLocalStorageState from '@/src/utilitaryHooks/use_local_storage_state'
+import useLogin from 'hooks/use_login'
+import MainLayout from '@/src/layouts/main_layout'
+import { useRouter } from 'next/router'
 
 export function Views () {
-  const { parentViewVisibility, subViewVisibility, selectedSubView } = useContext(ScreenSlideContext)
+  const router = useRouter()
+
+  const {
+    parentViewVisibility,
+    subViewVisibility,
+    selectedSubView,
+    setSelectedSubView,
+    setParentViewVisibility,
+    setSubViewVisibility
+  } = useContext(ScreenSlideContext)
 
   const [character, setCharacter] = useLocalStorageState('new_character_v1', {
     level: 1,
@@ -56,15 +69,39 @@ export function Views () {
   }
 
   return (
-    <AnimatePresence initial={false}>
-      {parentViewVisibility && <Overview character={character} setCharacter={setCharacter} />}
-      {subViewVisibility && renderSubView()}
+    <MainLayout onLayoutBack={e => {
+      if (parentViewVisibility) {
+        router.back()
+      } else {
+        if (character.details) {
+          setCharacter({
+            ...character,
+            details: null
+          })
+          setSelectedSubView(`${capitalizeFirstLetter(character?.details?.type)}s`)
+        } else {
+          setCharacter({
+            ...character,
+          })
+          setParentViewVisibility(true)
+          setSubViewVisibility(false)
+        }
+      }
+    }}>
+      <AnimatePresence initial={false}>
+        {parentViewVisibility && <Overview character={character} setCharacter={setCharacter} />}
+        {subViewVisibility && renderSubView()}
 
-    </AnimatePresence>
+      </AnimatePresence>
+    </MainLayout>
   )
 }
 
 export default function Index () {
+  const { ping } = useLogin()
+
+  ping()
+
   return (
     <ScreenSlideProvider>
       <Views />
