@@ -9,6 +9,7 @@ import Title, { Subtitle } from '@/src/components/title'
 import { toast } from 'react-toastify'
 import { useState } from 'react'
 import Router, { useRouter } from 'next/router';
+import MainLayout from '@/src/layouts/main_layout'
 
 function Signup() {
   const [email, setEmail] = useState('')
@@ -39,7 +40,7 @@ function Signup() {
   }
 
   return (
-    <div>
+    <MainLayout>
       <div className="">
         <Logo />
       </div>
@@ -102,7 +103,7 @@ function Signup() {
           </div>
         </form>
       </Container>
-    </div>
+    </MainLayout>
   )
 }
 

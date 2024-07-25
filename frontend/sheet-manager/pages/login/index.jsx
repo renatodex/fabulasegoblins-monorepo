@@ -5,6 +5,7 @@ import AppLink from '@/src/components/app_link'
 import { useEffect, useState } from 'react'
 import Router from 'next/router'
 import useLogin from '../../hooks/use_login'
+import MainLayout from '@/src/layouts/main_layout'
 
 function Login() {
   const [email, setEmail] = useState('')
@@ -24,7 +25,7 @@ function Login() {
   }, [])
 
   return (
-    <div>
+    <MainLayout>
       <div className="pt-14">
         <Logo></Logo>
       </div>
@@ -61,7 +62,7 @@ function Login() {
           </div>
         </div>
       </form>
-    </div>
+    </MainLayout>
   )
 }
 

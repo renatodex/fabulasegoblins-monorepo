@@ -6,6 +6,7 @@ import Button from '@/src/components/button'
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { FaHatWizard } from "react-icons/fa";
 import Link from 'next/link';
+import MainLayout from '@/src/layouts/main_layout';
 
 function NoCharactersDisplay () {
   return (
@@ -75,37 +76,41 @@ export default function () {
   }, [])
 
   if (!characters) return (
-    <div className='m-auto w-3/4 border border-purple-300 p-4 rounded mt-20'>
-      <div className="flex justify-center items-center text-purple-400">
-        <AiOutlineLoading3Quarters className="animate-spin text-3xl" />
+    <MainLayout>
+      <div className='m-auto w-3/4 border border-purple-300 p-4 rounded mt-20'>
+        <div className="flex justify-center items-center text-purple-400">
+          <AiOutlineLoading3Quarters className="animate-spin text-3xl" />
+        </div>
+        <p className='text-center text-green-400 mt-2 text-2xl font-dolly-bold'>
+          Carregando personagens....
+        </p>
       </div>
-      <p className='text-center text-green-400 mt-2 text-2xl font-dolly-bold'>
-        Carregando personagens....
-      </p>
-    </div>
+    </MainLayout>
   )
 
   return (
-    <Container>
-      <div className=''>
-        <Title>Meus Personagens</Title>
-      </div>
+    <MainLayout>
+      <Container>
+        <div className=''>
+          <Title>Meus Personagens</Title>
+        </div>
 
-      <div className='mt-7'>
-        <Link
-          onClick={e => {
-            window.localStorage.removeItem('new_character_v1')
-            window.location.href = '/characters/new'
-          }}
-          href='#'
-          className="w-full rounded-lg bg-aero-blue text-black p-3 flex items-center"
-        >
-          <FaHatWizard className='inline-block mx-4 text-3xl' /> <span className='flex-1 font-dolly-bold text-xl'>Novo Personagem</span>
-        </Link>
-      </div>
+        <div className='mt-7'>
+          <Link
+            onClick={e => {
+              window.localStorage.removeItem('new_character_v1')
+              window.location.href = '/characters/new'
+            }}
+            href='#'
+            className="w-full rounded-lg bg-aero-blue text-black p-3 flex items-center"
+          >
+            <FaHatWizard className='inline-block mx-4 text-3xl' /> <span className='flex-1 font-dolly-bold text-xl'>Novo Personagem</span>
+          </Link>
+        </div>
 
-      {characters.length > 0 ? <CharacterList characters={characters} /> : <NoCharactersDisplay />}
+        {characters.length > 0 ? <CharacterList characters={characters} /> : <NoCharactersDisplay />}
 
-    </Container>
+      </Container>
+    </MainLayout>
   )
 }
