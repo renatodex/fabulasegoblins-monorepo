@@ -11,6 +11,7 @@ import Details from '@/src/components/characters/steps/details'
 import Overview from './overview'
 import { AnimatePresence } from 'framer-motion'
 import useLocalStorageState from '@/src/utilitaryHooks/use_local_storage_state'
+import useLogin from 'hooks/use_login'
 
 export function Views () {
   const { parentViewVisibility, subViewVisibility, selectedSubView } = useContext(ScreenSlideContext)
@@ -65,6 +66,10 @@ export function Views () {
 }
 
 export default function Index () {
+  const { ping } = useLogin()
+
+  ping()
+
   return (
     <ScreenSlideProvider>
       <Views />

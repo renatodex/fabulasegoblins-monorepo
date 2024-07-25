@@ -5,10 +5,10 @@ import Container from '@/src/components/container'
 import { BsArrowLeftCircle } from 'react-icons/bs'
 import Checkbox from '@/src/components/checkbox'
 import AppLink from '@/src/components/app_link'
-import Title from '@/src/components/title'
+import Title, { Subtitle } from '@/src/components/title'
 import { toast } from 'react-toastify'
 import { useState } from 'react'
-import Router from 'next/router'
+import Router, { useRouter } from 'next/router';
 
 function Signup() {
   const [email, setEmail] = useState('')
@@ -16,12 +16,14 @@ function Signup() {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [terms, setTerms] = useState(false)
 
+  const router = useRouter();
+
   async function handleSubmit(event) {
     event.preventDefault();
     const response = await fetch("/api/users", {
       method: "POST",
       headers: {
-          "Content-Type": "application/json"
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({ email, password })
     })
@@ -38,67 +40,65 @@ function Signup() {
 
   return (
     <div>
-      <Container>
-        <p>
-          <AppLink href="/">
-            <span className='text-4xl float-left'><BsArrowLeftCircle /></span>
-            <span className='align-middle text-xl ml-3 mt-1 inline-block'>
-              Voltar
-            </span>
-          </AppLink>
-        </p>
-      </Container>
-      <div className="pt-14">
+      <div className="">
         <Logo />
       </div>
       <Container>
-        <div className='mt-12'>
-            <div className='pt-10'>
-              <Title>Nova conta</Title>
+        <div className='mt-7'>
+          <div className='text-center'>
+            <Title>Nova conta</Title>
+            <div className='font-adobe-kis'>
+              <Subtitle>Crie sua conta em instantes para ter acesso gratuito ao criador de personagens!</Subtitle>
             </div>
+          </div>
         </div>
         <form action="" onSubmit={event => handleSubmit(event)}>
           <div className='mt-7'>
-              <Input
-                  label={'Nome'}
-                  placeholder='Ex: Fulano da Silva'
-                  type={'name'}
-              />
+            <Input
+              label={'Nome'}
+              placeholder='Ex: Fulano da Silva'
+              type={'name'}
+            />
           </div>
           <div className='mt-7'>
-              <Input
-                  onChange={e => setEmail(e.target.value)}
-                  label={'E-mail'}
-                  placeholder='Ex: fulano29@gmail.com'
-                  type={'email'}
-              />
+            <Input
+                onChange={e => setEmail(e.target.value)}
+                label={'E-mail'}
+                placeholder='Ex: fulano29@gmail.com'
+                type={'email'}
+            />
           </div>
           <div className='mt-7'>
-              <Input
-                  onChange={e => setPassword(e.target.value)}
-                  label={'Senha'}
-                  placeholder='Ex: SenhaSecreta123'
-                  type={'password'}
-              />
+            <Input
+                onChange={e => setPassword(e.target.value)}
+                label={'Senha'}
+                placeholder='Ex: SenhaSecreta123'
+                type={'password'}
+            />
           </div>
           <div className='mt-7'>
-              <Input
-                  onChange={e => setConfirmPassword(e.target.value)}
-                  label={'Confirme sua senha'}
-                  placeholder='Ex: SenhaSecreta123'
-                  type={'password'}
-              />
+            <Input
+                onChange={e => setConfirmPassword(e.target.value)}
+                label={'Confirme sua senha'}
+                placeholder='Ex: SenhaSecreta123'
+                type={'password'}
+            />
           </div>
           <div className='mt-10'>
-              <Checkbox onChange={e => setTerms(e.target.checked)}>
-                  Estou de acordo com a <AppLink href="/privacy-policy">Politica de Privacidade.</AppLink>
-              </Checkbox>
+            <Checkbox onChange={e => setTerms(e.target.checked)}>
+                Estou de acordo com a <AppLink href="/privacy-policy">Politica de Privacidade.</AppLink>
+            </Checkbox>
           </div>
           <div className='mt-5'>
-              <Checkbox>Aceito receber novidades sobre a marca.</Checkbox>
+            <Checkbox>Aceito receber novidades sobre a marca.</Checkbox>
           </div>
-          <div className='mt-7'>
-              <Button>Enviar</Button>
+          <div className='mt-7 flex gap-4'>
+            <Button onClick={e => router.back()}>
+              <span className='text-xl text-black inline-block align-middle leading-10'>
+                <BsArrowLeftCircle/>
+              </span> Voltar
+            </Button>
+            <Button type='submit'>Enviar</Button>
           </div>
         </form>
       </Container>

@@ -52,7 +52,7 @@ function Login() {
         <div className="mt-14">
           <div className='m-auto text-center pt-3'>
             <div className="pb-3">
-              <Button>Entrar</Button>
+              <Button type='submit'>Entrar</Button>
             </div>
             ou
             <div className="mt-3">
