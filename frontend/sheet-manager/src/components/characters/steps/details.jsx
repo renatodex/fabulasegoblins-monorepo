@@ -125,6 +125,7 @@ export default function Details ({ character, setCharacter }) {
             onClick={e => {
               setCharacter({
                 ...character,
+                details: null
               })
               setSelectedSubView(`${capitalizeFirstLetter(character?.details?.type)}s`)
             }}

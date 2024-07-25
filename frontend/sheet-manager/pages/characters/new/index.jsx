@@ -8,6 +8,7 @@ import Attributes from '@/src/components/characters/steps/attributes'
 import StarterWeapon from '@/src/components/characters/steps/starter_weapon'
 import Spells from '@/src/components/characters/steps/spells'
 import Details from '@/src/components/characters/steps/details'
+import { capitalizeFirstLetter } from '@/src/utils'
 import Overview from './overview'
 import { AnimatePresence } from 'framer-motion'
 import useLocalStorageState from '@/src/utilitaryHooks/use_local_storage_state'
@@ -18,7 +19,14 @@ import { useRouter } from 'next/router'
 export function Views () {
   const router = useRouter()
 
-  const { parentViewVisibility, subViewVisibility, selectedSubView, setParentViewVisibility, setSubViewVisibility } = useContext(ScreenSlideContext)
+  const {
+    parentViewVisibility,
+    subViewVisibility,
+    selectedSubView,
+    setSelectedSubView,
+    setParentViewVisibility,
+    setSubViewVisibility
+  } = useContext(ScreenSlideContext)
 
   const [character, setCharacter] = useLocalStorageState('new_character_v1', {
     level: 1,
@@ -65,11 +73,19 @@ export function Views () {
       if (parentViewVisibility) {
         router.back()
       } else {
-        setCharacter({
-          ...character,
-        })
-        setParentViewVisibility(true)
-        setSubViewVisibility(false)
+        if (character.details) {
+          setCharacter({
+            ...character,
+            details: null
+          })
+          setSelectedSubView(`${capitalizeFirstLetter(character?.details?.type)}s`)
+        } else {
+          setCharacter({
+            ...character,
+          })
+          setParentViewVisibility(true)
+          setSubViewVisibility(false)
+        }
       }
     }}>
       <AnimatePresence initial={false}>
