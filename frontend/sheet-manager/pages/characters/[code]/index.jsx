@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import Container from '@/src/components/container';
 import { Title, Subtitle } from '@/src/components/title'
 import useLogin from '../../../hooks/use_login'
@@ -6,12 +6,15 @@ import Button from '@/src/components/button'
 import { useRouter } from 'next/router'
 import CharacterNavigation from '@/src/components/characters/_navigation'
 import MainLayout from '@/src/layouts/main_layout';
+import { DiceRollerContext } from '@/src/contexts/dice_roller_context';
 
 export default function () {
   const [character, setCharacter] = useState(null)
   const { token, ping } = useLogin()
   const router = useRouter()
   const { code } = router.query
+
+  const { rollDice } = useContext(DiceRollerContext)
 
   useEffect(() => {
     if(!router.isReady) return;
@@ -96,6 +99,10 @@ export default function () {
 
           <div className='mt-8'>
             <Button>Baixar PDF da Ficha</Button>
+          </div>
+
+          <div className='mt-8'>
+            <Button onClick={e => rollDice({formula: '2d20', theme: 'rustic'})}>Fazer um teste de Ataque</Button>
           </div>
 
           <CharacterNavigation tab={'index'} code={code} />

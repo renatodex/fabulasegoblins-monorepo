@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import '../styles/globals.css'
+import { DiceRollerProvider } from '@/src/contexts/dice_roller_context'
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -14,7 +15,9 @@ function MyApp({ Component, pageProps }) {
         <link rel="stylesheet" href="https://use.typekit.net/pkz8ulf.css"></link>
       </Head>
 
-      <Component {...pageProps} />
+      <DiceRollerProvider themeColor='#5730AB'>
+        <Component {...pageProps} />
+      </DiceRollerProvider>
     </div>
   )
 }
