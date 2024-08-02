@@ -7,32 +7,19 @@ import { useRouter } from 'next/router'
 import CharacterNavigation from '@/src/components/characters/_navigation'
 import MainLayout from '@/src/layouts/main_layout';
 import { DiceRollerContext } from '@/src/contexts/dice_roller_context';
+import useCharacter from '@/src/apiHooks/useCharacter';
 
 export default function () {
-  const [character, setCharacter] = useState(null)
+  // const [character, setCharacter] = useState(null)
   const { token, ping } = useLogin()
   const router = useRouter()
   const { code } = router.query
 
   const { rollDice } = useContext(DiceRollerContext)
 
-  useEffect(() => {
-    if(!router.isReady) return;
-
-    const loadCharacter = async () => {
-      const response = await fetch(`/api/characters/${code}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        }
-      })
-      const data = await response.json()
-      setCharacter(data)
-    }
-
-    loadCharacter()
-  }, [router])
+  const { data: character } = useCharacter({
+    code, token
+  })
 
   useEffect(() => {
     ping()
