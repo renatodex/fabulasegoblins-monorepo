@@ -7,6 +7,11 @@ import { VscRequestChanges } from "react-icons/vsc";
 import { FaDiceD20 } from "react-icons/fa";
 import useCharacter from "@/src/apiHooks/useCharacter"
 import useLogin from "hooks/use_login"
+import { useEffect, useContext } from 'react'
+import { DiceRollerContext } from '@/src/contexts/dice_roller_context';
+import { GiMagicPortal } from "react-icons/gi";
+import Button from "@/src/components/button"
+import SessionExpired from "@/src/components/session_expired"
 
 export function MinMaxResource ({ label, current, max, onChange }) {
   return (
@@ -35,7 +40,7 @@ export function MinMaxResource ({ label, current, max, onChange }) {
   )
 }
 
-export function Attribute ({ value, label, color = '#67777C' }) {
+export function Attribute ({ value, label, color = '#67777C', onRoll }) {
   return (
     <div>
       <label className="text-center block">{label}</label>
@@ -53,7 +58,7 @@ export function Attribute ({ value, label, color = '#67777C' }) {
           }}>
             { value > 0 ? `+${value}` : value}
           </div>
-          <button className="absolute border border-black bottom-[-25px] left-[calc(50%-0.75em)] bg-lavender-blue text-black p-1.5 rounded-lg text-2xl">
+          <button onClick={onRoll} className="absolute border border-black bottom-[-25px] left-[calc(50%-0.75em)] bg-lavender-blue text-black p-1.5 rounded-lg text-2xl">
             <FaDiceD20 />
           </button>
         </div>
@@ -67,13 +72,18 @@ export default function Gear() {
   const { token, ping } = useLogin()
   const { code } = router.query
 
+  const { rollDice } = useContext(DiceRollerContext)
+
   const { data: character } = useCharacter({
     code, token
   })
 
-  if (!character) return "Loading..."
+  useEffect(() => {
+    ping()
+  }, [router])
 
-  console.log(character)
+  if (!character) return "Loading..."
+  if (character.error) return <SessionExpired/>
 
   return (
     <MainLayout>
@@ -90,15 +100,15 @@ export default function Gear() {
         </div>
 
         <div className="grid grid-cols-3 grid-rows-3 gap-7 mt-7">
-          <Attribute label={'Força'} value={character.base_strength} color={'#FC6363'} />
-          <Attribute label={'Resiliência'} value={character.base_resilience} color={'#FBA43F'} />
-          <Attribute label={'Agilidade'} value={character.base_agility} color={'#FFF856'} />
-          <Attribute label={'Elo Mágico'} value={character.base_magic_elo} color={'#FF7AE2'} />
-          <Attribute label={'Intelecto'} value={character.base_intelect} color={'#6A77F0'} />
-          <Attribute label={'Espírito'} value={character.base_spirit} color={'#65DFF0'} />
-          <Attribute label={'Sobrevivência'} value={character.base_survival} color={'#93FA97'} />
-          <Attribute label={'Influência'} value={character.base_influence} color={'#765C56'} />
-          <Attribute label={'Destino'} value={character.base_destiny} color={'#E6E6E6'} />
+          <Attribute onRoll={e => rollDice({ formula: '2d20' })} label={'Força'} value={character.base_strength} color={'#FC6363'} />
+          <Attribute onRoll={e => rollDice({ formula: '2d20' })} label={'Resiliência'} value={character.base_resilience} color={'#FBA43F'} />
+          <Attribute onRoll={e => rollDice({ formula: '2d20' })} label={'Agilidade'} value={character.base_agility} color={'#FFF856'} />
+          <Attribute onRoll={e => rollDice({ formula: '2d20' })} label={'Elo Mágico'} value={character.base_magic_elo} color={'#FF7AE2'} />
+          <Attribute onRoll={e => rollDice({ formula: '2d20' })} label={'Intelecto'} value={character.base_intelect} color={'#6A77F0'} />
+          <Attribute onRoll={e => rollDice({ formula: '2d20' })} label={'Espírito'} value={character.base_spirit} color={'#65DFF0'} />
+          <Attribute onRoll={e => rollDice({ formula: '2d20' })} label={'Sobrevivência'} value={character.base_survival} color={'#93FA97'} />
+          <Attribute onRoll={e => rollDice({ formula: '2d20' })} label={'Influência'} value={character.base_influence} color={'#765C56'} />
+          <Attribute onRoll={e => rollDice({ formula: '2d20' })} label={'Destino'} value={character.base_destiny} color={'#E6E6E6'} />
         </div>
 
         <CharacterNavigation tab={'gear'} code={code} />

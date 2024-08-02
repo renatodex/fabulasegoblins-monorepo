@@ -8,6 +8,7 @@ import CharacterNavigation from '@/src/components/characters/_navigation'
 import MainLayout from '@/src/layouts/main_layout';
 import { DiceRollerContext } from '@/src/contexts/dice_roller_context';
 import useCharacter from '@/src/apiHooks/useCharacter';
+import SessionExpired from '@/src/components/session_expired';
 
 export default function () {
   // const [character, setCharacter] = useState(null)
@@ -27,6 +28,8 @@ export default function () {
 
   if (!character)
     return (<MainLayout><Container>Loading...</Container></MainLayout>)
+
+  if (character.error) return <SessionExpired/>
 
   return (
     <MainLayout>
