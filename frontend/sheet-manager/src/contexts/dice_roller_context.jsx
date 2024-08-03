@@ -1,5 +1,7 @@
 import { useRef, useEffect, useState, createContext } from 'react'
 import DiceBox from '@3d-dice/dice-box';
+import DiceRollModal from '../layouts/dice_roll';
+import classNames from 'classnames';
 
 export const DiceRollerContext = createContext(0);
 
@@ -8,6 +10,10 @@ export function DiceRollerProvider ({ children, themeColor = '#000000' }) {
   const [rollText, setRollText] = useState(null);
   const containerRef = useRef(null);
   const [lastRoll, setLastRoll] = useState(null)
+  const [bestRoll, setBestRoll] = useState(null)
+  const [modifiers, setModifiers] = useState(null)
+  const [diceArenaVisibility, setDiceArenaVisibility] = useState(false)
+  const [resultModalVisibility, setResultModalVisibility] = useState(false)
 
   useEffect(() => {
     async function loadDiceBox () {
@@ -25,49 +31,76 @@ export function DiceRollerProvider ({ children, themeColor = '#000000' }) {
     }
   }, [diceBoxRef]);
 
-  async function rollDice ({formula, theme = ''}) {
+  async function rollDice ({formula, theme = '', modifiers}) {
     if (diceBoxRef.current) {
+      setDiceArenaVisibility(true)
       setLastRoll(null)
+      setResultModalVisibility(false)
       const response = await diceBoxRef.current.roll(formula, theme);
+      setResultModalVisibility(true)
+      setModifiers(modifiers)
       setLastRoll(response)
-      console.log(response)
-
 
       const rollsArray = response.filter(roll => roll.sides == 20).map(roll => roll.value).sort((r1, r2) => r2 - r1)
       const highestRoll = rollsArray[0]
       const lowestRoll = rollsArray[1]
 
       if (lowestRoll == 20) { // Logo, o HighestRoll também foi 20
-        setRollText("Sua ação será um TRIUNFO ÉPICO!")
+        setRollText({
+          value: 'Sua ação será um TRIUNFO ÉPICO!',
+          type: 'epic_triumph'
+        })
+        setBestRoll('20')
         return
       }
 
       if (highestRoll == 1) { // Logo, o LowestRoll também foi 1
-        setRollText("Sua ação será um DESASTRE ÉPICO!")
+        setRollText({
+          value: "Sua ação será um DESASTRE ÉPICO!",
+          type: 'epic_disaster'
+        })
+        setBestRoll('1')
         return
       }
 
       if (highestRoll == lowestRoll) {
-        setRollText("Você tirou números iguais e falhou.")
+        setRollText({
+          value: "Tirar números iguais resultam em falha automática.",
+          type: 'regular_failure'
+        })
+        setBestRoll('X')
         return
       }
 
       if (highestRoll == 20 && lowestRoll == 1) {
-        setRollText("Você teve uma falha comum.")
+        setRollText({
+          value: "Triunfo sempre anula desastre. Falha comum.",
+          type: 'regular_failure'
+        })
+        setBestRoll('X')
         return
       }
 
       if (highestRoll == 1 || lowestRoll == 1) {
-        setRollText("Sua ação será um DESASTRE!")
+        setRollText({
+          value: "Ah não! Sua ação foi um DESASTRE!",
+          type: 'disaster'
+        })
+        setBestRoll('1')
         return
       }
 
       if (highestRoll == 20 || lowestRoll == 20) {
-        setRollText("Sua ação será um TRIUNFO!")
+        setRollText({
+          value: "Incrível! Sua ação foi TRIUNFANTE!",
+          type: 'triumph'
+        })
+        setBestRoll('20')
         return
       }
 
-      setRollText(`Seu maior número foi ${highestRoll}`)
+      setBestRoll(`${highestRoll}`)
+      setRollText(null)
     }
   };
 
@@ -79,12 +112,26 @@ export function DiceRollerProvider ({ children, themeColor = '#000000' }) {
       <div
         id="dice-arena"
         ref={containerRef}
-        className='border fixed pointer-events-none left-0 top-0 flex border-black w-full h-full'
+        className={classNames('border fixed left-0 top-0 flex border-black w-full h-full', {
+          'pointer-events-none': !resultModalVisibility,
+          'opacity-0': !diceArenaVisibility
+        })}
       >
-        {lastRoll && (
-          <div className='font-bold absolute self-center flex justify-center left-[calc(50%-150px)] w-[300px] text-center h-12 rounded-xl shadow-xl border border-red bg-red-200 text-black'>
-            <p className='self-center'>{rollText}</p>
-          </div>
+        {resultModalVisibility && (
+          <DiceRollModal
+            visible={resultModalVisibility}
+            specialText={rollText}
+            roll={{
+              modifiers,
+              bestRoll,
+              rolls: lastRoll
+            }}
+            onClose={e => {
+              console.log("close")
+              setResultModalVisibility(false)
+              setDiceArenaVisibility(false)
+            }}
+          />
         )}
       </div>
     </DiceRollerContext.Provider>

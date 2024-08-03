@@ -100,15 +100,15 @@ export default function Gear() {
         </div>
 
         <div className="grid grid-cols-3 grid-rows-3 gap-7 mt-7">
-          <Attribute onRoll={e => rollDice({ formula: '2d20' })} label={'Força'} value={character.base_strength} color={'#FC6363'} />
-          <Attribute onRoll={e => rollDice({ formula: '2d20' })} label={'Resiliência'} value={character.base_resilience} color={'#FBA43F'} />
-          <Attribute onRoll={e => rollDice({ formula: '2d20' })} label={'Agilidade'} value={character.base_agility} color={'#FFF856'} />
-          <Attribute onRoll={e => rollDice({ formula: '2d20' })} label={'Elo Mágico'} value={character.base_magic_elo} color={'#FF7AE2'} />
-          <Attribute onRoll={e => rollDice({ formula: '2d20' })} label={'Intelecto'} value={character.base_intelect} color={'#6A77F0'} />
-          <Attribute onRoll={e => rollDice({ formula: '2d20' })} label={'Espírito'} value={character.base_spirit} color={'#65DFF0'} />
-          <Attribute onRoll={e => rollDice({ formula: '2d20' })} label={'Sobrevivência'} value={character.base_survival} color={'#93FA97'} />
-          <Attribute onRoll={e => rollDice({ formula: '2d20' })} label={'Influência'} value={character.base_influence} color={'#765C56'} />
-          <Attribute onRoll={e => rollDice({ formula: '2d20' })} label={'Destino'} value={character.base_destiny} color={'#E6E6E6'} />
+          <Attribute onRoll={e => rollDice({ formula: '2d20', modifiers: [{ value: character.base_strength, description: 'Modificador de Força' }]})} label={'Força'} value={character.base_strength} color={'#FC6363'} />
+          <Attribute onRoll={e => rollDice({ formula: '2d20', modifiers: [{ value: character.base_resilience, description: 'Modificador de Resiliência' }]})} label={'Resiliência'} value={character.base_resilience} color={'#FBA43F'} />
+          <Attribute onRoll={e => rollDice({ formula: '2d20', modifiers: [{ value: character.base_agility, description: 'Modificador de Agilidade' }]})} label={'Agilidade'} value={character.base_agility} color={'#FFF856'} />
+          <Attribute onRoll={e => rollDice({ formula: '2d20', modifiers: [{ value: character.base_magic_elo, description: 'Modificador de Elo Mágico' }]})} label={'EloMágico'} value={character.base_magic_elo} color={'#FF7AE2'} />
+          <Attribute onRoll={e => rollDice({ formula: '2d20', modifiers: [{ value: character.base_intelect, description: 'Modificador de Intelecto' }]})} label={'Intelecto'} value={character.base_intelect} color={'#6A77F0'} />
+          <Attribute onRoll={e => rollDice({ formula: '2d20', modifiers: [{ value: character.base_spirit, description: 'Modificador de Espírito' }]})} label={'Espírito'} value={character.base_spirit} color={'#65DFF0'} />
+          <Attribute onRoll={e => rollDice({ formula: '2d20', modifiers: [{ value: character.base_survival, description: 'Modificador de Sobrevivência' }]})} label={'Sobrevivência'} value={character.base_survival} color={'#93FA97'} />
+          <Attribute onRoll={e => rollDice({ formula: '2d20', modifiers: [{ value: character.base_influence, description: 'Modificador de Influência' }]})} label={'Influência'} value={character.base_influence} color={'#765C56'} />
+          <Attribute onRoll={e => rollDice({ formula: '2d20', modifiers: [{ value: character.base_destiny, description: 'Modificador de Destino' }]})} label={'Destino'} value={character.base_destiny} color={'#E6E6E6'} />
         </div>
 
         <CharacterNavigation tab={'gear'} code={code} />
