@@ -49,15 +49,15 @@ create_rows(SheetAttribute, [
 
 ## Criando Tipos de Itens
 create_rows(ItemType, [
-  {title: "Armadura",	permalink: "armor", long_description: "Armaduras aumentam a sobrevivência do seu personagem, reduzindo a possibilidade de receber dano de inimigos no combate. Elas também podem te deixar mais lento."},
-  {title: "Arma",	permalink: "weapon", long_description: "Armas são sua forma mais básica de ataque, cada classe costuma ter sua própria especialização, mas é possível se especializar em novos tipos armas com o passar do tempo."},
-  {title: "Grimo",	permalink: "grimo", long_description: "Grimos são sua principal fonte de poder mágico, e é através dele que você aumenta seu vínculo com a magia enfraquecida das Terras Místicas"},
-  {title: "Poção",	permalink: "potion", long_description: "Com diversas utilidades, poções podem ter efeitos benéficos e maléficos, portanto, pense bem antes de tomar a sua!"},
-  {title: "Pergaminho",	permalink: "scroll", long_description: "Uma versão leve do processo de solidificação mágica dos Grimos. Os Pergaminhos podem conjurar poderes presos em suas fibras mágicas."},
-  {title: "Suprimentos",	permalink: "supply", long_description: "Nada melhor do que estar sempre preparado, não é? Suprimentos são seu alicerce de sobrevivência em qualquer aventura."},
-  {title: "Armazenamento",	permalink: "storage", long_description: "As masmorras possuem muitos tesouros, mas de nada adianta se não puder carregá-los. Os itens de Armazenamento aqui serão seus melhores aliados!"},
-  {title: "Ferramentas",	permalink: "tool", long_description: "Ferramentas são o canivete suiço de todo aventureiro, seja parar quebrar, emendar ou separar, é sempre bom contar estes amiguinhos metálicos."},
-  {title: "Especial",	permalink: "special", long_description: "Os Itens especiais geralmente não podem ser equipados ou carregados. São apenas Itens de Interação que podem desencadear Bençãos ou Maldições"}
+  {body_part_handle: 'chest', title: "Armadura",	permalink: "armor", long_description: "Armaduras aumentam a sobrevivência do seu personagem, reduzindo a possibilidade de receber dano de inimigos no combate. Elas também podem te deixar mais lento."},
+  {body_part_handle: 'hands', title: "Arma",	permalink: "weapon", long_description: "Armas são sua forma mais básica de ataque, cada classe costuma ter sua própria especialização, mas é possível se especializar em novos tipos armas com o passar do tempo."},
+  {body_part_handle: nil, title: "Grimo",	permalink: "grimo", long_description: "Grimos são sua principal fonte de poder mágico, e é através dele que você aumenta seu vínculo com a magia enfraquecida das Terras Místicas"},
+  {body_part_handle: nil, title: "Poção",	permalink: "potion", long_description: "Com diversas utilidades, poções podem ter efeitos benéficos e maléficos, portanto, pense bem antes de tomar a sua!"},
+  {body_part_handle: nil, title: "Pergaminho",	permalink: "scroll", long_description: "Uma versão leve do processo de solidificação mágica dos Grimos. Os Pergaminhos podem conjurar poderes presos em suas fibras mágicas."},
+  {body_part_handle: nil, title: "Suprimentos",	permalink: "supply", long_description: "Nada melhor do que estar sempre preparado, não é? Suprimentos são seu alicerce de sobrevivência em qualquer aventura."},
+  {body_part_handle: nil, title: "Armazenamento",	permalink: "storage", long_description: "As masmorras possuem muitos tesouros, mas de nada adianta se não puder carregá-los. Os itens de Armazenamento aqui serão seus melhores aliados!"},
+  {body_part_handle: nil, title: "Ferramentas",	permalink: "tool", long_description: "Ferramentas são o canivete suiço de todo aventureiro, seja parar quebrar, emendar ou separar, é sempre bom contar estes amiguinhos metálicos."},
+  {body_part_handle: nil, title: "Especial",	permalink: "special", long_description: "Os Itens especiais geralmente não podem ser equipados ou carregados. São apenas Itens de Interação que podem desencadear Bençãos ou Maldições"}
 ])
 
 ## Criando Tipos de Dano

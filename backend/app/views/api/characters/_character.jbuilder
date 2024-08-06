@@ -30,6 +30,13 @@ json.long_description character.long_description
 json.magic_attack character.magic_attack
 json.magic_defense character.magic_defense
 json.main_attack character.main_attack
+json.main_damage(
+  if character.character_body_parts.hands.map(&:equipped_items)&.count > 0
+    character.character_body_parts.hands.map(&:equipped_items).flatten.first.item.formula
+  else
+    nil
+  end
+)
 json.max_hp_points character.max_hp_points
 json.max_mp_points character.max_mp_points
 json.max_temirs character.max_temirs
@@ -38,6 +45,13 @@ json.mp_points character.mp_points
 json.physical_attack character.physical_attack
 json.physical_defense character.physical_defense
 json.secondary_attack character.secondary_attack
+json.secondary_damage(
+  if character.character_body_parts.hands.map(&:equipped_items)&.count > 1
+    character.character_body_parts.hands.map(&:equipped_items).flatten.last.item.formula
+  else
+    nil
+  end
+)
 json.short_description character.short_description
 json.temirs character.temirs
 json.title character.title

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_07_24_062728) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_06_052441) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -34,6 +34,20 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_24_062728) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "character_body_parts", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "icon"
+    t.string "color"
+    t.integer "max_items"
+    t.boolean "crippled"
+    t.bigint "character_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "handle"
+    t.index ["character_id"], name: "index_character_body_parts_on_character_id"
+  end
+
   create_table "character_items", force: :cascade do |t|
     t.bigint "character_id", null: false
     t.bigint "item_id", null: false
@@ -48,6 +62,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_24_062728) do
     t.string "property"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "character_body_part_id"
+    t.index ["character_body_part_id"], name: "index_character_items_on_character_body_part_id"
     t.index ["character_id"], name: "index_character_items_on_character_id"
     t.index ["item_id"], name: "index_character_items_on_item_id"
     t.index ["traded_with_id"], name: "index_character_items_on_traded_with_id"
@@ -306,6 +322,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_24_062728) do
     t.text "book_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "body_part_handle"
   end
 
   create_table "items", force: :cascade do |t|
@@ -699,6 +716,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_24_062728) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "character_body_parts", "characters"
+  add_foreign_key "character_items", "character_body_parts"
   add_foreign_key "character_items", "characters"
   add_foreign_key "character_items", "characters", column: "traded_with_id"
   add_foreign_key "character_items", "items"

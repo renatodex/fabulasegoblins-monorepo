@@ -31,76 +31,101 @@ export function DiceRollerProvider ({ children, themeColor = '#000000' }) {
     }
   }, [diceBoxRef]);
 
-  async function rollDice ({formula, theme = '', modifiers}) {
+  function parseDiceFormula(formula) {
+    // Regular expression to match dice notation (e.g., '2d10', '3d6') and numbers
+    const regex = /(\d+d\d+|\d+)/g;
+
+    // Match the formula string with the regex
+    const components = formula.match(regex);
+
+    // Filter out raw numbers and keep only dice notation strings
+    const filteredComponents = components.filter(component => component.includes('d'));
+
+    return filteredComponents;
+  }
+
+  async function rollDice ({formula, theme = '', modifiers, damageRoll}) {
     if (diceBoxRef.current) {
       setDiceArenaVisibility(true)
       setLastRoll(null)
       setResultModalVisibility(false)
-      const response = await diceBoxRef.current.roll(formula, theme);
+      const response = await diceBoxRef.current.roll(parseDiceFormula(formula), theme);
       setResultModalVisibility(true)
       setModifiers(modifiers)
       setLastRoll(response)
 
-      const rollsArray = response.filter(roll => roll.sides == 20).map(roll => roll.value).sort((r1, r2) => r2 - r1)
-      const highestRoll = rollsArray[0]
-      const lowestRoll = rollsArray[1]
-
-      if (lowestRoll == 20) { // Logo, o HighestRoll também foi 20
+      if (damageRoll) {
+        const rollsArray = response.map(roll => roll.value).sort((r1, r2) => r2 - r1)
+        console.log(response, rollsArray)
+        const highestRoll = rollsArray.reduce((a,b) => a + b)
+        const lowestRoll = highestRoll
         setRollText({
-          value: 'Sua ação será um TRIUNFO ÉPICO!',
+          value: 'Seu ataque feriu o oponente!',
           type: 'epic_triumph'
         })
-        setBestRoll('20')
-        return
-      }
+        setBestRoll(highestRoll)
+      } else {
+        const rollsArray = response.filter(roll => roll.sides == 20).map(roll => roll.value).sort((r1, r2) => r2 - r1)
+        const highestRoll = rollsArray[0]
+        const lowestRoll = rollsArray[1]
 
-      if (highestRoll == 1) { // Logo, o LowestRoll também foi 1
-        setRollText({
-          value: "Sua ação será um DESASTRE ÉPICO!",
-          type: 'epic_disaster'
-        })
-        setBestRoll('1')
-        return
-      }
+        if (lowestRoll == 20) { // Logo, o HighestRoll também foi 20
+          setRollText({
+            value: 'Sua ação será um TRIUNFO ÉPICO!',
+            type: 'epic_triumph'
+          })
+          setBestRoll('20')
+          return
+        }
 
-      if (highestRoll == lowestRoll) {
-        setRollText({
-          value: "Tirar números iguais resultam em falha automática.",
-          type: 'regular_failure'
-        })
-        setBestRoll('X')
-        return
-      }
+        if (highestRoll == 1) { // Logo, o LowestRoll também foi 1
+          setRollText({
+            value: "Sua ação será um DESASTRE ÉPICO!",
+            type: 'epic_disaster'
+          })
+          setBestRoll('1')
+          return
+        }
 
-      if (highestRoll == 20 && lowestRoll == 1) {
-        setRollText({
-          value: "Triunfo sempre anula desastre. Falha comum.",
-          type: 'regular_failure'
-        })
-        setBestRoll('X')
-        return
-      }
+        if (highestRoll == lowestRoll) {
+          setRollText({
+            value: "Tirar números iguais resultam em falha automática.",
+            type: 'regular_failure'
+          })
+          setBestRoll('X')
+          return
+        }
 
-      if (highestRoll == 1 || lowestRoll == 1) {
-        setRollText({
-          value: "Ah não! Sua ação foi um DESASTRE!",
-          type: 'disaster'
-        })
-        setBestRoll('1')
-        return
-      }
+        if (highestRoll == 20 && lowestRoll == 1) {
+          setRollText({
+            value: "Triunfo sempre anula desastre. Falha comum.",
+            type: 'regular_failure'
+          })
+          setBestRoll('X')
+          return
+        }
 
-      if (highestRoll == 20 || lowestRoll == 20) {
-        setRollText({
-          value: "Incrível! Sua ação foi TRIUNFANTE!",
-          type: 'triumph'
-        })
-        setBestRoll('20')
-        return
-      }
+        if (highestRoll == 1 || lowestRoll == 1) {
+          setRollText({
+            value: "Ah não! Sua ação foi um DESASTRE!",
+            type: 'disaster'
+          })
+          setBestRoll('1')
+          return
+        }
 
-      setBestRoll(`${highestRoll}`)
-      setRollText(null)
+        if (highestRoll == 20 || lowestRoll == 20) {
+          setRollText({
+            value: "Incrível! Sua ação foi TRIUNFANTE!",
+            type: 'triumph'
+          })
+          setBestRoll('20')
+          return
+        }
+
+        setBestRoll(`${highestRoll}`)
+        setRollText(null)
+      }
     }
   };
 

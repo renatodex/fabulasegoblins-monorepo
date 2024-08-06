@@ -72,6 +72,7 @@ class Character < ApplicationRecord
   belongs_to :character_role
   belongs_to :culture
 
+  has_many :character_body_parts, dependent: :destroy
   has_many :character_items, dependent: :destroy
   has_many :items, through: :character_items
   has_many :effects
@@ -81,16 +82,53 @@ class Character < ApplicationRecord
   before_destroy :nullify_effects
 
   before_save :process_calculations
-  before_create :recover_hp_fully
+  before_create :process_creation
 
   def recover_hp_fully
     self.hp_points = self.max_hp_points
     self.mp_points = self.max_mp_points
   end
 
+  def process_creation
+    puts "Process Creations"
+    recover_hp_fully
+  end
+
+  def create_body_parts
+    puts "Creating Body Parts"
+    [
+      { max_items: 1, handle: 'head' ,title: 'Cabeça', description: 'Sua cabeça, onde você pode equipar elmos e capacetes.', icon: 'head_icon.png', color: '#FFD700', crippled: false },
+      { max_items: 1, handle: 'chest' ,title: 'Tronco', description: 'Seu tronco, onde você pode equipar armaduras.', icon: 'torso_icon.png', color: '#8B0000', crippled: false },
+      { max_items: 1, handle: 'shoulders' ,title: 'Ombros', description: 'Seus ombros, onde você pode equipar ombreiras.', icon: 'shoulders_icon.png', color: '#A9A9A9', crippled: false },
+      { max_items: 1, handle: 'waist' ,title: 'Cintura', description: 'Sua cintura, onde você pode equipar cinturões.', icon: 'waist_icon.png', color: '#2E8B57', crippled: false },
+      { max_items: 2, handle: 'fingers' ,title: 'Dedos', description: 'Seus dedos, onde você pode equipar anéis.', icon: 'fingers_icon.png', color: '#DAA520', crippled: false },
+      { max_items: 1, handle: 'neck' ,title: 'Pescoço', description: 'Seu pescoço, onde você pode equipar amuletos.', icon: 'neck_icon.png', color: '#8B4513', crippled: false },
+      { max_items: 1, handle: 'back' ,title: 'Costas', description: 'Suas costas, onde você pode equipar capas.', icon: 'back_icon.png', color: '#4682B4', crippled: false },
+      { max_items: 2, handle: 'arms' ,title: 'Braços', description: 'Seus braços, onde você pode equipar braceletes e apetrechos.', icon: 'arms_icon.png', color: '#D2691E', crippled: false },
+      { max_items: 2, handle: 'hands' ,title: 'Mãos', description: 'Suas mãos, onde você pode equipar manoplas.', icon: 'hands_icon.png', color: '#708090', crippled: false },
+      { max_items: 2, handle: 'legs' ,title: 'Pernas', description: 'Suas pernas, onde você pode equipar perneiras.', icon: 'legs_icon.png', color: '#556B2F', crippled: false },
+      { max_items: 2, handle: 'feets' ,title: 'Pés', description: 'Seus pés, onde você pode equipar calçados.', icon: 'feet_icon.png', color: '#B22222', crippled: false }
+    ].map do |obj|
+      body_part = CharacterBodyPart.find_or_initialize_by(handle: obj[:handle])
+      next if body_part.persisted?
+      body_part.assign_attributes(obj)
+      self.character_body_parts << body_part
+    end
+  end
+
   def process_calculations
     puts "Process Calculations"
+    create_body_parts
     recalculate_resources
+    assign_items_to_body_parts
+  end
+
+  def assign_items_to_body_parts
+    puts "Assign Items to Body Parts"
+    equipped_character_items.each do |ci|
+      calculated_body_part = ci.calculate_body_part
+      ci.update_columns(character_body_part_id: calculated_body_part.id) if calculated_body_part
+    end
   end
 
   def active_effects

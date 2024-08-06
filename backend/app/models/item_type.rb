@@ -3,11 +3,12 @@
 # Table name: item_types
 #
 #  id                :bigint           not null, primary key
-#  title             :string
-#  short_description :text
+#  body_part_handle  :string
+#  book_url          :text
 #  long_description  :text
 #  permalink         :string
-#  book_url          :text
+#  short_description :text
+#  title             :string
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #

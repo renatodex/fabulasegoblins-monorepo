@@ -10,6 +10,7 @@ import useLogin from "hooks/use_login"
 import { useEffect, useContext } from 'react'
 import { DiceRollerContext } from '@/src/contexts/dice_roller_context';
 import { GiMagicPortal } from "react-icons/gi";
+import { GiGooeyImpact } from "react-icons/gi";
 import Button from "@/src/components/button"
 import SessionExpired from "@/src/components/session_expired"
 
@@ -36,6 +37,36 @@ export function MinMaxResource ({ label, current, max, onChange }) {
 
       <div className="breakdown">
       </div>
+    </div>
+  )
+}
+
+export function CommonResource ({ label, current, onChange, icon = <FaDiceD20 /> }) {
+  return (
+    <div>
+      <div className="labels">
+        {label}
+      </div>
+      <div className="currentvalues flex items-center gap-1.5 mt-1">
+        <div className="bg-deep-space-sparkle border-black min-w-10 text-center rounded-lg border p-1.5 flex-1">
+          {current}
+        </div>
+        <button onClick={onChange} className="bg-lavender-blue border-black rounded-lg border p-2 text-gunmetal font-bold text-2xl">
+          {icon}
+        </button>
+      </div>
+
+      <div className="breakdown">
+      </div>
+    </div>
+  )
+}
+
+export function DamageResource ({ label, current, damage, onChange, onRollDamage }) {
+  return (
+    <div>
+      <CommonResource label={label} current={current} onChange={onChange} />
+      <CommonResource current={damage} onChange={onRollDamage} icon={<GiGooeyImpact/>} />
     </div>
   )
 }
@@ -85,6 +116,8 @@ export default function Gear() {
   if (!character) return "Loading..."
   if (character.error) return <SessionExpired/>
 
+  console.log(character)
+
   return (
     <MainLayout>
       <div className="px-2 sm:px-10 md:px-20 lg:px-32">
@@ -99,7 +132,7 @@ export default function Gear() {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 grid-rows-3 gap-7 mt-7">
+        <div className="grid grid-cols-3 grid-rows-3 gap-7 mt-7 pt-7 border-t border-dashed border-gunmetal">
           <Attribute onRoll={e => rollDice({ formula: '2d20', modifiers: [{ value: character.base_strength, description: 'Modificador de Força' }]})} label={'Força'} value={character.base_strength} color={'#FC6363'} />
           <Attribute onRoll={e => rollDice({ formula: '2d20', modifiers: [{ value: character.base_resilience, description: 'Modificador de Resiliência' }]})} label={'Resiliência'} value={character.base_resilience} color={'#FBA43F'} />
           <Attribute onRoll={e => rollDice({ formula: '2d20', modifiers: [{ value: character.base_agility, description: 'Modificador de Agilidade' }]})} label={'Agilidade'} value={character.base_agility} color={'#FFF856'} />
@@ -109,6 +142,38 @@ export default function Gear() {
           <Attribute onRoll={e => rollDice({ formula: '2d20', modifiers: [{ value: character.base_survival, description: 'Modificador de Sobrevivência' }]})} label={'Sobrevivência'} value={character.base_survival} color={'#93FA97'} />
           <Attribute onRoll={e => rollDice({ formula: '2d20', modifiers: [{ value: character.base_influence, description: 'Modificador de Influência' }]})} label={'Influência'} value={character.base_influence} color={'#765C56'} />
           <Attribute onRoll={e => rollDice({ formula: '2d20', modifiers: [{ value: character.base_destiny, description: 'Modificador de Destino' }]})} label={'Destino'} value={character.base_destiny} color={'#E6E6E6'} />
+        </div>
+
+        <div className="grid grid-cols-2 gap-7 mt-10 pt-7 border-t border-dashed border-gunmetal">
+          <div>
+            <DamageResource
+              label="Ataque Principal"
+              current={character.main_attack}
+              damage={character.main_damage}
+              onRollDamage={e => rollDice({ damageRoll: true, formula: character.main_damage, modifiers: []})}
+              onChange={e => rollDice({ formula: '2d20', modifiers: [{ value: character.main_attack, description: 'Modificador de Ataque Primário' }]})}
+            />
+          </div>
+          {character.secondary_damage && (
+            <div>
+              <DamageResource label="Ataque Secundário" current={character.secondary_attack} damage={character.secondary_damage} onChange={e => rollDice({ formula: '2d20', modifiers: [{ value: character.secondary_attack, description: 'Modificador de Ataque Secundário' }]})} />
+            </div>
+          )}
+          <div>
+            <CommonResource label="Ataque Mágico" current={character.magic_attack} onChange={e => rollDice({ formula: '2d20', modifiers: [{ value: character.magic_attack, description: 'Modificador de Ataque Mágico' }]})} />
+          </div>
+          <div>
+            <CommonResource label="Defesa Física" current={character.physical_defense} onChange={e => rollDice({ formula: '2d20', modifiers: [{ value: character.initiative, description: 'Modificador de Defesa Física' }]})} />
+          </div>
+          <div>
+            <CommonResource label="Defesa Mágica" current={character.magic_defense} onChange={e => rollDice({ formula: '2d20', modifiers: [{ value: character.magic_defense, description: 'Modificador de Defesa Mágica' }]})} />
+          </div>
+          <div>
+            <CommonResource label="Iniciativa" current={character.initiative} onChange={e => rollDice({ formula: '1d20', modifiers: [{ value: character.initiative, description: 'Modificador de Iniciativa' }]})} />
+          </div>
+          <div>
+            <CommonResource label="Movimento" current={character.movement} onChange={e => {}} />
+          </div>
         </div>
 
         <CharacterNavigation tab={'gear'} code={code} />
