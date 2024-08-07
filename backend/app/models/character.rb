@@ -109,7 +109,7 @@ class Character < ApplicationRecord
       { max_items: 2, handle: 'legs' ,title: 'Pernas', description: 'Suas pernas, onde você pode equipar perneiras.', icon: 'legs_icon.png', color: '#556B2F', crippled: false },
       { max_items: 2, handle: 'feets' ,title: 'Pés', description: 'Seus pés, onde você pode equipar calçados.', icon: 'feet_icon.png', color: '#B22222', crippled: false }
     ].map do |obj|
-      body_part = CharacterBodyPart.find_or_initialize_by(handle: obj[:handle])
+      body_part = CharacterBodyPart.find_or_initialize_by(handle: obj[:handle], character: self)
       next if body_part.persisted?
       body_part.assign_attributes(obj)
       self.character_body_parts << body_part
