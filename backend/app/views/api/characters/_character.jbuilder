@@ -31,8 +31,8 @@ json.magic_attack character.magic_attack
 json.magic_defense character.magic_defense
 json.main_attack character.main_attack
 json.main_damage(
-  if character.character_body_parts.hands.map(&:equipped_items)&.count > 0
-    character.character_body_parts.hands.map(&:equipped_items).flatten.first.item.formula
+  if character.hands&.equipped_items&.count > 0
+    character.hands.equipped_items.first.item.formula
   else
     nil
   end
@@ -46,8 +46,8 @@ json.physical_attack character.physical_attack
 json.physical_defense character.physical_defense
 json.secondary_attack character.secondary_attack
 json.secondary_damage(
-  if character.character_body_parts.hands.map(&:equipped_items)&.count > 1
-    character.character_body_parts.hands.map(&:equipped_items).flatten.last.item.formula
+  if character.hands&.equipped_items&.count > 1
+    character.hands.equipped_items.last.item.formula
   else
     nil
   end

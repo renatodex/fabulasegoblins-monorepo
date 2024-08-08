@@ -84,6 +84,10 @@ class Character < ApplicationRecord
   before_save :process_calculations
   before_create :process_creation
 
+  def hands
+    self.character_body_parts.hands.first
+  end
+
   def recover_hp_fully
     self.hp_points = self.max_hp_points
     self.mp_points = self.max_mp_points
@@ -119,8 +123,8 @@ class Character < ApplicationRecord
   def process_calculations
     puts "Process Calculations"
     create_body_parts
-    recalculate_resources
     assign_items_to_body_parts
+    recalculate_resources
   end
 
   def assign_items_to_body_parts
@@ -175,12 +179,60 @@ class Character < ApplicationRecord
     role_base_mp + 2*(intelect) + 2*(magic_elo)
   end
 
+  def calculate_main_attack
+    hand_weapons = self.character_body_parts&.hands&.first&.equipped_items
+    return 0 unless hand_weapons.present?
+    return 0 unless hand_weapons&.count > 0
+    first_weapon = hand_weapons.first
+
+    weapon_attribute = first_weapon.item.sheet_attribute.permalink
+
+    [
+      first_weapon.item.calculate_attack_modifier,
+      self["base_#{weapon_attribute}"],
+      self.culture.bonus_attack_physical
+    ].sum
+  end
+
+  def calculate_secondary_attack
+    hand_weapons = self.character_body_parts&.hands&.first&.equipped_items
+    return 0 unless hand_weapons.present?
+    return 0 unless hand_weapons&.count > 1
+    last_weapon = hand_weapons.last
+
+    weapon_attribute = last_weapon.item.sheet_attribute.permalink
+    [
+      last_weapon.item.calculate_attack_modifier,
+      self["base_#{weapon_attribute}"],
+      self.culture.bonus_attack_physical
+    ].sum
+  end
+
   def recalculate_resources
     self.max_hp_points = calculate_max_hp_points
     self.max_mp_points = calculate_max_mp_points
 
     self.hp_points = self.max_hp_points if hp_points > max_hp_points
     self.mp_points = self.max_mp_points if mp_points > max_mp_points
+
+    self.main_attack = calculate_main_attack
+    self.secondary_attack = calculate_secondary_attack
+
+    # self.secondary_attack = self.max_hp_points if hp_points > max_hp_points
+    # self.secondary_attack = self.max_mp_points if mp_points > max_mp_points
+
+    # self.magic_attack = self.max_hp_points if hp_points > max_hp_points
+    # self.magic_attack = self.max_mp_points if mp_points > max_mp_points
+
+    # self.magic_defense = self.max_hp_points if hp_points > max_hp_points
+    # self.magic_defense = self.max_mp_points if mp_points > max_mp_points
+
+    # self.initiative = self.max_hp_points if hp_points > max_hp_points
+    # self.initiative = self.max_mp_points if mp_points > max_mp_points
+
+    # self.movement = self.max_hp_points if hp_points > max_hp_points
+    # self.movement = self.max_mp_points if mp_points > max_mp_points
+
 
     puts "MAX HP= #{self.max_hp_points}"
     puts "MAX MP= #{self.max_mp_points}"

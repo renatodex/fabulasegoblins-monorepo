@@ -90,6 +90,16 @@ class Item < ApplicationRecord
 
   before_destroy :nullify_effects
 
+  def calculate_attack_modifier
+    return 0 unless damage_type
+
+    if damage_type.title == 'Mágico'
+      self.bonus_physical_defense.to_i || 0
+    else
+      self.bonus_physical_attack.to_i || 0
+    end
+  end
+
   def owner_type
     "Item"
   end
