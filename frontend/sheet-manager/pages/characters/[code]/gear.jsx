@@ -41,19 +41,21 @@ export function MinMaxResource ({ label, current, max, onChange }) {
   )
 }
 
-export function CommonResource ({ label, current, onChange, icon = <FaDiceD20 /> }) {
+export function CommonResource ({ rollAction = true, label, current, onChange, icon = <FaDiceD20 /> }) {
   return (
     <div>
       <div className="labels">
         {label}
       </div>
       <div className="currentvalues flex items-center gap-1.5 mt-1">
-        <div className="bg-deep-space-sparkle border-black min-w-10 text-center rounded-lg border p-1.5 flex-1">
+        <div className="bg-deep-space-sparkle h-9 overflow-y-hidden overflow-x-scroll text-nowrap border-black min-w-10 text-center rounded-lg border p-1.5 flex-1">
           {current}
         </div>
-        <button onClick={onChange} className="bg-lavender-blue border-black rounded-lg border p-2 text-gunmetal font-bold text-2xl">
-          {icon}
-        </button>
+        {rollAction && (
+          <button onClick={onChange} className="bg-lavender-blue border-black rounded-lg border p-2 text-gunmetal font-bold text-2xl">
+            {icon}
+          </button>
+        )}
       </div>
 
       <div className="breakdown">
@@ -172,7 +174,7 @@ export default function Gear() {
             <CommonResource label="Iniciativa" current={character.initiative} onChange={e => rollDice({ formula: '1d20', modifiers: [{ value: character.initiative, description: 'Modificador de Iniciativa' }]})} />
           </div>
           <div>
-            <CommonResource label="Movimento" current={character.movement} onChange={e => {}} />
+            <CommonResource label="Movimento" current={character.movement} rollAction={false} />
           </div>
         </div>
 
