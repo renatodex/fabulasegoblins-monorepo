@@ -248,94 +248,97 @@ export default function Overview ({ character, setCharacter = function () {} }) 
           Criando seu Personagem
         </Title>
 
-        <CharacterSection
-          label={'a Espécie'}
-          subView={'Species'}
-          item={character?.specie}
-          filledCheck={item => item?.title}
-          filledValue={item => item?.title}
-          onSectionClick={onSectionClick}
-        />
+        <div>
 
-        <CharacterSection
-          label={'o Papel de Jogo'}
-          subView={'Roles'}
-          item={character?.role}
-          filledCheck={item => item?.title}
-          filledValue={item => item?.title}
-          onSectionClick={onSectionClick}
-        />
+          <CharacterSection
+            label={'a Espécie'}
+            subView={'Species'}
+            item={character?.specie}
+            filledCheck={item => item?.title}
+            filledValue={item => item?.title}
+            onSectionClick={onSectionClick}
+          />
 
-        <CharacterSection
-          label={'a Cultura'}
-          subView={'Cultures'}
-          item={character?.culture}
-          filledCheck={item => item?.title}
-          filledValue={item => item?.title}
-          onSectionClick={onSectionClick}
-        />
+          <CharacterSection
+            label={'o Papel de Jogo'}
+            subView={'Roles'}
+            item={character?.role}
+            filledCheck={item => item?.title}
+            filledValue={item => item?.title}
+            onSectionClick={onSectionClick}
+          />
 
-        <CharacterSection
-          label={'o Grimo'}
-          subView={'Grimos'}
-          item={character?.grimo}
-          filledCheck={item => item?.title}
-          filledValue={item => item?.title}
-          onSectionClick={onSectionClick}
-        />
+          <CharacterSection
+            label={'a Cultura'}
+            subView={'Cultures'}
+            item={character?.culture}
+            filledCheck={item => item?.title}
+            filledValue={item => item?.title}
+            onSectionClick={onSectionClick}
+          />
 
-        <CharacterSection
-          label={'os Atributos'}
-          subView={'Attributes'}
-          item={character?.attributes}
-          filledCheck={attributes =>
-            [
-              attributes?.base_strength,
-              attributes?.base_agility,
-              attributes?.base_resilience,
-              attributes?.base_intelect,
-              attributes?.base_spirit,
-              attributes?.base_magic_elo,
-              attributes?.base_influence,
-              attributes?.base_survival,
-              attributes?.base_destiny,
-            ].every(attr =>
-              typeof attr === 'number' && (attr >= -2 && attr <= 2)
-            )
-          }
-          filledValue={attributes => `Clique para redefinir`}
-          onSectionClick={onSectionClick}
-        />
+          <CharacterSection
+            label={'o Grimo'}
+            subView={'Grimos'}
+            item={character?.grimo}
+            filledCheck={item => item?.title}
+            filledValue={item => item?.title}
+            onSectionClick={onSectionClick}
+          />
 
-        <CharacterSection
-          label={'a Arma Inicial'}
-          subView={'StarterWeapon'}
-          item={character?.weapon}
-          filledCheck={item => item}
-          filledValue={item => item?.title}
-          iconValue={item => (
-            <WeaponIcon/>
-          )}
-          onSectionClick={onSectionClick}
-        />
+          <CharacterSection
+            label={'os Atributos'}
+            subView={'Attributes'}
+            item={character?.attributes}
+            filledCheck={attributes =>
+              [
+                attributes?.base_strength,
+                attributes?.base_agility,
+                attributes?.base_resilience,
+                attributes?.base_intelect,
+                attributes?.base_spirit,
+                attributes?.base_magic_elo,
+                attributes?.base_influence,
+                attributes?.base_survival,
+                attributes?.base_destiny,
+              ].every(attr =>
+                typeof attr === 'number' && (attr >= -2 && attr <= 2)
+              )
+            }
+            filledValue={attributes => `Clique para redefinir`}
+            onSectionClick={onSectionClick}
+          />
 
-        <CharacterSection
-          label={'os Poderes'}
-          subView={'Spells'}
-          item={character}
-          filledCheck={item => item?.spells?.length > 0 && item?.ultimate?.length > 0}
-          filledValue={item => (
-            <div className="block">
-              {item?.spells.map(spell => (
-                <div>✔ {spell.title}</div>
-              ))}
-              {item?.ultimate.map(spell => (
-                <div>✔ {spell.title}</div>
-              ))}
-            </div>
-          )}
-          onSectionClick={onSectionClick}
-        />
+          <CharacterSection
+            label={'a Arma Inicial'}
+            subView={'StarterWeapon'}
+            item={character?.weapon}
+            filledCheck={item => item}
+            filledValue={item => item?.title}
+            iconValue={item => (
+              <WeaponIcon/>
+            )}
+            onSectionClick={onSectionClick}
+          />
+
+          <CharacterSection
+            label={'os Poderes'}
+            subView={'Spells'}
+            item={character}
+            filledCheck={item => item?.spells?.length > 0 && item?.ultimate?.length > 0}
+            filledValue={item => (
+              <div className="block">
+                {item?.spells.map(spell => (
+                  <div>✔ {spell.title}</div>
+                ))}
+                {item?.ultimate.map(spell => (
+                  <div>✔ {spell.title}</div>
+                ))}
+              </div>
+            )}
+            onSectionClick={onSectionClick}
+          />
+        </div>
 
         <Modal
           isOpen={showFinalizingModal}

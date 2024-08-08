@@ -40,6 +40,7 @@ export default function Role ({ character, setCharacter }) {
               key={role.permalink}
               item={role}
               folder={'roles'}
+              iconAlignment={'left'}
               selectedItem={selectedRole?.permalink}
               setSelectedItem={setSelectedRole}
               onSelect={item => {

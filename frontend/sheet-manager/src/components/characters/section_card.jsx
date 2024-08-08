@@ -1,8 +1,10 @@
 import { Subtitle } from '@/src/components/title'
 import { BsPatchQuestion } from 'react-icons/bs'
 
-export default function SectionCard ({ item, folder, selectedItem, setSelectedItem, onSelect }) {
+export default function SectionCard ({ item, folder, selectedItem, iconAlignment = 'center', setSelectedItem, onSelect }) {
   // const selectedStyle = selectedItem == item.permalink ? "saturate-200" : "saturate-50"
+
+  const alignmentClass = (iconAlignment == 'center') ? 'left-[calc(50%-84px)]' : 'left-0'
 
   return (
     <div className={`mx-auto mb-4 w-full cursor-pointer`} onClick={e => {
@@ -15,7 +17,7 @@ export default function SectionCard ({ item, folder, selectedItem, setSelectedIt
           <div className='self-center relative h-full w-full border box-border border-dashed border-black rounded-3xl'>
           </div>
           <div
-            className="absolute bottom-0 bg-cover rounded-3xl box-border top-[-32px] left-[-10px]"
+            className={`absolute bottom-0 bg-cover rounded-3xl box-border top-[-32px] ${alignmentClass}`}
             style={{ backgroundImage: `url('/${folder}/${item.permalink}.jpg')`, height: '166px', width: '165px' }}
           />
         </div>

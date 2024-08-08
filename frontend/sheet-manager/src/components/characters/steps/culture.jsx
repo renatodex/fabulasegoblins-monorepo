@@ -40,6 +40,7 @@ export default function Culture ({ character, setCharacter }) {
               key={culture.permalink}
               item={culture}
               folder={'cultures'}
+              iconAlignment={'left'}
               selectedItem={selectedCulture?.permalink}
               setSelectedItem={setSelectedCulture}
               onSelect={item => {

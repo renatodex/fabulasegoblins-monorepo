@@ -120,7 +120,7 @@ export default function Gear() {
 
   return (
     <MainLayout>
-      <div className="px-2 sm:px-10 md:px-20 lg:px-32">
+      <div className="px-2 sm:px-10">
         <Title>Ficha</Title>
 
         <div className="grid grid-cols-2 mt-7 gap-7">
