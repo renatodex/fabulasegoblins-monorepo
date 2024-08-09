@@ -40,6 +40,10 @@ class Culture < ApplicationRecord
   has_many :spell_owners, as: :spell_owner
   has_many :spells, through: :spell_owners
 
+  def bonus_attack_physical
+    self[:bonus_attack_physical] || 0
+  end
+
   def owner_type
     'Culture'
   end
