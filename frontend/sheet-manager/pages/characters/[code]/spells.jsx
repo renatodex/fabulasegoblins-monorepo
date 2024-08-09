@@ -26,7 +26,7 @@ export default function Spells() {
         </div>
 
         <div className="mt-6 border-t pt-8 border-dashed border-raisin-black">
-          <h2>Habilidades de Espécie</h2>
+          <h2 className="text-3xl">Habilidades de Espécie</h2>
           <div className="mt-8">
             {character.specie.spells.map(spell => (
               <Spell spell={spell} defaultCollapse={true} />
@@ -35,7 +35,7 @@ export default function Spells() {
         </div>
 
         <div className="mt-6 border-t pt-8 border-dashed border-raisin-black">
-          <h2>Habilidades de Cultura</h2>
+          <h2 className="text-3xl">Habilidades de Cultura</h2>
           <div className="mt-8">
             {character.culture.spells.map(spell => (
               <Spell spell={spell} defaultCollapse={true} />
@@ -44,7 +44,7 @@ export default function Spells() {
         </div>
 
         <div className="mt-6 border-t pt-8 border-dashed border-raisin-black">
-          <h2>Habilidades de Papel</h2>
+          <h2 className="text-3xl">Habilidades de Papel</h2>
           <div className="mt-8">
             {character.character_role.spells.map(spell => (
               <Spell spell={spell} defaultCollapse={true} />
