@@ -40,7 +40,7 @@ function CharacterList ({ characters }) {
             <p className='text-2xl text-aero-blue'>{character.title} - Lv {character.level}</p>
             <p className='flex'>
               {character.initial_grimo && (
-                <img src={`/grimos/full/${character.initial_grimo.permalink}.jpg`} width={30} />
+                <img src={`/grimos/full/${character.initial_grimo.permalink}.jpg`} className='w-8 h-8' />
               )}
               {character.initial_grimo ? character.initial_grimo.title : 'Sem Grimo'} - Level {character.level}
             </p>

@@ -53,3 +53,25 @@ body{
   width: 100%;
   height: 100%;
 }
+
+/* Customize the width and height of the scrollbar */
+::-webkit-scrollbar {
+  width: 8px; /* Width of vertical scrollbar */
+  height: 8px; /* Height of horizontal scrollbar */
+}
+
+/* Customize the track (background of the scrollbar) */
+::-webkit-scrollbar-track {
+  background: rgba(241, 241, 241, 0.5); /* 80% opacity */
+}
+
+/* Customize the thumb (scroll handle) */
+::-webkit-scrollbar-thumb {
+  background: rgba(136, 136, 136, 0.5); /* 80% opacity */
+  border-radius: 10px;
+}
+
+/* Customize the scrollbar when hovering */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(85, 85, 85, 0.5); /* 80% opacity */
+}

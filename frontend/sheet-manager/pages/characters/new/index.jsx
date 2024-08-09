@@ -1,4 +1,5 @@
-import { useContext, useState } from 'react'
+// import { useContext, useState } from 'react'
+import React, { useContext, lazy, Suspense } from 'react';
 import ScreenSlideProvider, { ScreenSlideContext } from '@/src/contexts/screen_slide_context'
 import Role from '@/src/components/characters/steps/role'
 import Specie from '@/src/components/characters/steps/specie'
@@ -48,25 +49,23 @@ export function Views () {
     },
   })
 
-  const renderSubView = function () {
-    if (selectedSubView == 'Roles') {
-      return <Role character={character} setCharacter={setCharacter} />
-    } else if (selectedSubView == 'Species') {
-      return <Specie character={character} setCharacter={setCharacter} />
-    } else if (selectedSubView == 'Cultures') {
-      return <Culture character={character} setCharacter={setCharacter} />
-    } else if (selectedSubView == 'Grimos') {
-      return <Grimo character={character} setCharacter={setCharacter} />
-    } else if (selectedSubView == 'Attributes') {
-      return <Attributes character={character} setCharacter={setCharacter} />
-    } else if (selectedSubView == 'StarterWeapon') {
-      return <StarterWeapon character={character} setCharacter={setCharacter} />
-    } else if (selectedSubView == 'Spells') {
-      return <Spells character={character} setCharacter={setCharacter} />
-    } else if (selectedSubView == 'Details') {
-      return <Details character={character} setCharacter={setCharacter} />
-    }
-  }
+  const components = {
+    Roles: Role,
+    Species: Specie,
+    Cultures: Culture,
+    Grimos: Grimo,
+    Attributes,
+    StarterWeapon,
+    Spells,
+    Details,
+  };
+
+  const renderSubView = () => {
+    const SelectedComponent = components[selectedSubView];
+    return SelectedComponent ? (
+      <SelectedComponent character={character} setCharacter={setCharacter} />
+    ) : null; // Handle unknown subview case if needed
+  };
 
   return (
     <MainLayout onLayoutBack={e => {

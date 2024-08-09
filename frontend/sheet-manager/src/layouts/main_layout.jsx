@@ -8,9 +8,10 @@ import LogoFlameIcon from '@/src/components/logo_flame_icon';
 import { ToastContainer } from 'react-toastify';
 import useLogin from 'hooks/use_login'
 import AccountNavigationModal from '@/src/layouts/account_navigation_modal'
+import classNames from 'classnames';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function MainLayout ({ children, onLayoutBack = 'javascript:history.back()' }) {
+export default function MainLayout ({ children, hasPadding = true, onLayoutBack = 'javascript:history.back()' }) {
   const { removeToken } = useLogin()
 
   const [accountNavigationVisible, setAccountNavigationVisible] = useState(false)
@@ -63,7 +64,10 @@ export default function MainLayout ({ children, onLayoutBack = 'javascript:histo
         <div
           className='rounded-3xl bg-gradient-to-b from-[#243338] to-[#528697]'
         >
-          <main className="text-white p-4 pt-8">
+          <main className={classNames("text-white", {
+            'p-4 pt-8': hasPadding,
+            'p-0 pt-0': !hasPadding,
+          })}>
             {children}
           </main>
 
@@ -101,5 +105,13 @@ export default function MainLayout ({ children, onLayoutBack = 'javascript:histo
 
       <ToastContainer />
     </>
+  )
+}
+
+export function LayoutPadding ({children}) {
+  return (
+    <div className='pt-8 p-0'>
+      {children}
+    </div>
   )
 }

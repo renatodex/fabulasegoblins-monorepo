@@ -1,9 +1,13 @@
-export function Title ({ children }) {
+import ReactDOM from 'react-dom'
+
+export function Title({ children, useH1 = true }) {
+  const TitleTag = useH1 ? 'h1' : 'div';
+
   return (
-    <h1 className='text-4xl font-bold font-serif font-dolly-bold'>
+    <TitleTag className="text-4xl font-bold font-serif font-dolly-bold">
       {children}
-    </h1>
-  )
+    </TitleTag>
+  );
 }
 
 export function Subtitle ({ children }) {
