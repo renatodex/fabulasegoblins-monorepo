@@ -9,6 +9,7 @@ import MainLayout from '@/src/layouts/main_layout';
 import { DiceRollerContext } from '@/src/contexts/dice_roller_context';
 import useCharacter from '@/src/apiHooks/useCharacter';
 import SessionExpired from '@/src/components/session_expired';
+import { BsArrowLeftShort } from "react-icons/bs";
 import { useCharacterViewLayout } from "@/src/layouts/character_view_layout"
 
 export default function () {
@@ -38,7 +39,9 @@ export default function () {
     <CharacterViewLayout isNavOpened={isNavOpened}>
       <div>
         <h4>
-        <ToggleButton/> <span className='text-3xl font-dolly-bold text-[rgb(125,149,157)] align-text-bottom transition-all duration-1000 ease-in-out animate-pulse'>⬅ Abrir menu</span>
+        <ToggleButton/> <span className='text-3xl font-dolly-bold text-[rgb(125,149,157)] align-super transition-all duration-1000 ease-in-out animate-pulse'>
+          <BsArrowLeftShort className='inline-block text-5xl align-middle'/> Abrir menu
+        </span>
         </h4>
 
         <div style={{
@@ -99,8 +102,6 @@ export default function () {
         <div className='mt-8'>
           <Button onClick={e => rollDice({formula: '2d20', theme: 'rustic'})}>Fazer um teste de Ataque</Button>
         </div>
-
-        <CharacterNavigation tab={'index'} code={code} />
       </div>
     </CharacterViewLayout>
   )

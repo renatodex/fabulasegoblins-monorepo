@@ -9,12 +9,15 @@ import { CgMenuGridR } from "react-icons/cg";
 import classNames from "classnames"
 import { useRouter } from "next/router";
 
-function NavItem ({ href, children }) {
+function NavItem ({ href, children, selected = false }) {
   return (
     <div className="flex flex-col text-4xl gap-7 text-center">
       <a
         href={href}
-        className="w-14 h-14 bg-slate-300 hover:bg-aero-blue text-raisin-black rounded-full inline-flex items-center justify-center self-center"
+        className={classNames("w-14 h-14  rounded-full inline-flex items-center justify-center self-center", {
+          'bg-purple-300 hover:bg-purple-300 text-raisin-black': selected,
+          'bg-slate-300 hover:bg-aero-blue text-raisin-black': !selected,
+        })}
       >
         {children}
       </a>
@@ -52,9 +55,12 @@ export default function CharacterViewLayout({ children, isNavOpened }) {
   const router = useRouter()
   const { code } = router.query
 
+  const selectedPath = router.pathname.split("/").pop()
+  console.log(selectedPath)
+
   return (
     <MainLayout hasPadding={false}>
-      <div className="flex h-screen">
+      <div className="flex">
         <div className={classNames("transition-all overflow-hidden h-full", {
           'min-w-[90px] w-[90px]': isNavOpened,
           'min-w-[0] w-[0]': !isNavOpened
@@ -64,23 +70,23 @@ export default function CharacterViewLayout({ children, isNavOpened }) {
             <div className="absolute inset-0"></div>
             <LayoutPadding>
               <div className="flex flex-col gap-7 text-center relative z-10">
-                <NavItem href={`/characters/${code}`}>
+                <NavItem selected={selectedPath == '[code]'} href={`/characters/${code}/`}>
                   <GiMeeple />
                 </NavItem>
 
-                <NavItem href={`/characters/${code}/gear`}>
+                <NavItem selected={selectedPath == 'gear'} href={`/characters/${code}/gear`}>
                   <GiScrollUnfurled />
                 </NavItem>
 
-                <NavItem href={`/characters/${code}/spells`}>
+                <NavItem selected={selectedPath == 'spells'} href={`/characters/${code}/spells`}>
                   <GiFireSpellCast />
                 </NavItem>
 
-                <NavItem href={`/characters/${code}/inventory`}>
+                <NavItem selected={selectedPath == 'inventory'} href={`/characters/${code}/inventory`}>
                   <GiSwordsEmblem />
                 </NavItem>
 
-                <NavItem href={`/characters/${code}/background`}>
+                <NavItem selected={selectedPath == 'background'} href={`/characters/${code}/background`}>
                   <GiNotebook />
                 </NavItem>
               </div>
