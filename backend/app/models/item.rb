@@ -94,7 +94,7 @@ class Item < ApplicationRecord
     return 0 unless damage_type
 
     if damage_type.title == 'Mágico'
-      self.bonus_physical_defense.to_i || 0
+      self.bonus_magical_attack.to_i || 0
     else
       self.bonus_physical_attack.to_i || 0
     end

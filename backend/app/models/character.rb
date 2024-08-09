@@ -88,6 +88,10 @@ class Character < ApplicationRecord
     self.character_body_parts.hands.first
   end
 
+  def chest
+    self.character_body_parts.chest.first
+  end
+
   def recover_hp_fully
     self.hp_points = self.max_hp_points
     self.mp_points = self.max_mp_points
@@ -167,59 +171,194 @@ class Character < ApplicationRecord
     role_base_hp = self.character_role.base_hp
     strength = base_strength + bonus_attribute(:strength).sum
     resilience = base_resilience + bonus_attribute(:resilience).sum
+    culture_bonus_hp = self.culture.bonus_hp
 
-    role_base_hp + 2*(strength) + 2*(resilience)
+    [
+      role_base_hp,
+      culture_bonus_hp.to_i,
+      2*(strength),
+      2*(resilience),
+      calculate_hp_progression.sum
+    ]
   end
 
   def calculate_max_mp_points
     role_base_mp = self.character_role.base_mp
     intelect = base_intelect + bonus_attribute(:intelect).sum
     magic_elo = base_magic_elo + bonus_attribute(:magic_elo).sum
+    culture_bonus_mp = self.culture.bonus_mp
 
-    role_base_mp + 2*(intelect) + 2*(magic_elo)
+    [
+      role_base_mp,
+      culture_bonus_mp.to_i,
+      2*(intelect),
+      2*(magic_elo),
+      calculate_mp_progression.sum,
+    ]
+  end
+
+  def main_weapon
+    hand_weapons = self.character_body_parts&.hands&.first&.equipped_items
+    return nil unless hand_weapons.present?
+    return nil unless hand_weapons&.count > 0
+    hand_weapons.first
+  end
+
+  def secondary_weapon
+    hand_weapons = self.character_body_parts&.hands&.first&.equipped_items
+    return nil unless hand_weapons.present?
+    return nil unless hand_weapons&.count > 1
+    hand_weapons.last
   end
 
   def calculate_main_attack
-    hand_weapons = self.character_body_parts&.hands&.first&.equipped_items
-    return 0 unless hand_weapons.present?
-    return 0 unless hand_weapons&.count > 0
-    first_weapon = hand_weapons.first
+    main_weapon_modifier =
+      main_weapon.present? ? main_weapon.item.calculate_attack_modifier : nil
 
-    weapon_attribute = first_weapon.item.sheet_attribute.permalink
+    weapon_attribute =
+      main_weapon.present? ? main_weapon.item.sheet_attribute.permalink : nil
 
     [
-      first_weapon.item.calculate_attack_modifier,
-      self["base_#{weapon_attribute}"],
-      self.culture.bonus_attack_physical
-    ].sum
+      main_weapon_modifier.to_i,
+      self["base_#{weapon_attribute}"].to_i,
+      self.culture.bonus_attack_physical.to_i
+    ]
   end
 
   def calculate_secondary_attack
-    hand_weapons = self.character_body_parts&.hands&.first&.equipped_items
-    return 0 unless hand_weapons.present?
-    return 0 unless hand_weapons&.count > 1
-    last_weapon = hand_weapons.last
+    secondary_weapon_modifier =
+      secondary_weapon.present? ? secondary_weapon.item.calculate_attack_modifier : nil
 
-    weapon_attribute = last_weapon.item.sheet_attribute.permalink
+    weapon_attribute =
+      secondary_weapon.present? ? secondary_weapon.item.sheet_attribute.permalink : nil
+
     [
-      last_weapon.item.calculate_attack_modifier,
-      self["base_#{weapon_attribute}"],
-      self.culture.bonus_attack_physical
-    ].sum
+      secondary_weapon_modifier.to_i,
+      self["base_#{weapon_attribute}"].to_i,
+      self.culture.bonus_attack_physical.to_i
+    ]
+  end
+
+  def calculate_magic_attack
+    main_weapon_modifier =
+      main_weapon.present? ? main_weapon.item.bonus_attack_magical : nil
+
+    [
+      main_weapon_modifier.to_i,
+      self["base_intelect"].to_i,
+      self.culture.bonus_attack_magical.to_i,
+    ]
+  end
+
+  def calculate_magic_defense
+    main_weapon_modifier =
+      main_weapon.present? ? main_weapon.item.bonus_defense_magical : nil
+
+    armor_modifier =
+      armor.present? ? armor.item.bonus_defense_magical : nil
+
+    [
+      main_weapon_modifier.to_i,
+      armor_modifier.to_i,
+      self["base_spirit"].to_i,
+      self.culture.bonus_defense_magical.to_i,
+    ]
+  end
+
+  def armor
+    chest.equipped_items.first
+  end
+
+  def calculate_physical_defense
+    secondary_weapon_modifier =
+      secondary_weapon.present? ? secondary_weapon.item.bonus_defense_physical : nil
+
+    armor_modifier =
+      armor.present? ? armor.item.bonus_defense_physical : nil
+
+    [
+      secondary_weapon_modifier.to_i,
+      armor_modifier.to_i,
+      self["base_resilience"].to_i,
+      self.culture.bonus_defense_physical.to_i,
+    ]
+  end
+
+  def calculate_initiative
+    [
+      self["base_agility"].to_i,
+      self["base_destiny"].to_i,
+      self.culture.bonus_initiative.to_i,
+    ]
+  end
+
+  def calculate_movement
+    [
+      self.character_role.base_movement.to_i,
+      self["base_agility"].to_i,
+    ]
+  end
+
+  def calculate_tier
+    raise ArgumentError, "Level must be between 1 and 20" unless (1..20).include?(level)
+
+    ((level - 1) / 5).clamp(0, 3) + 1
+  end
+
+  def calculate_hp_progression
+    tier = calculate_tier - 1
+    hp_per_tier = self.character_role.hp_per_level
+
+    base_level = (level - 1) % 5         # Calculate the level within the current tier
+
+    # Sum HP from all previous tiers
+    previous_hp = hp_per_tier[0...tier].each_with_index.sum do |hp, index|
+      hp * 5 # 5 levels per tier
+    end
+
+    # Add HP from the current tier
+    current_hp = hp_per_tier[tier] * (base_level + 1) - hp_per_tier[0]
+
+    [
+      previous_hp,
+      current_hp,
+    ]
+  end
+
+  def calculate_mp_progression
+    tier = calculate_tier - 1
+    mp_per_tier = self.character_role.mp_per_level
+
+    base_level = (level - 1) % 5         # Calculate the level within the current tier
+
+    # Sum MP from all previous tiers
+    previous_mp = mp_per_tier[0...tier].each_with_index.sum do |mp, index|
+      mp * 5 # 5 levels per tier
+    end
+
+    # Add MP from the current tier
+    current_mp = mp_per_tier[tier] * (base_level + 1) - mp_per_tier[0]
+
+    [
+      previous_mp,
+      current_mp,
+    ]
   end
 
   def recalculate_resources
-    self.max_hp_points = calculate_max_hp_points
-    self.max_mp_points = calculate_max_mp_points
+    self.max_hp_points = calculate_max_hp_points.sum
+    self.max_mp_points = calculate_max_mp_points.sum
 
     self.hp_points = self.max_hp_points if hp_points > max_hp_points
     self.mp_points = self.max_mp_points if mp_points > max_mp_points
 
-    self.main_attack = calculate_main_attack
-    self.secondary_attack = calculate_secondary_attack
-
-    # self.secondary_attack = self.max_hp_points if hp_points > max_hp_points
-    # self.secondary_attack = self.max_mp_points if mp_points > max_mp_points
+    self.main_attack = calculate_main_attack.sum
+    self.secondary_attack = calculate_secondary_attack.sum
+    self.physical_defense = calculate_physical_defense.sum
+    self.magic_attack = calculate_magic_attack.sum
+    self.magic_defense = calculate_magic_defense.sum
+    self.initiative = calculate_initiative.sum
+    self.movement = calculate_movement.sum
 
     # self.magic_attack = self.max_hp_points if hp_points > max_hp_points
     # self.magic_attack = self.max_mp_points if mp_points > max_mp_points
@@ -232,7 +371,6 @@ class Character < ApplicationRecord
 
     # self.movement = self.max_hp_points if hp_points > max_hp_points
     # self.movement = self.max_mp_points if mp_points > max_mp_points
-
 
     puts "MAX HP= #{self.max_hp_points}"
     puts "MAX MP= #{self.max_mp_points}"

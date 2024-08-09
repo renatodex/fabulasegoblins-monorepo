@@ -31,6 +31,7 @@ class CharacterBodyPart < ApplicationRecord
   validates :crippled, inclusion: { in: [true, false] }
 
   scope :hands, -> { where(handle: 'hands') }
+  scope :chest, -> { where(handle: 'chest') }
 
   # def hands
   #   find_by(handle: 'hands')
