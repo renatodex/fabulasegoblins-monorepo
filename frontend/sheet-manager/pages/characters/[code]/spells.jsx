@@ -1,16 +1,22 @@
-import CharacterNavigation from "@/src/components/characters/_navigation"
-import Container from "@/src/components/container"
+import { useCharacterViewLayout } from "@/src/layouts/character_view_layout"
 import { useRouter } from "next/router"
+import Title from "@/src/components/title"
 
 export default function Spells() {
   const router = useRouter()
   const { code } = router.query
 
-  return (
-    <Container>
-      <h1>Spells</h1>
+  const { isNavOpened, CharacterViewLayout, ToggleButton } = useCharacterViewLayout()
 
-      <CharacterNavigation tab={'spells'} code={code} />
-    </Container>
+  return (
+    <CharacterViewLayout isNavOpened={isNavOpened}>
+      <Title useH1={false}>
+        <div className="flex gap-3">
+          <ToggleButton />
+          <h1 className="self-center flex-1">Magias</h1>
+        </div>
+      </Title>
+
+    </CharacterViewLayout>
   )
 }
