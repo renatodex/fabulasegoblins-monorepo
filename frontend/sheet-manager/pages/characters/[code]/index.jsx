@@ -11,6 +11,42 @@ import useCharacter from '@/src/apiHooks/useCharacter';
 import SessionExpired from '@/src/components/session_expired';
 import { BsArrowLeftShort } from "react-icons/bs";
 import { useCharacterViewLayout } from "@/src/layouts/character_view_layout"
+import CharacterSelection from '@/src/components/characters/character_selection';
+import Details from '@/src/components/characters/steps/details';
+import Modal from 'react-modal';
+import { IoMdCloseCircle } from 'react-icons/io';
+
+Modal.setAppElement("#modal")
+
+export function DetailsModal ({ setSelectedDetail, open, data, model, character }) {
+  return (
+    <Modal
+      isOpen={open}
+      onAfterOpen={e => {}}
+      onRequestClose={e => { setSelectedDetail(null) }}
+      contentLabel="Detalhes"
+      className="Modal2"
+      overlayClassName="Overlay"
+    >
+      <div className='text-right'>
+        <button
+          onClick={e => setSelectedDetail(null)}
+          className='text-5xl px-4 relative float-right z-50'
+        >
+          <IoMdCloseCircle className='' />
+        </button>
+      </div>
+      <Details
+        character={character}
+        details={{
+          data: data,
+          type: model,
+        }}
+        setCharacter={null}
+      />
+    </Modal>
+  )
+}
 
 export default function () {
   // const [character, setCharacter] = useState(null)
@@ -23,6 +59,13 @@ export default function () {
   const { data: character } = useCharacter({
     code, token
   })
+
+  if (character) {
+    character.grimo = character.initial_grimo
+    character.role = character.character_role
+  }
+
+  const [selectedDetail, setSelectedDetail] = useState(false)
 
   const { isNavOpened, CharacterViewLayout, ToggleButton } = useCharacterViewLayout()
 
@@ -51,12 +94,12 @@ export default function () {
         />
       </div>
 
-      <div className='text-center'>
-        <div className='mt-3'>
+      <div className=''>
+        <div className='mt-3 text-center'>
           <Title>{character.title}</Title>
         </div>
 
-        <div className=''>
+        <div className='text-center'>
           <Subtitle>{character.specie.title} - Level {character.level}</Subtitle>
         </div>
 
@@ -96,13 +139,72 @@ export default function () {
         </div>
 
         <div className='mt-8'>
-          <Button>Baixar PDF da Ficha</Button>
+          <div className='mt-8 border-t border-dashed border-raisin-black'>
+            <div>
+              <h3 className='text-3xl font-dolly-bold mt-4 font-bold'>Escolhas principais</h3>
+            </div>
+
+            <div className=''>
+              <CharacterSelection
+                label={'a Espécie'}
+                subView={'Species'}
+                item={character?.specie}
+                filledCheck={item => item?.title}
+                filledValue={item => item?.title}
+                changeButtonLabel='ver'
+                onSectionClick={e => { setSelectedDetail('specie') }}
+              />
+
+              <CharacterSelection
+                label={'o Papel de Jogo'}
+                subView={'Roles'}
+                item={character?.character_role}
+                filledCheck={item => item?.title}
+                filledValue={item => item?.title}
+                changeButtonLabel='ver'
+                onSectionClick={e => { setSelectedDetail('role') }}
+              />
+
+              <CharacterSelection
+                label={'a Cultura'}
+                subView={'Cultures'}
+                item={character?.culture}
+                filledCheck={item => item?.title}
+                filledValue={item => item?.title}
+                changeButtonLabel='ver'
+                onSectionClick={e => { setSelectedDetail('culture') }}
+              />
+
+              {character.grimos.map(grimo => (
+                <CharacterSelection
+                  label={'o Grimo'}
+                  subView={'Grimos'}
+                  item={grimo}
+                  filledCheck={item => item?.title}
+                  filledValue={item => item?.title}
+                  changeButtonLabel='ver'
+                  onSectionClick={e => { setSelectedDetail('grimo') }}
+                />
+              ))}
+            </div>
+          </div>
         </div>
 
         <div className='mt-8'>
-          <Button onClick={e => rollDice({formula: '2d20', theme: 'rustic'})}>Fazer um teste de Ataque</Button>
+          <div className='mt-8 border-t border-dashed border-raisin-black'>
+            <div className='mt-6'>
+              <Button>Baixar PDF da Ficha</Button>
+            </div>
+          </div>
         </div>
       </div>
+      <DetailsModal
+        setSelectedDetail={setSelectedDetail}
+        open={!!selectedDetail}
+        character={character}
+        data={character[selectedDetail]}
+        model={selectedDetail}
+      />
     </CharacterViewLayout>
   )
 }

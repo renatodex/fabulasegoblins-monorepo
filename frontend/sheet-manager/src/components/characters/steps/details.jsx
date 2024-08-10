@@ -44,16 +44,16 @@ export function SpellGroup ({ label, spells, collapseSpells, collapseBlock }) {
   )
 }
 
-export default function Details ({ character, setCharacter }) {
+export default function Details ({ character, details, setCharacter }) {
   const { setParentViewVisibility, setSubViewVisibility, setSelectedSubView } = useContext(ScreenSlideContext)
 
   let spellGroups = null
-  if (!character?.details?.data?.spells) {
-    const { spellGroups:spellGroupsData } = useGrimoSpells(character?.details?.data?.permalink)
+  if (!details?.data?.spells) {
+    const { spellGroups:spellGroupsData } = useGrimoSpells(details?.data?.permalink)
     spellGroups = spellGroupsData
   }
 
-  if (!character.details) return null
+  if (!details) return null
 
   return (
     <motion.div
@@ -69,20 +69,20 @@ export default function Details ({ character, setCharacter }) {
     >
       <Container>
         <Title>
-          {character?.details?.data?.title}
+          {details?.data?.title}
         </Title>
 
         <div className='gap-4 mt-10'>
-          <div className='rounded-xl' style={{ backgroundColor: character?.details?.data?.color}}>
+          <div className='rounded-xl' style={{ backgroundColor: details?.data?.color}}>
             <img
               width={'100%'}
               className='rounded-xl'
-              src={`/${character?.details?.type}s/full/${character?.details?.data?.permalink}.jpg`}
+              src={`/${details?.type}s/full/${details?.data?.permalink}.jpg`}
             />
           </div>
           <div className='mt-4'>
             <p className='font-adobe-kis text-lg'>
-              {character?.details?.data?.long_description}
+              {details?.data?.long_description}
             </p>
           </div>
 
@@ -93,11 +93,11 @@ export default function Details ({ character, setCharacter }) {
             <LiaExternalLinkSquareAltSolid className='inline text-3xl' />
           </div>
 
-          {character?.details?.data?.spells && (
+          {details?.data?.spells && (
             <>
               <h2 className='text-xl font-dolly-bold mt-4 border-b border-b-white'>Características:</h2>
               <div className='grid grid-cols-1 gap-3 mt-3'>
-                {(character?.details?.data?.spells || []).map(spell => (
+                {(details?.data?.spells || []).map(spell => (
                   <div>
                     <Spell defaultCollapse={true} spell={spell} />
                   </div>
@@ -120,30 +120,32 @@ export default function Details ({ character, setCharacter }) {
           )}
         </div>
 
-        <div className="mt-7 flex gap-3">
-          <Button
-            onClick={e => {
+        {setCharacter && (
+          <div className="mt-7 flex gap-3">
+            <Button
+              onClick={e => {
+                setCharacter({
+                  ...character,
+                  details: null
+                })
+                setSelectedSubView(`${capitalizeFirstLetter(details?.type)}s`)
+              }}
+              className='flex items-center justify-center'
+            >
+              <FaArrowLeftLong className='inline-block'/> <span>Escolher outro</span>
+            </Button>
+            <Button onClick={e => {
               setCharacter({
                 ...character,
-                details: null
+                [details?.type]: details?.data,
               })
-              setSelectedSubView(`${capitalizeFirstLetter(character?.details?.type)}s`)
-            }}
-            className='flex items-center justify-center'
-          >
-            <FaArrowLeftLong className='inline-block'/> <span>Escolher outro</span>
-          </Button>
-          <Button onClick={e => {
-            setCharacter({
-              ...character,
-              [character?.details?.type]: character?.details?.data,
-            })
-            setSubViewVisibility(false)
-            setParentViewVisibility(true)
-          }}>
-            Confirmar
-          </Button>
-        </div>
+              setSubViewVisibility(false)
+              setParentViewVisibility(true)
+            }}>
+              Confirmar
+            </Button>
+          </div>
+        )}
       </Container>
     </motion.div>
   )

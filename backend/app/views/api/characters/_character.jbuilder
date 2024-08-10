@@ -60,6 +60,9 @@ json.avatar character.avatar
 json.created_at character.created_at
 json.updated_at character.updated_at
 
+json.spells(character.spells) do |spell|
+  json.partial! 'api/spells/spell', resource: spell
+end
 json.character_role do
   json.partial! 'api/character_roles/character_role', resource: character.character_role
 end
@@ -68,6 +71,9 @@ json.culture do
 end
 json.specie do
   json.partial! 'api/species/specie', resource: character.specie
+end
+json.grimos(character.grimos) do |item|
+  json.partial! 'api/items/item', resource: item
 end
 
 if (character.initial_grimo)

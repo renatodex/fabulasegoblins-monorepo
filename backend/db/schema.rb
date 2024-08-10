@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_08_06_052441) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_10_044600) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -94,6 +94,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_06_052441) do
     t.datetime "updated_at", null: false
     t.string "micro_description"
     t.string "color"
+  end
+
+  create_table "character_spells", force: :cascade do |t|
+    t.bigint "character_id", null: false
+    t.bigint "spell_id", null: false
+    t.integer "learned_at_level", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["character_id"], name: "index_character_spells_on_character_id"
+    t.index ["spell_id"], name: "index_character_spells_on_spell_id"
   end
 
   create_table "characters", force: :cascade do |t|
@@ -723,6 +733,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_06_052441) do
   add_foreign_key "character_items", "items"
   add_foreign_key "character_role_spells", "character_roles"
   add_foreign_key "character_role_spells", "spells"
+  add_foreign_key "character_spells", "characters"
+  add_foreign_key "character_spells", "spells"
   add_foreign_key "characters", "character_roles"
   add_foreign_key "characters", "cultures"
   add_foreign_key "characters", "species"

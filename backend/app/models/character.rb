@@ -72,6 +72,9 @@ class Character < ApplicationRecord
   belongs_to :character_role
   belongs_to :culture
 
+  has_many :character_spells, dependent: :destroy
+  has_many :spells, through: :character_spells
+
   has_many :character_body_parts, dependent: :destroy
   has_many :character_items, dependent: :destroy
   has_many :items, through: :character_items
@@ -148,9 +151,13 @@ class Character < ApplicationRecord
   end
 
   def initial_grimo
+    grimos.first
+  end
+
+  def grimos
     items.joins(:item_type).where(item_type: {
       permalink: 'grimo',
-    }).first
+    })
   end
 
   def bonus_attribute(attribute)
@@ -266,7 +273,7 @@ class Character < ApplicationRecord
   end
 
   def armor
-    chest.equipped_items.first
+    chest&.equipped_items&.first
   end
 
   def calculate_physical_defense

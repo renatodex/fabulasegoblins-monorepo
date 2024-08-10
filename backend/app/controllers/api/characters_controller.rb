@@ -45,6 +45,12 @@ class Api::CharactersController < ApiController
           item: Item.find(char_params[:weapon_id])
         ),
       ],
+      character_spells: char_params[:spell_ids].map { |spell_id|
+        CharacterSpell.new(
+          spell_id: spell_id,
+          learned_at_level: char_params[:level],
+        )
+      },
       temirs: char_params[:temirs] || 200,
       background: "",
       user: current_user

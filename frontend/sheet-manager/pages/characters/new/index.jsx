@@ -63,7 +63,7 @@ export function Views () {
   const renderSubView = () => {
     const SelectedComponent = components[selectedSubView];
     return SelectedComponent ? (
-      <SelectedComponent character={character} setCharacter={setCharacter} />
+      <SelectedComponent character={character} setCharacter={setCharacter} details={character?.details} />
     ) : null; // Handle unknown subview case if needed
   };
 

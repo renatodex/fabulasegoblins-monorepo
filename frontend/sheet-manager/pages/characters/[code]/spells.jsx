@@ -13,8 +13,6 @@ export default function Spells() {
   const { isNavOpened, CharacterViewLayout, ToggleButton } = useCharacterViewLayout()
   const { data: character } = useCharacter({ code, token })
 
-  console.log(character)
-
   if (!character) return null
 
   return (
@@ -23,6 +21,15 @@ export default function Spells() {
         <div className="flex gap-3">
           <ToggleButton />
           <h1 className="self-center flex-1">Magias</h1>
+        </div>
+
+        <div className="mt-6 border-t pt-8 border-dashed border-raisin-black">
+          <h2 className="text-3xl">Habilidades de Grimo</h2>
+          <div className="mt-8">
+            {character.spells.map(spell => (
+              <Spell spell={spell} defaultCollapse={true} />
+            ))}
+          </div>
         </div>
 
         <div className="mt-6 border-t pt-8 border-dashed border-raisin-black">
