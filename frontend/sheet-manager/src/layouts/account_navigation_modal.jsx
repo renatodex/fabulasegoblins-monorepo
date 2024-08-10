@@ -6,7 +6,7 @@ export default function AccountNavigationModal ({ onLogout, onClose, visible }) 
   if (!visible) return null;
 
   return (
-    <div className='fixed'>
+    <div className='fixed z-50'>
       <div className=' fixed text-white -translate-x-2/4 -translate-y-2/4 w-[300px] left-1/2 top-1/2'>
         <motion.div
           initial={{ scale: 0 }}

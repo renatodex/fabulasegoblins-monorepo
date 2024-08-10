@@ -11,7 +11,7 @@ import AccountNavigationModal from '@/src/layouts/account_navigation_modal'
 import classNames from 'classnames';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function MainLayout ({ children, hasPadding = true, onLayoutBack = 'javascript:history.back()' }) {
+export default function MainLayout ({ children, hasPadding = true, onLayoutBack = null }) {
   const { removeToken } = useLogin()
 
   const [accountNavigationVisible, setAccountNavigationVisible] = useState(false)
@@ -25,6 +25,12 @@ export default function MainLayout ({ children, hasPadding = true, onLayoutBack 
   }
 
   const isLoginPage = ['/', '/login', '/signup'].includes(pathname)
+
+  if (!onLayoutBack) {
+    onLayoutBack = function () {
+      router.back()
+    }
+  }
 
   return (
     <>

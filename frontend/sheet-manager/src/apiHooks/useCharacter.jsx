@@ -10,7 +10,7 @@ export default function useCharacter({code, token}) {
     }
   }).then((res) => res.json());
 
-  const url = `/api/characters/${code}`
+  const url = code ? `/api/characters/${code}` : null;
 
   const { data, error, isLoading } = useSWR(url, fetcher)
 

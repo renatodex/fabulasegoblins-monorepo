@@ -98,7 +98,7 @@ export default function Details ({ character, details, setCharacter }) {
               <h2 className='text-xl font-dolly-bold mt-4 border-b border-b-white'>Características:</h2>
               <div className='grid grid-cols-1 gap-3 mt-3'>
                 {(details?.data?.spells || []).map(spell => (
-                  <div>
+                  <div key={spell.permalink}>
                     <Spell defaultCollapse={true} spell={spell} />
                   </div>
                 ))}
@@ -110,6 +110,7 @@ export default function Details ({ character, details, setCharacter }) {
             <>
               {spellGroups.map(spellGroup => (
                 <SpellGroup
+                  key={spellGroup.label}
                   label={`Poderes ${spellGroup.label}`}
                   spells={spellGroup.spells}
                   collapseSpells={true}

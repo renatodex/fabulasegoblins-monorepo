@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import '../styles/globals.css'
 import { DiceRollerProvider } from '@/src/contexts/dice_roller_context'
+import AppModalProvider from '@/src/contexts/app_modal';
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -15,9 +16,11 @@ function MyApp({ Component, pageProps }) {
         <link rel="stylesheet" href="https://use.typekit.net/pkz8ulf.css"></link>
       </Head>
 
-      <DiceRollerProvider themeColor='#5730AB'>
-        <Component {...pageProps} />
-      </DiceRollerProvider>
+      <AppModalProvider>
+        <DiceRollerProvider themeColor='#5730AB'>
+          <Component {...pageProps} />
+        </DiceRollerProvider>
+      </AppModalProvider>
     </div>
   )
 }

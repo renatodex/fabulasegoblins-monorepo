@@ -95,7 +95,7 @@ export default function DiceRollModal ({ onClose, roll, specialText, visible }) 
                     <div className="flex gap-2">
                       {breakdown.map(breakdownBlock => {
                         return (
-                          <p className="border border-gray-400 text-lg inline-block text-white bg-gray-700 rounded-lg px-2" alt={breakdownBlock.description}>
+                          <p key={crypto.randomUUID()} className="border border-gray-400 text-lg inline-block text-white bg-gray-700 rounded-lg px-2" alt={breakdownBlock.description}>
                             {breakdownBlock.value < 0 || breakdownBlock.neutralValue ? breakdownBlock.value : `+${breakdownBlock.value}`}
                             {breakdownBlock.inlineText && (<>{' '}({breakdownBlock.inlineText})</>)}
                           </p>

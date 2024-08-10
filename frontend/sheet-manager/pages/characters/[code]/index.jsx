@@ -16,8 +16,6 @@ import Details from '@/src/components/characters/steps/details';
 import Modal from 'react-modal';
 import { IoMdCloseCircle } from 'react-icons/io';
 
-Modal.setAppElement("#modal")
-
 export function DetailsModal ({ setSelectedDetail, open, data, model, character }) {
   return (
     <Modal
@@ -49,12 +47,9 @@ export function DetailsModal ({ setSelectedDetail, open, data, model, character 
 }
 
 export default function () {
-  // const [character, setCharacter] = useState(null)
   const { token, ping } = useLogin()
   const router = useRouter()
   const { code } = router.query
-
-  const { rollDice } = useContext(DiceRollerContext)
 
   const { data: character } = useCharacter({
     code, token
@@ -177,6 +172,7 @@ export default function () {
 
               {character.grimos.map(grimo => (
                 <CharacterSelection
+                  key={grimo.permalink}
                   label={'o Grimo'}
                   subView={'Grimos'}
                   item={grimo}

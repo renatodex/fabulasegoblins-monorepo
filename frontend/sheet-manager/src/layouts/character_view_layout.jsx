@@ -57,7 +57,6 @@ export default function CharacterViewLayout({ children, isNavOpened }) {
   const { code } = router.query
 
   const selectedPath = router.pathname.split("/").pop()
-  console.log(selectedPath)
 
   return (
     <MainLayout hasPadding={false}>
