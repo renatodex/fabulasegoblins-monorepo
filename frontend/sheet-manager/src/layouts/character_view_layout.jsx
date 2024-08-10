@@ -6,6 +6,7 @@ import { GiFireSpellCast } from "react-icons/gi";
 import { GiSwordsEmblem } from "react-icons/gi";
 import { GiNotebook } from "react-icons/gi";
 import { CgMenuGridR } from "react-icons/cg";
+import { GiLightBackpack } from "react-icons/gi";
 import classNames from "classnames"
 import { useRouter } from "next/router";
 
@@ -83,7 +84,7 @@ export default function CharacterViewLayout({ children, isNavOpened }) {
                 </NavItem>
 
                 <NavItem selected={selectedPath == 'inventory'} href={`/characters/${code}/inventory`}>
-                  <GiSwordsEmblem />
+                  <GiLightBackpack />
                 </NavItem>
 
                 <NavItem selected={selectedPath == 'background'} href={`/characters/${code}/background`}>

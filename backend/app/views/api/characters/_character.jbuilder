@@ -60,6 +60,9 @@ json.avatar character.avatar
 json.created_at character.created_at
 json.updated_at character.updated_at
 
+json.items(character.items) do |item|
+  json.partial! 'api/items/item', resource: item
+end
 json.spells(character.spells) do |spell|
   json.partial! 'api/spells/spell', resource: spell
 end

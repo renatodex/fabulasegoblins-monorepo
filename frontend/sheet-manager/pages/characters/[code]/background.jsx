@@ -17,6 +17,9 @@ export default function Background() {
         </div>
       </Title>
 
+      <div className="mt-4 text-lg">
+        <p>Personagem não possui anotações.</p>
+      </div>
     </CharacterViewLayout>
   )
 }
