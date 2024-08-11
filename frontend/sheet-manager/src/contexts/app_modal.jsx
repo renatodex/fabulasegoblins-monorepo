@@ -81,7 +81,7 @@ export default function AppModalProvider ({ children }) {
           exit={{
             x: "100%"
           }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
         >
           <div className="border min-h-screen border-black p-4 bg-gray-600 rounded-lg">
             {modalComponent}

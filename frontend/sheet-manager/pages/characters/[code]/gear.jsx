@@ -11,6 +11,8 @@ import SessionExpired from "@/src/components/session_expired"
 import { CgMenuGridR } from "react-icons/cg";
 import { useCharacterViewLayout } from "@/src/layouts/character_view_layout"
 import { AppModalContext, AppModalContent } from "@/src/contexts/app_modal";
+import Button from "@/src/components/button";
+import { ChangeResourceModal } from "@/src/modals/change_resource_modal";
 
 export function MinMaxResource ({ label, current, max, onChange }) {
   return (
@@ -98,38 +100,6 @@ export function Attribute ({ value, label, color = '#67777C', onRoll }) {
   )
 }
 
-export function ChangeResourceModal() {
-  return (
-    <AppModalContent title={"Mudando HP"}>
-Lorem ipsusdfm dolor sit amet, consectetur adipiscing elit. Sed eleifend, metus et maximus sagittis, dui turpis lacinia nisi, quis venenatis turpis nisi eget nulla. Vivamus et odio eget tellus lacinia laoreet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque id elit ac lectus gravida auctor. Morbi tincidunt, libero vitae mollis faucibus, odio magna imperdiet urna, vel facilisis nisl mauris vitae ex. Duis orci odio, laoreet porttitor purus nec, elementum lobortis orci. Phasellus efficitur, sapien vel mollis viverra, elit purus consequat augue, vel lobortis ex mi non augue. Ut ut mollis erat. Nullam dictum sit amet turpis bibendum malesuada. Maecenas ac iaculis nunc.
-
-In at quam vitae purus maximus imperdiet. Curabitur velit enim, laoreet vitae semper non, commodo nec felis. Maecenas at massa molestie, laoreet leo non, venenatis turpis. Pellentesque tortor risus, convallis vel finibus vel, blandit et eros. Aliquam massa magna, tempus non ornare a, finibus sed mi. Aenean fringilla maximus magna. Vivamus tempus, est sed tristique pretium, leo massa pulvinar augue, vitae accumsan elit ligula id neque. Nullam iaculis mauris nunc. Suspendisse potenti. Nulla in metus quis ligula posuere molestie eu ut arcu.
-
-{/* Proin euismod condimentum eros. Donec ligula massa, malesuada a orci non, elementum pellentesque ligula. Pellentesque sit amet tristique lacus. Nam mauris quam, convallis sed lectus at, elementum pretium ligula. Sed vehicula eros non orci luctus euismod. Fusce tristique faucibus libero, sed maximus mi mattis et. Donec commodo justo a quam iaculis, non semper dui hendrerit. Donec ac vestibulum lacus. Aliquam ultrices, augue eu eleifend euismod, orci orci varius enim, id lobortis quam enim eu purus. Donec sit amet purus risus. Duis placerat arcu neque, interdum suscipit elit suscipit in. Aliquam malesuada tortor neque, eu ultrices nibh accumsan sed. Praesent dictum porttitor neque quis vestibulum. Nulla augue dolor, blandit a dignissim vitae, facilisis maximus eros.
-
-Praesent elementum velit quis massa pharetra egestas. Maecenas sed tristique risus. Nam at odio ac sapien ullamcorper aliquam id ac libero. Fusce eu sollicitudin eros. Donec facilisis eros vitae sagittis gravida. Praesent quis nibh sapien. Donec non vehicula nibh. Etiam fringilla vitae lorem at mattis. Vivamus aliquam ultrices nunc, ac malesuada ante varius et. Nunc non lorem arcu. Ut blandit pretium metus, sit amet scelerisque nisl faucibus non. Nunc luctus sapien vitae augue mollis commodo. Integer mollis arcu eget pellentesque lobortis.
-
-Praesent molestie tempus scelerisque. Vivamus blandit metus et velit suscipit pharetra. Ut at porttitor ligula, id venenatis nunc. Donec justo erat, blandit efficitur augue nec, lacinia aliquet nibh. Quisque a viverra purus. Aliquam erat volutpat. Etiam nulla massa, pellentesque eget ex id, condimentum bibendum velit. Curabitur quis tellus pretium, ullamcorper purus nec, imperdiet diam. Donec ac consequat augue, in porta sapien. Nullam sed sem justo. Aenean sodales magna lacus. Duis sit amet diam id leo convallis luctus egestas ut metus. Etiam ante metus, tempus id lacus sed, bibendum congue nulla. Ut rutrum interdum quam, vitae feugiat risus commodo vel. Sed consequat velit quis metus ornare, at feugiat magna varius.
-
-Sed efficitur, eros eu bibendum cursus, nibh nisi convallis augue, sed lacinia lectus elit sollicitudin purus. Praesent sit amet commodo mauris, sit amet ullamcorper massa. Nulla eget mauris nec arcu faucibus mattis vitae at ligula. In cursus ornare purus. In eros diam, bibendum vitae est non, mollis accumsan nisi. Praesent nunc risus, ullamcorper a sem non, dapibus dictum sem. Praesent et orci a urna blandit fringilla eget sed tortor. Phasellus feugiat ex id porta bibendum. Fusce vel rhoncus tortor. Cras in massa non neque semper euismod eget nec nibh. Quisque hendrerit consequat dui, id hendrerit nisi sodales ullamcorper. Vivamus quis urna libero. In non nibh eros. Proin velit dolor, sodales a vestibulum eget, facilisis in justo.
-
-Aliquam venenatis velit sit amet quam sollicitudin luctus. Morbi erat ante, sagittis vel massa ultrices, maximus iaculis nunc. Nam ut dolor enim. Quisque at viverra metus, a tincidunt lorem. In porta consectetur enim ac condimentum. Donec sit amet lectus eget augue rutrum placerat. Proin consequat fringilla felis, at molestie ante sollicitudin non.
-
-Duis fringilla ex sit amet turpis maximus, non dignissim arcu rhoncus. Pellentesque facilisis ut est eu aliquam. Duis in justo rutrum, luctus nulla non, auctor metus. In in pulvinar libero. Nulla tincidunt turpis tortor, et placerat odio rhoncus non. Donec luctus velit ut magna aliquet aliquet. Etiam vel pretium magna. Praesent tellus tellus, mattis sit amet molestie pulvinar, sollicitudin at nisl.
-
-Etiam ullamcorper sem purus, non bibendum nisi euismod nec. Sed sit amet pulvinar tellus. Morbi semper, sem nec tincidunt eleifend, justo ante venenatis enim, non hendrerit dui arcu id turpis. Aenean elit nisi, accumsan ac nibh tincidunt, posuere consectetur magna. Nam egestas convallis nibh vel condimentum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Phasellus orci odio, venenatis ultrices feugiat eu, vestibulum id ligula. Quisque rutrum tristique ipsum, sed cursus purus efficitur at. Maecenas varius metus nec magna pulvinar, sit amet aliquam libero efficitur. In elit dui, pharetra vitae mi fermentum, varius consequat neque.
-
-Morbi interdum orci sed posuere viverra. Integer et risus eu lorem gravida elementum. Suspendisse a magna ex. In hac habitasse platea dictumst. Suspendisse ultricies mollis mi eget fermentum. Nulla volutpat ornare est, pellentesque scelerisque nulla egestas sit amet. Morbi mollis quam bibendum, feugiat elit nec, vestibulum enim. Praesent consectetur lobortis odio sit amet mattis. Mauris ac purus purus. Nam tempor vel velit ultricies rutrum. Cras vel libero cursus, vulputate libero at, rutrum magna. Suspendisse potenti. Donec sed metus et velit mollis euismod. Integer ultrices metus erat, vel suscipit sem faucibus quis. Nunc ex est, eleifend vitae leo a, hendrerit laoreet enim. Nunc iaculis hendrerit hendrerit.
-
-Curabitur volutpat accumsan quam, ut dignissim purus tincidunt quis. Quisque molestie vitae nulla vitae dignissim. Integer ac viverra nisl. Fusce mauris nunc, viverra vitae elit non, gravida efficitur felis. Quisque eu aliquet sapien, in ullamcorper massa. Phasellus nec nulla in elit pretium rutrum dignissim et lacus. Proin scelerisque sodales aliquam. Duis ac enim nec enim vehicula cursus. Donec vestibulum vulputate pellentesque.
-
-Nullam ante felis, luctus a nibh id, egestas pellentesque dui. In vel risus enim. Morbi fringilla justo nec nulla luctus rhoncus. Pellentesque sagittis mauris a ante cursus luctus. Aliquam erat volutpat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nullam scelerisque placerat rhoncus. Nunc varius hendrerit justo, quis tempor nibh iaculis nec. Nulla eu varius dui. Mauris ac nunc pretium, tincidunt risus eu, posuere nulla. Pellentesque tincidunt, ante quis sollicitudin ultricies, dolor odio congue tellus, eu commodo nisl nisi nec lacus. Duis non sapien quis urna sollicitudin tincidunt. Ut ut semper magna. In hac habitasse platea dictumst. */}
-
-
-    </AppModalContent>
-  )
-}
-
 export default function Gear() {
   const router = useRouter()
   const { token, ping } = useLogin()
@@ -141,7 +111,7 @@ export default function Gear() {
     code, token
   })
 
-  const { setModalContent, AppModalContent } = useContext(AppModalContext)
+  const { setModalContent } = useContext(AppModalContext)
 
   const { isNavOpened, CharacterViewLayout, ToggleButton } = useCharacterViewLayout()
 
@@ -169,7 +139,14 @@ export default function Gear() {
             max={character.max_hp_points}
             onChange={e => {
               console.log(1)
-              setModalContent(ChangeResourceModal)
+              setModalContent(() => (
+                <ChangeResourceModal
+                  setModalContent={setModalContent}
+                  label={'Pontos de Vida'}
+                  currentPoints={character.hp_points}
+                  maxPoints={character.max_hp_points}
+                />
+              ))
             }}
           />
         </div>
