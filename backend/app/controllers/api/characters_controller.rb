@@ -15,6 +15,15 @@ class Api::CharactersController < ApiController
     @character = resource.find_by(code: params[:id])
   end
 
+  def update
+    @character = Character.find_by!(
+      user: current_user,
+      code: params[:id],
+    )
+
+    @character.update(params.permit(:hp_points, :mp_points))
+  end
+
   def create
     @character = Character.create(
       title: char_params[:character_name],

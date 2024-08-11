@@ -12,11 +12,12 @@ export default function useCharacter({code, token}) {
 
   const url = code ? `/api/characters/${code}` : null;
 
-  const { data, error, isLoading } = useSWR(url, fetcher)
+  const { data, error, isLoading, mutate } = useSWR(url, fetcher)
 
   return {
     data,
     error,
-    isLoading
+    isLoading,
+    mutate,
   }
 }

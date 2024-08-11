@@ -21,7 +21,7 @@ export function AppModalContent ({ title, children }) {
 
   return (
     <div>
-      <div className='flex text-center border-b border-raisin-black pb-2 text-white text-xl font-dolly-bold'>
+      <div className='flex text-center border-b border-raisin-black pb-2 shadow-xl text-white text-xl font-dolly-bold'>
         <h2 className='flex-1 self-flex-end align-middle'>
           {title}
         </h2>
@@ -83,7 +83,7 @@ export default function AppModalProvider ({ children }) {
           }}
           transition={{ duration: 0.3, ease: "easeOut" }}
         >
-          <div className="border min-h-screen border-black p-4 bg-gray-600 rounded-lg">
+          <div className="min-h-screen p-4 bg-gray-600 rounded-lg">
             {modalComponent}
           </div>
         </motion.div>

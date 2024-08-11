@@ -13,6 +13,7 @@ import { useCharacterViewLayout } from "@/src/layouts/character_view_layout"
 import { AppModalContext, AppModalContent } from "@/src/contexts/app_modal";
 import Button from "@/src/components/button";
 import { ChangeResourceModal } from "@/src/modals/change_resource_modal";
+import useCharacterUpdate from "@/src/apiHooks/useCharacterUpdate";
 
 export function MinMaxResource ({ label, current, max, onChange }) {
   return (
@@ -107,13 +108,21 @@ export default function Gear() {
 
   const { rollDice } = useContext(DiceRollerContext)
 
-  const { data: character } = useCharacter({
+  const { data: character, mutate } = useCharacter({
     code, token
   })
+
+  const { updateCharacter } = useCharacterUpdate({ code, token })
 
   const { setModalContent } = useContext(AppModalContext)
 
   const { isNavOpened, CharacterViewLayout, ToggleButton } = useCharacterViewLayout()
+
+  async function handleUpdateCharacter(params) {
+    const response = await updateCharacter(character, params)
+    setModalContent(null)
+    mutate()
+  }
 
   useEffect(() => {
     ping()
@@ -138,13 +147,14 @@ export default function Gear() {
             current={character.hp_points}
             max={character.max_hp_points}
             onChange={e => {
-              console.log(1)
               setModalContent(() => (
                 <ChangeResourceModal
                   setModalContent={setModalContent}
+                  modalLabel="Alterar Pontos de Vida"
                   label={'Pontos de Vida'}
                   currentPoints={character.hp_points}
                   maxPoints={character.max_hp_points}
+                  onSubmit={hp_points => handleUpdateCharacter({ hp_points })}
                 />
               ))
             }}
@@ -155,7 +165,18 @@ export default function Gear() {
             label="Pontos de Magia"
             current={character.mp_points}
             max={character.max_mp_points}
-            onChange={e => {}}
+            onChange={e => {
+              setModalContent(() => (
+                <ChangeResourceModal
+                  setModalContent={setModalContent}
+                  modalLabel="Alterar Pontos de Magia"
+                  label={'Pontos de Magia'}
+                  currentPoints={character.mp_points}
+                  maxPoints={character.max_mp_points}
+                  onSubmit={mp_points => handleUpdateCharacter({ mp_points })}
+                />
+              ))
+            }}
           />
         </div>
       </div>
@@ -190,7 +211,7 @@ export default function Gear() {
               damage={character.secondary_damage}
               onChange={e => rollDice({ formula: '2d20', modifiers: [{ value: character.secondary_attack, description: 'Modificador de Ataque Secundário' }]})}
               onRollDamage={e => rollDice({ damageRoll: true, formula: character.secondary_damage, modifiers: []})}
-              />
+            />
           </div>
         )}
         <div>
